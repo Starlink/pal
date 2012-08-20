@@ -4,7 +4,7 @@
 
 <component id="pal" support="S">
   <version>0.1.5</version>
-  <path>libraries/pal</path>
+  <path>libext/pal</path>
   <description>Position Astronomy Library</description>
   <abstract><p>
     This library is a collection of code designed to aid in
