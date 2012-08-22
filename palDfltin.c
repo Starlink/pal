@@ -132,9 +132,9 @@ static int ISBLANK( int c ) {
 #endif
 
 /* We prefer to use the starutil package */
-#if NOSTARUTIL
-#else
+#if HAVE_STAR_UTIL_H
 # include "star/util.h"
+#else
 #endif
 
 void palDfltin( const char * string, int *nstrt,
@@ -172,12 +172,12 @@ void palDfltin( const char * string, int *nstrt,
 #endif
 
   /* Correct for SLA use of fortran convention */
-#if NOSTARUTIL
+#if HAVE_STAR_UTIL_H
+  star_strlcpy( tempbuf, &(string[*nstrt-1]), sizeof(tempbuf) );
+#else
   /* Use standard C interface */
   strncpy( tempbuf, &(string[*nstrt-1]), sizeof(tempbuf));
   tempbuf[sizeof(tempbuf)-1] = '\0';
-#else
-  star_strlcpy( tempbuf, &(string[*nstrt-1]), sizeof(tempbuf) );
 #endif
 
   /* Convert d or D to E */

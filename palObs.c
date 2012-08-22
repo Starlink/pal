@@ -122,14 +122,16 @@
 *-
 */
 
+#if HAVE_CONFIG_H
+#  include <config.h>
+#endif
+
 #include <string.h>
 
-/* We prefer to use the starutil package. This compiler option is for
-   standalone builds where starutil may not be available. This would
-   require additions to the configure script to set automatically.
-*/
-#if NOSTARUTIL
-
+/* We prefer to use the starutil package. */
+#if HAVE_STAR_UTIL_H
+#include "star/util.h"
+#else
 /* This version is just a straight copy without putting ellipsis on the end. */
 static void star__strellcpy( char * dest, const char * src, size_t size ) {
   strncpy( dest, src, size );
@@ -137,9 +139,6 @@ static void star__strellcpy( char * dest, const char * src, size_t size ) {
 }
 
 #define star_strellcpy(dest, src, size) star__strellcpy(dest, src, size)
-
-#else
-#include "star/util.h"
 #endif
 
 #include "pal.h"

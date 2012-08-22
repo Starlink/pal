@@ -30,6 +30,50 @@ AC_CHECK_FUNCS(isblank)
 # Need the math library
 AC_CHECK_LIB([m],[sin])
 
+dnl    We can not simply test for Starlink starutil because
+dnl    when configure runs in a Starlink build starutil will not
+dnl    have been built yet. If --without-starlink has been used
+dnl    $STARLINK will be unset so we test that.
+dnl    If we do not have Starlink we can do the test anyhow just in case
+
+if test -n "$STARLINK"
+then
+  AC_SUBST( STARUTIL_LIBADD, "${libdir}/libstarutil.la" )
+  AC_SUBST( SOFA_LIBADD, "${libdir}/libsofa_c.la" )
+  AC_SUBST( SOFA_LDFLAGS, "" )
+  AC_DEFINE( [HAVE_STAR_UTIL_H], [1], [Define to 1 if you have the <star/util.h> header file])
+else
+  dnl AC_CHECK_HEADERS does not search $includedir
+  save_CPPFLAGS="$CPPFLAGS"
+  eval CPPFLAGS=\"$CPPFLAGS -I${includdir}\"
+  eval CPPFLAGS=\"$CPPFLAGS\"
+  AC_CHECK_HEADERS( star/util.h )
+  CPPFLAGS="$save_CPPFLAGS"
+
+  dnl for some reason AC_CHECK_LIB does not look in the --prefix hierarchy so
+  dnl $libdir is not searched.
+  dnl and we use eval twice to convert $libdir -> $exec_prefix/lib -> $prefix/lib
+  save_LDFLAGS="$LDFLAGS"
+  eval LDFLAGS=\"$LDFLAGS -L${libdir}\"
+  eval LDFLAGS=\"$LDFLAGS\"
+
+  AC_CHECK_LIB([starutil],[star_strlcpy],
+               [AC_SUBST(STARUTIL_LIBADD, "-lstarutil")],
+               [AC_SUBST(STARUTIL_LIBADD, "")])
+
+  AC_CHECK_LIB([sofa_c],[iauCal2jd],
+               [AC_SUBST(SOFA_LIBADD, "-lsofa_c")],
+               [AC_ERROR([Missing SOFA library. Can not continue])])
+  LDFLAGS="$save_LDFLAGS"
+
+  dnl  Ensure that we use the $prefix values
+  AC_SUBST( SOFA_LDFLAGS, "-L${libdir}" )
+  AC_SUBST( SOFA_CPPFLAGS, "-I${includedir}" )
+
+  dnl  Disable document building regardless of --without-stardocs
+  _star_build_docs=:
+fi
+
 dnl    Declare the build and use dependencies for this package
 STAR_DECLARE_DEPENDENCIES(build, [sofa starutil])
 STAR_DECLARE_DEPENDENCIES(link,  [sofa starutil])
