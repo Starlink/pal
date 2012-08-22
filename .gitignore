@@ -26,3 +26,11 @@ autom4te.cache/
 componentinfo.dtd
 starconf.status
 sun267.ps
+compile
+config.guess
+config.sub
+depcomp
+install-sh
+ltmain.sh
+missing
+stamp-h2
