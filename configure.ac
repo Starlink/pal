@@ -27,6 +27,9 @@ dnl    copysign and isblank are a c99 feature
 AC_CHECK_FUNCS(copysign)
 AC_CHECK_FUNCS(isblank)
 
+dnl    Use strlcpy if it is available
+AC_CHECK_FUNCS(strlcpy)
+
 # Need the math library
 AC_CHECK_LIB([m],[sin])
 

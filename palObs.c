@@ -134,8 +134,12 @@
 #else
 /* This version is just a straight copy without putting ellipsis on the end. */
 static void star__strellcpy( char * dest, const char * src, size_t size ) {
+# if HAVE_STRLCPY
+  strlcpy( dest, src, size );
+# else
   strncpy( dest, src, size );
   dest[size-1] = '\0';
+# endif
 }
 
 #define star_strellcpy(dest, src, size) star__strellcpy(dest, src, size)

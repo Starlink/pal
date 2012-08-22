@@ -175,9 +175,13 @@ void palDfltin( const char * string, int *nstrt,
 #if HAVE_STAR_UTIL_H
   star_strlcpy( tempbuf, &(string[*nstrt-1]), sizeof(tempbuf) );
 #else
+# if HAVE_STRLCPY
+  strlcpy( tempbuf, &(string[*nstrt-1]), sizeof(tempbuf) );
+# else
   /* Use standard C interface */
   strncpy( tempbuf, &(string[*nstrt-1]), sizeof(tempbuf));
   tempbuf[sizeof(tempbuf)-1] = '\0';
+# endif
 #endif
 
   /* Convert d or D to E */
