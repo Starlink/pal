@@ -34,3 +34,4 @@ install-sh
 ltmain.sh
 missing
 stamp-h2
+pal-*.tar.gz
