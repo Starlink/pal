@@ -4,7 +4,7 @@ lib_LTLIBRARIES = libpal.la
 
 
 # Include palOne2One.c separately since it is a combo file
-libpal_la_SOURCES = $(PUBLIC_C_FILES) palOne2One.c
+libpal_la_SOURCES = $(PUBLIC_C_FILES) palOne2One.c $(PRIVATE_C_FILES)
 
 # If we are using a non-standard location
 libpal_la_CPPFLAGS = $(SOFA_CPPFLAGS)
@@ -26,6 +26,10 @@ endif
 # install pal as "star/pal.h"
 cincludedir = $(includedir)/star
 cinclude_HEADERS = pal.h palmac.h
+
+noinst_HEADERS = $(PRIVATE_INCLUDES)
+
+PRIVATE_INCLUDES = pal1.h
 
 PUBLIC_C_FILES = \
 palAddet.c \
@@ -96,6 +100,10 @@ palSubet.c \
 palSupgal.c \
 palUe2el.c \
 palUe2pv.c
+
+PRIVATE_C_FILES = \
+pal1Atms.c \
+pal1Atmt.c
 
 stardocs_DATA = @STAR_LATEX_DOCUMENTATION@
 
