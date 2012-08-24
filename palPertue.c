@@ -200,10 +200,6 @@
 #include "palmac.h"
 #include "sofa.h"
 
-/* Only needed in one place */
-#define MAX(x, y) (((x) > (y)) ? (x) : (y))
-#define MIN(x, y) (((x) < (y)) ? (x) : (y))
-
 /* copysign is C99 */
 #if HAVE_COPYSIGN
 # define COPYSIGN copysign
@@ -398,7 +394,7 @@ void palPertue( double date, double u[13], int *jstat ) {
 
       /*        Use the acceleration to decide how big a timestep can be tolerated. */
       if (W != 0.0) {
-        TS = MIN(TSMAX,MAX(TSMIN,TSC/W));
+        TS = DMIN(TSMAX,DMAX(TSMIN,TSC/W));
       } else {
         TS = TSMAX;
       }

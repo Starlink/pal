@@ -107,7 +107,10 @@ static const double PAL__GCON = 0.01720209895;
 #define DNINT(A) ((A)<0.0?ceil((A)-0.5):floor((A)+0.5))
 
 /* DMAX(A,B) - return maximum value - evaluates arguments multiple times */
-#define DMAX(A,B) (A > B ? A : B )
+#define DMAX(A,B) ((A) > (B) ? (A) : (B) )
+
+/* DMIN(A,B) - return minimum value - evaluates arguments multiple times */
+#define DMIN(A,B) ((A) < (B) ? (A) : (B) )
 
 /* We actually prefer to use C99 copysign() but we define this here as a backup
    but it will not detect -0.0 so is not useful for palDfltin. */
