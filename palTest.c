@@ -250,6 +250,152 @@ static void t_amp ( int *status ) {
   vvd( dm, -0.56702908706930343907, 1.0E-12, "palAmp", "dm", status );
 }
 
+/* Apparent to Observed place */
+
+static void t_aop ( int *status ) {
+
+  int i;
+
+  double rap, dap, date, dut, elongm, phim, hm, xp, yp,
+    tdk, pmb, rh, wl, tlr, aob, zob, hob, dob, rob, aoprms[14];
+
+  dap = -0.1234;
+  date = 51000.1;
+  dut = 25.0;
+  elongm = 2.1;
+  phim = 0.5;
+  hm = 3000.0;
+  xp = -0.5e-6;
+  yp = 1.0e-6;
+  tdk = 280.0;
+  pmb = 550.0;
+  rh = 0.6;
+  tlr = 0.006;
+
+  for (i=1; i<=3; i++) {
+
+    if ( i == 1 ) {
+      rap = 2.7;
+      wl = 0.45;
+    } else if ( i == 2 ) {
+      rap = 2.345;
+    } else {
+      wl = 1.0e6;
+    }
+
+    palAop ( rap, dap, date, dut, elongm, phim, hm, xp, yp,
+             tdk, pmb, rh, wl, tlr, &aob, &zob, &hob, &dob, &rob );
+
+    if ( i == 1 ) {
+      vvd( aob, 1.812817787123283034, 1e-10, "palAop",
+           "lo aob", status );
+      vvd( zob, 1.393860816635714034, 1e-8, "palAop",
+           "lo zob", status );
+      vvd( hob, -1.297808009092456683, 1e-8, "palAop",
+           "lo hob", status );
+      vvd( dob, -0.122967060534561, 1e-8, "palAop",
+           "lo dob", status );
+      vvd( rob, 2.699270287872084, 1e-8, "palAop",
+           "lo rob", status );
+    } else if ( i == 2 ) {
+      vvd( aob, 2.019928026670621442, 1e-10, "palAop",
+           "aob/o", status );
+      vvd( zob, 1.101316172427482466, 1e-10, "palAop",
+           "zob/o", status );
+      vvd( hob, -0.9432923558497740862, 1e-10, "palAop",
+           "hob/o", status );
+      vvd( dob, -0.1232144708194224, 1e-10, "palAop",
+           "dob/o", status );
+      vvd( rob, 2.344754634629428, 1e-10, "palAop",
+           "rob/o", status );
+    } else {
+      vvd( aob, 2.019928026670621442, 1e-10, "palAop",
+           "aob/r", status );
+      vvd( zob, 1.101267532198003760, 1e-10, "palAop",
+           "zob/r", status );
+      vvd( hob, -0.9432533138143315937, 1e-10, "palAop",
+           "hob/r", status );
+      vvd( dob, -0.1231850665614878, 1e-10, "palAop",
+           "dob/r", status );
+      vvd( rob, 2.344715592593984, 1e-10, "palAop",
+           "rob/r", status );
+    }
+  }
+
+  date = 48000.3;
+  wl = 0.45;
+
+  palAoppa ( date, dut, elongm, phim, hm, xp, yp, tdk,
+             pmb, rh, wl, tlr, aoprms );
+  vvd( aoprms[0], 0.4999993892136306, 1e-13, "palAoppa",
+       "0", status );
+  vvd( aoprms[1], 0.4794250025886467, 1e-13, "palAoppa",
+       "1", status );
+  vvd( aoprms[2], 0.8775828547167932, 1e-13, "palAoppa",
+       "2", status );
+  vvd( aoprms[3], 1.363180872136126e-6, 1e-13, "palAoppa",
+       "3", status );
+  vvd( aoprms[4], 3000.0, 1e-10, "palAoppa", "4",
+       status );
+  vvd( aoprms[5], 280.0, 1e-11, "palAoppa", "5",
+       status );
+  vvd( aoprms[6], 550.0, 1e-11, "palAoppa", "6",
+       status );
+  vvd( aoprms[7], 0.6, 1e-13, "palAoppa", "7",
+       status );
+  vvd( aoprms[8], 0.45, 1e-13, "palAoppa", "8",
+       status );
+  vvd( aoprms[9], 0.006, 1e-15, "palAoppa", "9",
+       status );
+  vvd( aoprms[10], 0.0001562803328459898, 1e-13,
+       "palAoppa", "10", status );
+  vvd( aoprms[11], -1.792293660141e-7, 1e-13,
+       "palAoppa", "11", status );
+  vvd( aoprms[12], 2.101874231495843, 1e-13,
+       "palAoppa", "12", status );
+  vvd( aoprms[13], 7.601916802079765, 1e-8,
+       "palAoppa", "13", status );
+  /*
+  palOap ( "r", 1.6, -1.01, date, dut, elongm, phim,
+           hm, xp, yp, tdk, pmb, rh, wl, tlr, rap, dap );
+  vvd( rap, 1.601197569844787, 1e-10, "palOap",
+       "rr", status );
+  vvd( dap, -1.012528566544262, 1e-10, "palOap",
+       "rd", status );
+  palOap ( "h", -1.234, 2.34, date, dut, elongm, phim,
+           hm, xp, yp, tdk, pmb, rh, wl, tlr, rap, dap );
+  vvd( rap, 5.693087688154886463, 1e-10, "palOap",
+       "hr", status );
+  vvd( dap, 0.8010281167405444, 1e-10, "palOap",
+       "hd", status );
+  palOap ( "a", 6.1, 1.1, date, dut, elongm, phim,
+           hm, xp, yp, tdk, pmb, rh, wl, tlr, rap, dap );
+  vvd( rap, 5.894305175192448940, 1e-10, "palOap",
+       "ar", status );
+  vvd( dap, 1.406150707974922, 1e-10, "palOap",
+       "ad", status );
+
+  palOapqk ( "r", 2.1, -0.345, aoprms, rap, dap );
+  vvd( rap, 2.10023962776202, 1e-10, "palOapqk",
+       "rr", status );
+  vvd( dap, -0.3452428692888919, 1e-10, "palOapqk",
+       "rd", status );
+  palOapqk ( "h", -0.01, 1.03, aoprms, rap, dap );
+  vvd( rap, 1.328731933634564995, 1e-10, "palOapqk",
+       "hr", status );
+  vvd( dap, 1.030091538647746, 1e-10, "palOapqk",
+       "hd", status );
+  palOapqk ( "a", 4.321, 0.987, aoprms, rap, dap );
+  vvd( rap, 0.4375507112075065923, 1e-10, "palOapqk",
+       "ar", status );
+  vvd( dap, -0.01520898480744436, 1e-10, "palOapqk",
+       "ad", status );
+  */
+  palAoppat ( date + PAL__DS2R, aoprms );
+  vvd( aoprms[13], 7.602374979243502, 1e-8, "palAoppat",
+       " ", status );
+}
+
 /* Bearings */
 
 static void t_bear( int *status ) {
@@ -1655,6 +1801,7 @@ int main (void) {
   t_addet(&status);
   t_afin(&status);
   t_ampqk(&status);
+  t_aop(&status);
   t_airmas(&status);
   t_amp(&status);
   t_bear(&status);

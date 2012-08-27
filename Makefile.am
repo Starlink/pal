@@ -36,6 +36,10 @@ palAddet.c \
 palAirmas.c \
 palAmp.c \
 palAmpqk.c \
+palAop.c \
+palAoppa.c \
+palAoppat.c \
+palAopqk.c \
 palCaldj.c \
 palDafin.c \
 palDe2h.c \
@@ -91,6 +95,9 @@ palPv2el.c \
 palPv2ue.c \
 palPvobs.c \
 palRdplan.c \
+palRefco.c \
+palRefro.c \
+palRefz.c \
 palRverot.c \
 palRvgalc.c \
 palRvlg.c \

@@ -73,11 +73,17 @@ static const double PAL__DR2AS = 2.062648062470963551564733573307786131966597008
 /* Arcseconds to radians */
 static const double PAL__DAS2R = 4.8481368110953599358991410235794797595635330237270e-6;
 
+/* Radians to degrees */
+static const double PAL__DR2D = 57.295779513082320876798154814105170332405472466564;
+
 /* Radians to hours */
 static const double PAL__DR2H = 3.8197186342054880584532103209403446888270314977709;
 
 /* Radians to seconds of time */
 static const double PAL__DR2S = 1.3750987083139757010431557155385240879777313391975e4;
+
+/* Seconds of time to radians */
+static const double PAL__DS2R = 7.272205216643039903848712e-5;
 
 /* Start of SLA modified Julian date epoch */
 static const double PAL__MJD0 = 2400000.5;
