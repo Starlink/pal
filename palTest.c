@@ -355,42 +355,42 @@ static void t_aop ( int *status ) {
        "palAoppa", "12", status );
   vvd( aoprms[13], 7.601916802079765, 1e-8,
        "palAoppa", "13", status );
-  /*
+
   palOap ( "r", 1.6, -1.01, date, dut, elongm, phim,
-           hm, xp, yp, tdk, pmb, rh, wl, tlr, rap, dap );
+           hm, xp, yp, tdk, pmb, rh, wl, tlr, &rap, &dap );
   vvd( rap, 1.601197569844787, 1e-10, "palOap",
        "rr", status );
   vvd( dap, -1.012528566544262, 1e-10, "palOap",
        "rd", status );
   palOap ( "h", -1.234, 2.34, date, dut, elongm, phim,
-           hm, xp, yp, tdk, pmb, rh, wl, tlr, rap, dap );
+           hm, xp, yp, tdk, pmb, rh, wl, tlr, &rap, &dap );
   vvd( rap, 5.693087688154886463, 1e-10, "palOap",
        "hr", status );
   vvd( dap, 0.8010281167405444, 1e-10, "palOap",
        "hd", status );
   palOap ( "a", 6.1, 1.1, date, dut, elongm, phim,
-           hm, xp, yp, tdk, pmb, rh, wl, tlr, rap, dap );
+           hm, xp, yp, tdk, pmb, rh, wl, tlr, &rap, &dap );
   vvd( rap, 5.894305175192448940, 1e-10, "palOap",
        "ar", status );
   vvd( dap, 1.406150707974922, 1e-10, "palOap",
        "ad", status );
 
-  palOapqk ( "r", 2.1, -0.345, aoprms, rap, dap );
+  palOapqk ( "r", 2.1, -0.345, aoprms, &rap, &dap );
   vvd( rap, 2.10023962776202, 1e-10, "palOapqk",
        "rr", status );
   vvd( dap, -0.3452428692888919, 1e-10, "palOapqk",
        "rd", status );
-  palOapqk ( "h", -0.01, 1.03, aoprms, rap, dap );
+  palOapqk ( "h", -0.01, 1.03, aoprms, &rap, &dap );
   vvd( rap, 1.328731933634564995, 1e-10, "palOapqk",
        "hr", status );
   vvd( dap, 1.030091538647746, 1e-10, "palOapqk",
        "hd", status );
-  palOapqk ( "a", 4.321, 0.987, aoprms, rap, dap );
+  palOapqk ( "a", 4.321, 0.987, aoprms, &rap, &dap );
   vvd( rap, 0.4375507112075065923, 1e-10, "palOapqk",
        "ar", status );
   vvd( dap, -0.01520898480744436, 1e-10, "palOapqk",
        "ad", status );
-  */
+
   palAoppat ( date + PAL__DS2R, aoprms );
   vvd( aoprms[13], 7.602374979243502, 1e-8, "palAoppat",
        " ", status );

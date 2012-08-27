@@ -78,6 +78,8 @@ palMapqk.c \
 palMapqkz.c \
 palNut.c \
 palNutc.c \
+palOap.c \
+palOapqk.c \
 palObs.c \
 palPa.c \
 palPertel.c \
