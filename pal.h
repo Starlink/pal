@@ -93,7 +93,7 @@ void palAoppa ( double date, double dut, double elongm, double phim,
 
 void palAoppat ( double date, double aoprms[14] );
 
-void palAopqk ( double rap, double dap, double aoprms[14],
+void palAopqk ( double rap, double dap, const double aoprms[14],
                 double *aob, double *zob, double *hob,
                 double *dob, double *rob );
 
