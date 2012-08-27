@@ -232,17 +232,4 @@ void palAop ( double rap, double dap, double date, double dut,
            aoprms);
   palAopqk(rap,dap,aoprms,aob,zob,hob,dob,rob);
 
-  #define MYPREC 24
-  printf( "AOP- [ %.*g, %.*g, %.*g, %.*g, %.*g, %.*g, "
-          " %.*g, %.*g, %.*g, %.*g, %.*g, %.*g, "
-          "%.*g, %.*g, %.*g, %.*g, %.*g, %.*g, %.*g "
-          "],\n",
-          MYPREC, rap, MYPREC, dap, MYPREC, date, MYPREC, dut,
-          MYPREC, elongm, MYPREC, phim, MYPREC, hm, MYPREC, xp,
-          MYPREC, yp, MYPREC, tdk, MYPREC, pmb, MYPREC, rh,
-          MYPREC, wl, MYPREC, tlr,
-          MYPREC, *aob, MYPREC, *zob, MYPREC, *hob,
-          MYPREC, *dob, MYPREC, *rob
-          );
-
 }

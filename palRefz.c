@@ -185,9 +185,4 @@ void palRefz ( double zu, double refa, double refb, double *zr ) {
   /*  return refracted zd */
   *zr = zu-ref;
 
-#define MYPREC 24
-
-  printf(" REFZ  %.*g, %.*g, %.*g, %.*g\n", MYPREC, zu, MYPREC, refa,MYPREC,refb,MYPREC,*zr);
-
-
 }

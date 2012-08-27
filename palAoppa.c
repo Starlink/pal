@@ -218,32 +218,6 @@ void palAoppa ( double date, double dut, double elongm, double phim,
   /*  sidereal time */
   palAoppat(date,aoprms);
 
-  #define MYPREC 24
-  printf( "AOPPA [ %.*g, %.*g, %.*g, %.*g, %.*g, %.*g, "
-          " %.*g, %.*g, %.*g, %.*g, %.*g, %.*g, "
-          "%.*g, %.*g, %.*g, %.*g, %.*g, %.*g, %.*g, "
-          "%.*g, %.*g, %.*g, %.*g, %.*g, %.*g, %.*g "
-          "],\n",
-          MYPREC, date, MYPREC, dut, MYPREC, elongm, MYPREC, phim,
-          MYPREC, hm, MYPREC, xp, MYPREC, yp, MYPREC, tdk, MYPREC, pmb,
-          MYPREC, rh, MYPREC, wl, MYPREC, tlr,
-          MYPREC, aoprms[0],
-          MYPREC, aoprms[1],
-          MYPREC, aoprms[2],
-          MYPREC, aoprms[3],
-          MYPREC, aoprms[4],
-          MYPREC, aoprms[5],
-          MYPREC, aoprms[6],
-          MYPREC, aoprms[7],
-          MYPREC, aoprms[8],
-          MYPREC, aoprms[9],
-          MYPREC, aoprms[10],
-          MYPREC, aoprms[11],
-          MYPREC, aoprms[12],
-          MYPREC, aoprms[13]
-
-          );
-
 }
 
 /* Private reimplementation of slaEqeqx for testing the algorithm */

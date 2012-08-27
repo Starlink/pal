@@ -430,15 +430,4 @@ void palRefro( double zobs, double hm, double tdk, double pmb,
   *ref = reft+refp;
   if (zobs1 < 0.0) *ref = -(*ref);
 
-#define MYPREC 24
-
-  printf(" REFRO "
-         "[ %.*g, %.*g, %.*g, %.*g, %.*g, "
-         "%.*g, %.*g, %.*g, %.*g, %.*g, "
-         "],\n",
-         MYPREC, zobs, MYPREC, hm, MYPREC, tdk, MYPREC, pmb,
-         MYPREC, rh, MYPREC, wl, MYPREC, phi, MYPREC, tlr,
-         MYPREC, eps, MYPREC, *ref );
-
-
 }

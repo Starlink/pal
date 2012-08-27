@@ -282,28 +282,4 @@ void palAopqk ( double rap, double dap, const double aoprms[14],
   *dob = dcobs;
   *rob = raobs;
 
-  #define MYPREC 24
-  printf( "AOPQK [ %.*g, %.*g, %.*g, %.*g, %.*g, %.*g, "
-          " %.*g, %.*g, %.*g, %.*g, %.*g, %.*g, "
-          "%.*g, %.*g, %.*g, %.*g, %.*g, %.*g, %.*g, "
-          "%.*g, %.*g "
-          "],\n",
-          MYPREC, rap, MYPREC, dap,
-          MYPREC, aoprms[0],
-          MYPREC, aoprms[1],
-          MYPREC, aoprms[2],
-          MYPREC, aoprms[3],
-          MYPREC, aoprms[4],
-          MYPREC, aoprms[5],
-          MYPREC, aoprms[6],
-          MYPREC, aoprms[7],
-          MYPREC, aoprms[8],
-          MYPREC, aoprms[9],
-          MYPREC, aoprms[10],
-          MYPREC, aoprms[11],
-          MYPREC, aoprms[12],
-          MYPREC, aoprms[13],
-          MYPREC, *aob, MYPREC, *zob, MYPREC, *hob,
-          MYPREC, *dob, MYPREC, *rob
-          );
 }

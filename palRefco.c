@@ -112,15 +112,4 @@ void palRefco ( double hm, double tdk, double pmb, double rh,
   *refa = (64.0*r1-r2)/60.0;
   *refb = (r2-4.0*r1)/60.0;
 
-#define MYPREC 24
-
-  printf(" REFCO "
-         "[ %.*g, %.*g, %.*g, %.*g, %.*g, "
-         "%.*g, %.*g, %.*g, %.*g, %.*g, "
-         "],\n",
-         MYPREC, hm, MYPREC, tdk, MYPREC, pmb, MYPREC, rh,
-         MYPREC, wl, MYPREC, phi, MYPREC, tlr, MYPREC, eps,
-         MYPREC, *refa, MYPREC, *refb
-         );
-
 }

@@ -74,9 +74,6 @@ static double pal__Gmst( double ut1 );
 
 void palAoppat( double date, double aoprms[14] ) {
   aoprms[13] = pal__Gmst(date) + aoprms[12];
-  #define MYPREC 24
-  printf( "AOPPAT [ %.*g, %.*g, %.*g ],\n",
-          MYPREC, date, MYPREC, aoprms[12], MYPREC, aoprms[13] );
 }
 
 /* Use a private implementation of palGmst for testing that matches
