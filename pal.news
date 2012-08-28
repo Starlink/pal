@@ -4,6 +4,14 @@ The Starlink Positional Astronomy Library (PAL) is a C implementation of the
 SLALIB API. It is distributed under the GPL and uses the SOFA library wherever
 possible.
 
+V0.3.0
+
+Add refraction code and support palOap and palAop. For closer compatibility
+with SLA for testing purposes the refraction routines internally use
+clones of slaNutc, slaEqeqx, slaGmst and slaGeoc. Once the code has
+been verified further the PAL/SOFA routines will be used instead. Switching
+routines seems to change the results in palTest by about 0.05 arcsec.
+
 V0.2.0
 
 Improve configure script when not in a Starlink build environment. Use
