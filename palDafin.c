@@ -91,6 +91,8 @@
 *  History:
 *     2012-03-08 (TIMJ):
 *        Initial version from SLA/F using Fortran documentation
+*     2012-10-17 (TIMJ):
+*        Fix range check on arcminute value.
 *     {enter_further_changes_here}
 
 *  Copyright:
@@ -169,7 +171,7 @@ void palDafin ( const char *string, int *ipos, double *a, int *j ) {
       } else if (jm == 0 && dint(deg) != deg) { /* Degrees */
         jf = -1;
 
-      } else if (js == 0 && dint(arcmin) != arcmin) { /* Arcmin */
+      } else if ( (js == 0 && dint(arcmin) != arcmin) || arcmin >= 60.0 ) { /* Arcmin */
         jf = -2;
 
       } else if (arcsec >= 60.0) { /* Arcsec */
