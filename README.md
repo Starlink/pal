@@ -47,5 +47,8 @@ and is available from CPAN at <https://metacpan.org/module/Astro::PAL>. This is 
 distribution that comes with its own copies of PAL and SOFA and so can be installed directly
 from the `cpan` shell.
 
+A Python binding of PAL is available (<https://github.com/Starlink/palpy>). This is a standalone
+distribution that comes with its own copies of PAL and SOFA.
+
 The Starlink AST (<http://www.starlink.ac.uk/ast>) library now uses PAL and can be built
 either with a private PAL or with an external PAL.
