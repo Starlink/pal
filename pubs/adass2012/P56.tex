@@ -1,0 +1,166 @@
+\documentclass[11pt,twoside]{article}
+\usepackage{asp2010}
+
+\resetcounters
+
+\bibliographystyle{asp2010}
+
+\markboth{Tim~Jenness and David S. Berry}{PAL -- A Positional
+  Astronomy Library}
+
+\begin{document}
+
+\title{PAL -- A Positional Astronomy Library}
+\author{Tim~Jenness and David S. Berry
+\affil{Joint~Astronomy~Centre, 660~N.~A`oh\={o}k\={u}~Place, Hilo, HI, 96720, U.S.A.}}
+
+\begin{abstract}
+  PAL is a new positional astronomy library written in C that attempts
+  to retain the SLALIB API but is distributed with an open source GPL
+  license. The library depends on the IAU SOFA library wherever a SOFA
+  routine exists and uses the most recent nutation and precession
+  models. Currently about 100 of the 200 SLALIB routines are
+  available. Interfaces are also available from Perl and Python. PAL
+  is freely available via github.
+\end{abstract}
+
+\section{Introduction}
+
+The SLALIB library, written by Patrick Wallace
+\citep{1994ASPC...61..481W}, is a very popular positional astronomy
+library that is available in Fortran as part of the Starlink Software
+Collection \citep[e.g.][]{2009ASPC..411..418J} with a GPL license. An
+updated version is also available directly from the author as a
+proprietary and extended C library with a non-commercial
+non-redistribution license. The latter clause makes it hard to ship
+software relying on the C library and impossible to include the code
+in a public source code repository.
+
+To overcome the distribution issues and to make use of current
+precession and nutation models, we have written, with advice and input
+from Patrick Wallace, the PAL library. The PAL library is written in C
+and has a GPL license. In most cases the API is designed to be
+identical to SLALIB except for the use of a \texttt{pal} prefix instead of a
+\texttt{sla} prefix in function calls. Where appropriate, IAU SOFA routines
+\citep{Hohenkerk:2010,1996ASPC..101..207W}, of which Patrick Wallace
+was the primary author, are called. Where the SOFA library does not
+have equivalent functionality the Fortran has been ported to C from
+the GPL Fortran library included with the Starlink distribution.
+
+We have not ported the full SLALIB functionality to PAL but are adding
+routines as we need them for applications. Approximately 100 functions
+have been ported.
+
+\section{Implementation}
+
+PAL is written in very portable C with SOFA as the only
+dependency. Perl and Python wrappers have also been written and they
+are distributed with their own copies of PAL and SOFA to make
+installation as easy as possible.
+
+The example code below shows the deliberate similarities between the
+SLALIB and PAL API:
+
+\newpage
+\begin{description}
+
+\item[SLALIB Fortran:] \mbox{}
+
+\begin{verbatim}
+GMST = SLA_GMST( UT1 )
+CALL SLA_DE2H( HIN, DIN, DP, DA, DE )
+CALL SLA_DMOON( DATE, PV )
+CALL SLA_OBS( N, C, NAME, W, P, H )
+\end{verbatim}
+
+\item[SLALIB C:] \mbox{}
+
+\begin{verbatim}
+gmst = slaGmst( ut1 );
+slaDe2h( hin, din, dp, &da, &de );
+slaDmoon( date, pv );
+slaObs( 0, "JCMT", telname, &w, &p, &h );
+\end{verbatim}
+
+\item[PAL C:] \mbox{}
+
+\begin{verbatim}
+gmst = palGmst( ut1 );
+palDe2h( hin, din, dp, &da, &de );
+palDmoon( date, pv );
+status = palObs( 0, "JCMT", short, slen,
+                 long, llen, &w, &p, &h );
+\end{verbatim}
+
+\item[PAL Python:] \mbox{}
+
+\begin{verbatim}
+import palpy as pal
+gmst = pal.gmst( ut1 )
+(da, de) = pal.de2h( hin, din, dp )
+pv = pal.dmoon( date )
+obsdata = pal.obs()
+mmt = obsdata["MMT"]
+\end{verbatim}
+
+\item[PAL Perl:] \mbox{}
+
+\begin{verbatim}
+use Astro::PAL qw/ :all /;
+$gmst = palGmst( $ut1 );
+($da,$de) = palDe2h( $hin, $din, $dp );
+@pv = palDmoon( $date );
+($id, $name, $w, $p, $h) = palObs( 22 );
+($id, $name, $w, $p, $h) = palObs( "JCMT" );
+
+\end{verbatim}
+
+\end{description}
+
+In general a simple renaming of the SLALIB function will be sufficient
+to switch to PAL with one exception. As can be seen above the
+\texttt{palObs} routine now expects to be given the lengths of
+supplied string buffers and does not reuse the short name buffer,
+allowing const strings to be supplied without triggering compiler
+warnings.
+
+The Python and Perl interfaces return results where appropriate rather
+than modifying arguments. The Python interface uses numpy arrays
+\citep[e.g.][]{Walt2011}\footnote{\url{http://numpy.scipy.org}} for
+  all vectors and matrices, and the C library is wrapped using
+  Cython\footnote{\url{http://cython.org}}. The Perl interface is
+  wrapped with the standard perl/XS system \citep[e.g.][]{JennessBook} and
+  uses simple lists for vectors and matrices rather than adding a
+  dependency on the Perl Data Language \citep{PDL}.
+
+The Fortran test suite was ported to C to test the PAL library. There
+are minor changes due to differences in the more modern precession
+and nutation models implemented in SOFA.
+
+The PAL library is now used within the Starlink AST library
+\citep{2012ASPC..461..825B} and in all Starlink C applications that
+previously used SLALIB. It was shipped with the Starlink
+\textit{kapuahi} release \citep{P005_adassxxii}.
+
+The PAL library also has an advantage over Fortran SLALIB in that it
+is inherently thread-safe.
+
+
+\section{Obtaining the Software}
+
+PAL is available from
+github\footnote{\url{https://github.com/Starlink/pal/downloads}} and
+is also distributed with
+Starlink\footnote{\url{http://www.starlink.ac.uk}}.  The Python and
+Perl wrappers are also on
+github\footnote{\url{https://github.com/Starlink/palpy} and
+  \url{https://github.com/timj/perl-Astro-PAL}} and distributions can
+be obtained from
+PyPI\footnote{\url{http://pypi.python.org/pypi/palpy}} and
+CPAN\footnote{\url{http://search.cpan.org/~tjenness/Astro-PAL/}}.
+
+%\acknowledgements ...
+
+\bibliography{P56}
+
+\end{document}

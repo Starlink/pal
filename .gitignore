@@ -19,6 +19,8 @@ stamp-h1
 libtool
 *.htx
 *.aux
+*.bbl
+*.blg
 *.dvi
 *.log
 *.htx_tar
@@ -37,3 +39,4 @@ ltmain.sh
 missing
 stamp-h2
 pal-*.tar.gz
+pubs/adass2012/P56.pdf
