@@ -2,10 +2,10 @@ dnl    Process this file with autoconf to produce a configure script
 AC_REVISION($Revision: 27534 $)
 
 dnl    Initialisation: package name and version number
-AC_INIT(pal, 0.3.0, starlink@jiscmail.ac.uk)
+AC_INIT([pal],[0.3.0],[starlink@jiscmail.ac.uk])
 
 dnl    Require autoconf-2.50 at least
-AC_PREREQ(2.50)
+AC_PREREQ([2.69])
 dnl    Require Starlink automake
 AM_INIT_AUTOMAKE(1.8.2-starlink)
 
@@ -18,7 +18,7 @@ STAR_DEFAULTS
 
 dnl    Find required versions of the programs we need for configuration
 AC_PROG_CC
-AC_PROG_LIBTOOL
+LT_INIT
 
 #   If --with-pic=no is set we should honour that.
 AM_CONDITIONAL(NOPIC, test x$pic_mode = xno)
@@ -66,7 +66,7 @@ else
 
   AC_CHECK_LIB([sofa_c],[iauCal2jd],
                [AC_SUBST(SOFA_LIBADD, "-lsofa_c")],
-               [AC_ERROR([Missing SOFA library. Can not continue])])
+               [AC_MSG_ERROR(Missing SOFA library. Can not continue)])
   LDFLAGS="$save_LDFLAGS"
 
   dnl  Ensure that we use the $prefix values
