@@ -878,7 +878,7 @@ int palObs( size_t n, const char * c,
 
   } else {
     /* Searching */
-    int i;
+    size_t i;
     for (i=0; i<NTEL; i++) {
       struct telData thistel = telData[i];
       if (strcasecmp( c, thistel.shortname) == 0) {
