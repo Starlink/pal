@@ -176,6 +176,7 @@
 #include <math.h>
 
 #include "pal.h"
+#include "pal1.h"
 #include "palmac.h"
 
 void palRefro( double zobs, double hm, double tdk, double pmb,
