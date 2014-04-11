@@ -95,10 +95,13 @@
 *     2012-03-06 (TIMJ):
 *        Initial version containing entries from SLA/F as of 15 March 2002
 *        with a 2008 tweak to the JCMT GPS position.
+*     2014-04-08 (TIMJ):
+*        Add APEX and NANTEN2
 *     {enter_further_changes_here}
 
 *  Copyright:
 *     Copyright (C) 2012 Science and Technology Facilities Council.
+*     Copyright (C) 2014 Cornell University.
 *     All Rights Reserved.
 
 *  Licence:
@@ -852,6 +855,24 @@ int palObs( size_t n, const char * c,
       2408E0,
       "MAGELLAN2",
       "Magellan 2, 6.5m, Las Campanas"
+    },
+    /* APEX - Atacama Pathfinder EXperiment, Llano de Chajnantor    APEX */
+    /* (APEX web site) */
+    {
+      WEST(67,45,33.0),
+      SOUTH(23,0,20.8),
+      5105E0,
+      "APEX",
+      "APEX 12m telescope, Llano de Chajnantor"
+    },
+    /* NANTEN2 Submillimeter Observatory, 4m telescope Atacame desert NANTEN2 */
+    /* (NANTEN2 web site) */
+    {
+      WEST(67,42,8.0),
+      SOUTH(22,57,47.0),
+      4865E0,
+      "NANTEN2",
+      "NANTEN2 4m telescope, Pampa la Bola"
     }
   };
 
