@@ -190,6 +190,7 @@
 *  History:
 *     2012-08-25 (TIMJ):
 *        Initial version
+*        Adapted with permission from the Fortran SLALIB library.
 *     {enter_further_changes_here}
 
 *  Copyright:

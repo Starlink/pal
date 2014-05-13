@@ -137,6 +137,7 @@
 *  History:
 *     2012-03-12 (TIMJ):
 *        Initial version direct conversion of SLA/F.
+*        Adapted with permission from the Fortran SLALIB library.
 *     {enter_further_changes_here}
 
 *  Copyright:

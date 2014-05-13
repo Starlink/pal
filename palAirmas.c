@@ -51,6 +51,7 @@
 *  History:
 *     2012-03-02 (TIMJ):
 *        Initial version from the SLA/F version including documentation.
+*        Adapted with permission from the Fortran SLALIB library.
 *     {enter_further_changes_here}
 
 *  Copyright:

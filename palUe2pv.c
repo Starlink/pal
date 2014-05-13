@@ -85,6 +85,7 @@
 *  History:
 *     2012-03-09 (TIMJ):
 *        Initial version cloned from SLA/F.
+*        Adapted with permission from the Fortran SLALIB library.
 *     {enter_further_changes_here}
 
 *  Copyright:

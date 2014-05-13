@@ -60,6 +60,7 @@
 *  History:
 *     2012-03-08 (TIMJ):
 *        Initial version based on strtod
+*        Adapted with permission from the Fortran SLALIB library.
 *     2012-06-21 (TIMJ):
 *        Provide a backup for missing copysign.
 *     2012-06-22 (TIMJ):

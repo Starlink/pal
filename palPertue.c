@@ -151,6 +151,7 @@
 *  History:
 *     2012-03-12 (TIMJ):
 *        Initial version direct conversion of SLA/F.
+*        Adapted with permission from the Fortran SLALIB library.
 *     2012-06-21 (TIMJ):
 *        Support a lack of copysign() function.
 *     2012-06-22 (TIMJ):

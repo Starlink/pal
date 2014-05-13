@@ -95,6 +95,7 @@
 *     2012-03-06 (TIMJ):
 *        Initial version containing entries from SLA/F as of 15 March 2002
 *        with a 2008 tweak to the JCMT GPS position.
+*        Adapted with permission from the Fortran SLALIB library.
 *     2014-04-08 (TIMJ):
 *        Add APEX and NANTEN2
 *     {enter_further_changes_here}

@@ -112,6 +112,7 @@
 *  History:
 *     2012-08-27 (TIMJ):
 *        Initial version, direct copy of Fortran SLA
+*        Adapted with permission from the Fortran SLALIB library.
 *     {enter_further_changes_here}
 
 *  Copyright:

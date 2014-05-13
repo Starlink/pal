@@ -55,6 +55,7 @@
 *  History:
 *     2012-03-07 (TIMJ):
 *        Initial version based on a direct port of the SLA/F code.
+*        Adapted with permission from the Fortran SLALIB library.
 *     {enter_further_changes_here}
 
 *  Copyright:

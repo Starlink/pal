@@ -52,6 +52,7 @@
 *     2012-02-11 (TIMJ):
 *        Combination of a port of the Fortran and a comparison
 *        with the obfuscated GPL C routine.
+*        Adapted with permission from the Fortran SLALIB library.
 *     {enter_further_changes_here}
 
 *  Notes:

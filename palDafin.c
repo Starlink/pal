@@ -91,6 +91,7 @@
 *  History:
 *     2012-03-08 (TIMJ):
 *        Initial version from SLA/F using Fortran documentation
+*        Adapted with permission from the Fortran SLALIB library.
 *     2012-10-17 (TIMJ):
 *        Fix range check on arcminute value.
 *     {enter_further_changes_here}
