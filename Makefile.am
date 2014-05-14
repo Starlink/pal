@@ -15,7 +15,7 @@ libpal_la_LIBADD = $(SOFA_LIBADD) $(STARUTIL_LIBADD)
 
 # Misc files
 dist_starnews_DATA = pal.news
-dist_pkgdata_DATA = LICENCE README.md
+dist_pkgdata_DATA = COPYING COPYING.LESSER README.md
 
 # Make all library code position independent. This is handy for creating
 # shareable libraries from the static ones (Java JNI libraries).
