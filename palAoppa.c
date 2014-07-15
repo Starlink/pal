@@ -285,7 +285,7 @@ static void pal__Nutc ( double date, double * dpsi, double *deps, double * eps0 
 
   #define NTERMS 194
 
-  int i, j;
+  int j;
   double t,el,elp,f,d,om,ve,ma,ju,sa,theta,c,s,dp,de;
 
   int na[         194 ][9] = {
