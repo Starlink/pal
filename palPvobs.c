@@ -71,6 +71,7 @@
 #include "pal.h"
 #include "palmac.h"
 #include "palmac.h"
+#include "sofa.h"
 #include "sofam.h"
 
 void palPvobs( double p, double h, double stl, double pv[6] ){

@@ -95,6 +95,8 @@
 *-
 */
 
+#include "pal.h"
+
 void palRefco ( double hm, double tdk, double pmb, double rh,
                 double wl, double phi, double tlr, double eps,
                 double *refa, double *refb ) {
