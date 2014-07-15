@@ -5,11 +5,10 @@
 <component id="pal" support="S">
   <version>0.3.1</version>
   <path>libext/pal</path>
-  <description>Position Astronomy Library</description>
+  <description>Positional Astronomy Library</description>
   <abstract><p>
     This library is a collection of code designed to aid in
-    replacing the SLA library with code from NOVAS and
-    SOFA.
+    replacing the SLA library with code from SOFA.
 
     Where possible the API is similar to the C SLA API
     except for the use of a "pal" prefix.
