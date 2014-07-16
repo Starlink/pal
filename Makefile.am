@@ -40,6 +40,7 @@ palAop.c \
 palAoppa.c \
 palAoppat.c \
 palAopqk.c \
+palAtmdsp.c \
 palCaldj.c \
 palDafin.c \
 palDe2h.c \
@@ -99,6 +100,7 @@ palPvobs.c \
 palRdplan.c \
 palRefco.c \
 palRefro.c \
+palRefv.c \
 palRefz.c \
 palRverot.c \
 palRvgalc.c \
