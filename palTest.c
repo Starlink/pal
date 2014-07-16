@@ -1792,7 +1792,7 @@ static void t_rvlsrk( int *status ) {
 static void t_refco( int *status ) {
   double phpa, tc, rh, wl, refa, refb;
   phpa = 800.0;
-  tc = 10.0;
+  tc = 10.0 + 273.15; /* SLA uses kelvin */
   rh = 0.9;
   wl = 0.4;
   palRefcoq(tc, phpa, rh, wl, &refa, &refb);
@@ -1800,6 +1800,82 @@ static void t_refco( int *status ) {
       "palRefcoq", "refa", status);
   vvd(refb, -0.2598658261729343970e-6, 1e-18,
       "palRefcoq", "refb", status);
+}
+
+static void t_ref( int *status ) {
+  double ref, refa, refb, refa2, refb2, vu[3], vr[3], zr;
+
+  palRefro( 1.4, 3456.7, 280, 678.9, 0.9, 0.55,
+            -0.3, 0.006, 1e-9, &ref );
+  vvd( ref, 0.00106715763018568, 1e-12, "palRefro",
+       "o", status );
+
+  palRefro( 1.4, 3456.7, 280, 678.9, 0.9, 1000,
+            -0.3, 0.006, 1e-9, &ref );
+  vvd( ref, 0.001296416185295403, 1e-12, "palRefro",
+       "r", status );
+
+  palRefcoq( 275.9, 709.3, 0.9, 101, &refa, &refb );
+  vvd( refa, 2.324736903790639e-4, 1e-12, "palRefcoq",
+       "a/r", status );
+  vvd( refb, -2.442884551059e-7, 1e-15, "palRefcoq",
+       "b/r", status );
+
+  palRefco( 2111.1, 275.9, 709.3, 0.9, 101,
+            -1.03, 0.0067, 1e-12, &refa, &refb );
+  vvd( refa, 2.324673985217244e-4, 1e-12, "palRefco",
+       "a/r", status );
+  vvd( refb, -2.265040682496e-7, 1e-15, "palRefco",
+       "b/r", status );
+
+  palRefcoq( 275.9, 709.3, 0.9, 0.77, &refa, &refb );
+  vvd( refa, 2.007406521596588e-4, 1e-12, "palRefcoq",
+       "a", status );
+  vvd( refb, -2.264210092590e-7, 1e-15, "palRefcoq",
+       "b", status );
+
+  palRefco( 2111.1, 275.9, 709.3, 0.9, 0.77,
+            -1.03, 0.0067, 1e-12, &refa, &refb );
+  vvd( refa, 2.007202720084551e-4, 1e-12, "palRefco",
+       "a", status );
+  vvd( refb, -2.223037748876e-7, 1e-15, "palRefco",
+       "b", status );
+
+  palAtmdsp ( 275.9, 709.3, 0.9, 0.77,
+              refa, refb, 0.5, &refa2, &refb2 );
+  vvd ( refa2, 2.034523658888048e-4, 1e-12, "palAtmdsp",
+        "a", status );
+  vvd ( refb2, -2.250855362179e-7, 1e-15, "palAtmdsp",
+        "b", status );
+
+  palDcs2c ( 0.345, 0.456, vu );
+  palRefv ( vu, refa, refb, vr );
+  vvd ( vr[0], 0.8447487047790478, 1e-12, "palRefv",
+        "x1", status );
+  vvd ( vr[1], 0.3035794890562339, 1e-12, "palRefv",
+        "y1", status );
+  vvd ( vr[2], 0.4407256738589851, 1e-12, "palRefv",
+        "z1", status );
+
+  palDcs2c ( 3.7, 0.03, vu );
+  palRefv ( vu, refa, refb, vr );
+  vvd ( vr[0], -0.8476187691681673, 1e-12, "palRefv",
+        "x2", status );
+  vvd ( vr[1], -0.5295354802804889, 1e-12, "palRefv",
+        "y2", status );
+  vvd ( vr[2], 0.0322914582168426, 1e-12, "palRefv",
+        "z2", status );
+
+  palRefz ( 0.567, refa, refb, &zr );
+    vvd ( zr, 0.566872285910534, 1e-12, "palRefz",
+          "hi el", status );
+
+  palRefz ( 1.55, refa, refb, &zr );
+  vvd ( zr, 1.545697350690958, 1e-12, "palRefz",
+        "lo el", status );
+
+
+
 }
 
 /**********************************************************************/
@@ -1865,6 +1941,7 @@ int main (void) {
   t_pvobs(&status);
   t_range(&status);
   t_ranorm(&status);
+  t_ref(&status);
   t_refco(&status);
   t_rv(&status);
   t_rvgalc(&status);
