@@ -53,6 +53,7 @@
 *     - palGmst
 *     - palGmsta
 *     - palHfk5z
+*     - palRefcoq
 
 *  Authors:
 *     TIMJ: Tim Jenness (JAC, Hawaii)
@@ -77,9 +78,12 @@
 *        Update prologue.
 *     2012-05-09 (DSBJ):
 *        Move palDrange into a separate file.
+*     2014-07-15 (TIMJ):
+*        SOFA now has palRefcoq equivalent.
 *     {enter_further_changes_here}
 
 *  Copyright:
+*     Copyeight (C) 2014 Tim Jenness
 *     Copyright (C) 2012 Science and Technology Facilities Council.
 *     All Rights Reserved.
 
@@ -264,3 +268,9 @@ void palHfk5z ( double rh, double dh, double epoch,
   iauHfk5z( rh, dh, date1, date2, r5, d5, dr5, dd5 );
 }
 
+void palRefcoq ( double tdk, double pmb, double rh, double wl,
+                 double *refa, double *refb ) {
+  /* Note that SLA (and therefore PAL) uses units of kelvin
+     but SOFA uses deg C */
+  iauRefco( pmb, tdk - 273.15, rh, wl, refa, refb );
+}

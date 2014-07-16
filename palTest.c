@@ -1789,11 +1789,18 @@ static void t_rvlsrk( int *status ) {
    vvd( rv, 12.556356851411955233, 1.0E-12, "palRvlsrk", "rv", status );
 }
 
-
-
-
-
-
+static void t_refco( int *status ) {
+  double phpa, tc, rh, wl, refa, refb;
+  phpa = 800.0;
+  tc = 10.0;
+  rh = 0.9;
+  wl = 0.4;
+  palRefcoq(tc, phpa, rh, wl, &refa, &refb);
+  vvd(refa, 0.2264949956241415009e-3, 1e-15,
+      "palRefcoq", "refa", status);
+  vvd(refb, -0.2598658261729343970e-6, 1e-18,
+      "palRefcoq", "refb", status);
+}
 
 /**********************************************************************/
 
@@ -1858,6 +1865,7 @@ int main (void) {
   t_pvobs(&status);
   t_range(&status);
   t_ranorm(&status);
+  t_refco(&status);
   t_rv(&status);
   t_rvgalc(&status);
   t_rvlg(&status);
