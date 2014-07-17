@@ -43,12 +43,41 @@
 *     Convert star RA,Dec from mean place to geocentric apparent.
 
 *  Authors:
+*     PTW: Patrick T. Wallace
 *     TIMJ: Tim Jenness (JAC, Hawaii)
 *     {enter_new_authors_here}
 
 *  Notes:
 *     - Calls palMappa and palMapqk
+
 *     - The reference systems and timescales used are IAU 2006.
+
+*     - EQ is the Julian epoch specifying both the reference frame and
+*       the epoch of the position - usually 2000.  For positions where
+*       the epoch and equinox are different, use the routine palPm to
+*       apply proper motion corrections before using this routine.
+*
+*     - The distinction between the required TDB and TT is always
+*       negligible.  Moreover, for all but the most critical
+*       applications UTC is adequate.
+*
+*     - The proper motions in RA are dRA/dt rather than cos(Dec)*dRA/dt.
+*
+*     - This routine may be wasteful for some applications because it
+*       recomputes the Earth position/velocity and the precession-
+*       nutation matrix each time, and because it allows for parallax
+*       and proper motion.  Where multiple transformations are to be
+*       carried out for one epoch, a faster method is to call the
+*       palMappa routine once and then either the palMapqk routine
+*       (which includes parallax and proper motion) or palMapqkz (which
+*       assumes zero parallax and proper motion).
+*
+*     - The accuracy is sub-milliarcsecond, limited by the
+*       precession-nutation model (see palPrenut for details).
+*
+*     - The accuracy is further limited by the routine palEvp, called
+*       by palMappa, which computes the Earth position and velocity.
+*       See iauEpv00 for details on that calculation.
 
 *  History:
 *     2012-03-01 (TIMJ):
@@ -57,6 +86,7 @@
 *     {enter_further_changes_here}
 
 *  Copyright:
+*     Copyright (C) 2001 Rutherford Appleton Laboratory
 *     Copyright (C) 2012 Science and Technology Facilities Council.
 *     All Rights Reserved.
 
