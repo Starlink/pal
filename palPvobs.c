@@ -81,7 +81,7 @@ void palPvobs( double p, double h, double stl, double pv[6] ){
    double xyz[3], z, r, s, c, v;
 
 /* Geodetic to geocentric conversion (WGS84 reference ellipsoid). */
-   iauGd2gc( 1, 0.0, p, h, xyz );
+   iauGd2gc( WGS84, 0.0, p, h, xyz );
 
 /* Convert from metres to AU */
    r = xyz[ 0 ]/DAU;

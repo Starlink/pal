@@ -77,7 +77,7 @@ void palGeoc ( double p, double h, double *r, double *z ) {
   const double elong = 0.0;   /* Use zero longitude */
   const double AU = 1.49597870E11;
   /* WGS84 looks to be the closest match */
-  iauGd2gc( 1, elong, p, h, xyz );
+  iauGd2gc( WGS84, elong, p, h, xyz );
   *r = xyz[0] / (AU * cos(elong) );
   *z = xyz[2] / AU;
 }
