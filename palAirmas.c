@@ -55,6 +55,7 @@
 *     {enter_further_changes_here}
 
 *  Copyright:
+*     Copyright (C) 1999 Rutherford Appleton Laboratory.
 *     Copyright (C) 2012 Science and Technology Facilities Council.
 *     All Rights Reserved.
 

@@ -48,12 +48,13 @@
 *     zenith distance.
 
 *  Authors:
+*     PTW: Patrick T. Wallace
 *     TIMJ: Tim Jenness (JAC, Hawaii)
 *     {enter_new_authors_here}
 
 *  Notes:
-*     - Typical values for the TLR and EPS arguments might be 0.0065D0 and
-*     1D-10 respectively.
+*     - Typical values for the TLR and EPS arguments might be 0.0065 and
+*     1E-10 respectively.
 *
 *     - The radio refraction is chosen by specifying WL > 100 micrometres.
 *
@@ -71,6 +72,7 @@
 *     {enter_further_changes_here}
 
 *  Copyright:
+*     Copyright (C) 2004 Rutherford Appleton Laboratory
 *     Copyright (C) 2012 Science and Technology Facilities Council.
 *     All Rights Reserved.
 

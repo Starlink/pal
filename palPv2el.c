@@ -167,6 +167,7 @@
 *     {enter_further_changes_here}
 
 *  Copyright:
+*     Copyright (C) 2005 Patrick T. Wallace
 *     Copyright (C) 2012 Science and Technology Facilities Council.
 *     All Rights Reserved.
 

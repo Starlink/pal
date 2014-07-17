@@ -43,7 +43,8 @@
 *  History:
 *     2012-03-12 (TIMJ):
 *        Initial version
-*        Adapted with permission from the Fortran SLALIB library.
+*        Adapted with permission from the Fortran SLALIB library
+*        but now mainly calls SOFA routines.
 *     {enter_further_changes_here}
 
 *  Copyright:

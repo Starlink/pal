@@ -47,6 +47,7 @@
 *     {enter_further_changes_here}
 
 *  Copyright:
+*     Copyright (C) 1996 Rutherford Appleton Laboratory
 *     Copyright (C) 2012 Science and Technology Facilities Council.
 *     All Rights Reserved.
 
@@ -88,11 +89,11 @@ void palEtrms ( double ep, double ev[3] ) {
   e = .01673011 - (t * 1.26e-7 + 4.193e-5) * t;
 
   /*  Mean obliquity */
-  e0 = (84404.836 - ((t * .00181 + .00319) * t + 46.8495) * t) * 
+  e0 = (84404.836 - ((t * .00181 + .00319) * t + 46.8495) * t) *
     PAL__DAS2R;
 
   /*  Mean longitude of perihelion */
-  p = (((t * .012 + 1.65) * t + 6190.67) * t + 1015489.951) * 
+  p = (((t * .012 + 1.65) * t + 6190.67) * t + 1015489.951) *
     PAL__DAS2R;
 
   /*  E-terms */

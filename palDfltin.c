@@ -60,7 +60,8 @@
 *  History:
 *     2012-03-08 (TIMJ):
 *        Initial version based on strtod
-*        Adapted with permission from the Fortran SLALIB library.
+*        Adapted with permission from the Fortran SLALIB library
+*        although this is a completely distinct implementation of the SLA API.
 *     2012-06-21 (TIMJ):
 *        Provide a backup for missing copysign.
 *     2012-06-22 (TIMJ):

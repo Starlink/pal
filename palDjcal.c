@@ -46,6 +46,7 @@
 *     - Uses iauJd2cal
 
 *  Copyright:
+*     Copyright (C) 2004 Patrick T. Wallace
 *     Copyright (C) 2012 Science and Technology Facilities Council.
 *     All Rights Reserved.
 

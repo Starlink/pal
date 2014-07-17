@@ -31,6 +31,7 @@
 
 *  Authors:
 *     TIMJ: Tim Jenness (JAC, Hawaii)
+*     PTW: Patrick T. Wallace
 *     {enter_new_authors_here}
 
 *  Notes:
@@ -45,6 +46,7 @@
 *     {enter_further_changes_here}
 
 *  Copyright:
+*     Copyright (C) 1995 Rutherford Appleton Laboratory
 *     Copyright (C) 2012 Science and Technology Facilities Council.
 *     All Rights Reserved.
 

@@ -49,8 +49,10 @@
 *     {enter_further_changes_here}
 
 *  Copyright:
+*     Copyright (C) 1998 Rutherford Appleton Laboratory
 *     Copyright (C) 2012 Science and Technology Facilities Council.
 *     All Rights Reserved.
+
 *  Licence:
 *     This program is free software: you can redistribute it and/or
 *     modify it under the terms of the GNU Lesser General Public

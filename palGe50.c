@@ -30,6 +30,7 @@
 *     B1950.0 'FK4' equatorial coordinates.
 
 *  Authors:
+*     PTW: Patrick T. Wallace
 *     TIMJ: Tim Jenness (JAC, Hawaii)
 *     {enter_new_authors_here}
 
@@ -47,6 +48,7 @@
 *     {enter_further_changes_here}
 
 *  Copyright:
+*     Copyright (C) 1995 Rutherford Appleton Laboratory
 *     Copyright (C) 2012 Science and Technology Facilities Council.
 *     All Rights Reserved.
 

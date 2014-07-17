@@ -51,7 +51,8 @@
 *  History:
 *     2012-03-15 (TIMJ):
 *        Initial version
-*        Adapted with permission from the Fortran SLALIB library.
+*        Matches the SLALIB interface but brand new implementation using
+*        C library calls and not a direct port of the Fortran.
 *     {enter_further_changes_here}
 
 *  Copyright:
