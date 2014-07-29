@@ -35,7 +35,7 @@
 *     {enter_new_authors_here}
 
 *  Notes:
-*     - Uses iauNut06a via palNutc
+*     - Uses eraNut06a via palNutc
 *     - The distinction between TDB and TT is negligible. For all but
 *       the most critical applications UTC is adequate.
 

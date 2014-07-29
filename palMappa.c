@@ -87,7 +87,7 @@
 
 #include "pal.h"
 #include "palmac.h"
-#include "sofa.h"
+#include "pal1sofa.h"
 
 #include <string.h>
 
@@ -106,13 +106,13 @@ void palMappa( double eq, double date, double amprms[21] ){
    memset( amprms, 0, 21*sizeof( *amprms ) );
 
 /* Time interval for proper motion correction. */
-   amprms[ 0 ] = iauEpj( PAL__MJD0, date ) - eq;
+   amprms[ 0 ] = eraEpj( PAL__MJD0, date ) - eq;
 
 /* Get Earth barycentric and heliocentric position and velocity. */
    palEvp( date, eq, ebd, &amprms[ 1 ], ehd, eh );
 
 /* Heliocentric direction of Earth (normalized) and modulus. */
-   iauPn( eh, &e, &amprms[ 4 ] );
+   eraPn( eh, &e, &amprms[ 4 ] );
 
 /* Light deflection parameter */
    amprms[7] = GR2 / e;
@@ -121,7 +121,7 @@ void palMappa( double eq, double date, double amprms[21] ){
    for( i = 0; i < 3; i++ ) {
       amprms[ i + 8 ] = ebd[ i ]*PAL__CR;
    }
-   iauPn( &amprms[8], &vm, vn );
+   eraPn( &amprms[8], &vm, vn );
    amprms[ 11 ] = sqrt( 1.0 - vm*vm );
 
 /* NPB matrix. */

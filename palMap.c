@@ -77,7 +77,7 @@
 *
 *     - The accuracy is further limited by the routine palEvp, called
 *       by palMappa, which computes the Earth position and velocity.
-*       See iauEpv00 for details on that calculation.
+*       See eraEpv00 for details on that calculation.
 
 *  History:
 *     2012-03-01 (TIMJ):

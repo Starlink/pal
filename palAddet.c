@@ -83,7 +83,7 @@
 */
 
 #include "pal.h"
-#include "sofa.h"
+#include "pal1sofa.h"
 
 void palAddet ( double rm, double dm, double eq, double *rc, double *dc ) {
   double a[3];   /* The E-terms */
@@ -96,7 +96,7 @@ void palAddet ( double rm, double dm, double eq, double *rc, double *dc ) {
   palEtrms( eq, a );
 
   /* Spherical to Cartesian */
-  iauS2c( rm, dm, v );
+  eraS2c( rm, dm, v );
 
   /* Include the E-terms */
   for (i=0; i<3; i++) {
@@ -104,9 +104,9 @@ void palAddet ( double rm, double dm, double eq, double *rc, double *dc ) {
   }
 
   /* Cartesian to spherical */
-  iauC2s( v, rc, dc );
+  eraC2s( v, rc, dc );
 
   /* Bring RA into conventional range */
-  *rc = iauAnp( *rc );
+  *rc = eraAnp( *rc );
 
 }

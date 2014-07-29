@@ -41,14 +41,14 @@
 
 *  Description:
 *     Apply corrections for proper motion to a star RA,Dec using the
-*     SOFA routine iauStarpm.
+*     SOFA routine eraStarpm.
 
 *  Authors:
 *     TIMJ: Tim Jenness (JAC, Hawaii)
 *     {enter_new_authors_here}
 
 *  Notes:
-*     - Uses iauStarpm but ignores the status returns from that routine.
+*     - Uses eraStarpm but ignores the status returns from that routine.
 *       In particular note that parallax should not be zero when the
 *       proper motions are non-zero. SLA/F allows parallax to be zero.
 *     - Assumes all epochs are Julian epochs.
@@ -85,7 +85,7 @@
 */
 
 #include "pal.h"
-#include "sofa.h"
+#include "pal1sofa.h"
 
 void palPm ( double r0, double d0, double pr, double pd,
              double px, double rv, double ep0, double ep1,
@@ -97,10 +97,10 @@ void palPm ( double r0, double d0, double pr, double pd,
 
   /* SOFA requires the epochs in TDB MJD so we have to
      assume that the supplied epochs are Julian years */
-  iauEpj2jd( ep0, &ep1a, &ep1b );
-  iauEpj2jd( ep1, &ep2a, &ep2b );
+  eraEpj2jd( ep0, &ep1a, &ep1b );
+  eraEpj2jd( ep1, &ep2a, &ep2b );
 
-  status = iauStarpm( r0, d0, pr, pd, px, rv,
+  status = eraStarpm( r0, d0, pr, pd, px, rv,
                       ep1a, ep1b, ep2a, ep2b,
                       r1, d1,
                       &pmr2, &pmd2, &px2, &rv2 );

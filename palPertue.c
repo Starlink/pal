@@ -200,7 +200,7 @@
 
 #include "pal.h"
 #include "palmac.h"
-#include "sofa.h"
+#include "pal1sofa.h"
 
 /* copysign is C99 */
 #if HAVE_COPYSIGN
@@ -543,7 +543,7 @@ void palPertue( double date, double u[13], int *jstat ) {
           /*              Moon: position. */
           palPrec(palEpj(T),2000.0,PMAT);
           palDmoon(T,PVM);
-          iauRxp(PMAT,PVM,PM);
+          eraRxp(PMAT,PVM,PM);
           for (I=0; I<3; I++) {
             RHO[I] = PM[I]+PE[I];
           }

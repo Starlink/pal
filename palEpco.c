@@ -75,7 +75,7 @@
 */
 
 #include "pal.h"
-#include "sofa.h"
+#include "pal1sofa.h"
 
 #include <ctype.h>
 
@@ -92,11 +92,11 @@ double palEpco( char k0, char k, double e ) {
   if (k == k0) {
     new_epoch = e;
   } else if (k0 == 'B') {
-    iauEpj2jd( e, &djm0, &djm );
-    new_epoch = iauEpb( djm0, djm );
+    eraEpj2jd( e, &djm0, &djm );
+    new_epoch = eraEpb( djm0, djm );
   } else {
-    iauEpb2jd( e, &djm0, &djm );
-    new_epoch = iauEpj( djm0, djm );
+    eraEpb2jd( e, &djm0, &djm );
+    new_epoch = eraEpj( djm0, djm );
   }
   return new_epoch;
 }

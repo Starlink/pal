@@ -75,7 +75,7 @@
 */
 
 #include "pal.h"
-#include "sofa.h"
+#include "pal1sofa.h"
 
 void palGaleq ( double dl, double db, double *dr, double *dd ) {
 
@@ -103,16 +103,16 @@ void palGaleq ( double dl, double db, double *dr, double *dd ) {
   };
 
   /* Spherical to Cartesian */
-  iauS2c( dl, db, v1 );
+  eraS2c( dl, db, v1 );
 
   /* Galactic to equatorial */
-  iauTrxp( rmat, v1, v2 );
+  eraTrxp( rmat, v1, v2 );
 
   /* Cartesian to spherical */
-  iauC2s( v2, dr, dd );
+  eraC2s( v2, dr, dd );
 
   /* Express in conventional ranges */
-  *dr = iauAnp( *dr );
-  *dd = iauAnpm( *dd );
+  *dr = eraAnp( *dr );
+  *dd = eraAnpm( *dd );
 
 }

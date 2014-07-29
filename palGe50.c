@@ -74,7 +74,7 @@
 */
 
 #include "pal.h"
-#include "sofa.h"
+#include "pal1sofa.h"
 
 void palGe50 ( double dl, double db, double * dr, double * dd ) {
 
@@ -110,19 +110,19 @@ void palGe50 ( double dl, double db, double * dr, double * dd ) {
   double v1[3], v2[3], r, d, re, de;
 
   /* Spherical to cartesian */
-  iauS2c( dl, db, v1 );
+  eraS2c( dl, db, v1 );
 
   /* Rotate to mean B1950.0 */
-  iauTrxp( rmat, v1, v2 );
+  eraTrxp( rmat, v1, v2 );
 
   /* Cartesian to spherical */
-  iauC2s( v2, &r, &d );
+  eraC2s( v2, &r, &d );
 
   /* Introduce E-terms */
   palAddet( r, d, 1950.0, &re, &de );
 
   /* Express in conventional ranges */
-  *dr = iauAnp( re );
-  *dd = iauAnpm( de );
+  *dr = eraAnp( re );
+  *dd = eraAnpm( de );
 
 }

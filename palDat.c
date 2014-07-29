@@ -33,12 +33,12 @@
 
 *  Notes:
 *     - This routine converts the MJD argument to calendar date before calling
-*       the SOFA iauDat function.
-*     - This routine matches the slaDat interface which differs from the iauDat
+*       the SOFA eraDat function.
+*     - This routine matches the slaDat interface which differs from the eraDat
 *       interface. Consider coding directly to the SOFA interface.
-*     - See iauDat for a description of error conditions when calling this function
+*     - See eraDat for a description of error conditions when calling this function
 *       with a time outside of the UTC range.
-*     - The status argument from iauDat is ignored. This is reasonable since the
+*     - The status argument from eraDat is ignored. This is reasonable since the
 *       error codes are mainly related to incorrect calendar dates when calculating
 *       the JD internally.
 
@@ -77,7 +77,7 @@
 #include "pal.h"
 #include "palmac.h"
 
-#include "sofa.h"
+#include "pal1sofa.h"
 
 double palDat ( double dju ) {
   int iy;
@@ -87,9 +87,9 @@ double palDat ( double dju ) {
   double fd;
   double deltat;
 
-  iauJd2cal( PAL__MJD0, dju,
+  eraJd2cal( PAL__MJD0, dju,
              &iy, &im, &id, &fd );
 
-  status = iauDat( iy, im, id, fd, &deltat );
+  status = eraDat( iy, im, id, fd, &deltat );
   return deltat;
 }

@@ -71,23 +71,23 @@
 */
 
 #include "pal.h"
-#include "sofa.h"
+#include "pal1sofa.h"
 
 void palEqecl ( double dr, double dd, double date, double *dl, double *db ) {
   double v1[3], v2[3];
   double rmat[3][3];
 
   /* Spherical to Cartesian */
-  iauS2c( dr, dd, v1 );
+  eraS2c( dr, dd, v1 );
 
   /* Mean J2000 to mean of date */
   palPrec( 2000.0, palEpj(date), rmat );
-  iauRxp( rmat, v1, v2 );
+  eraRxp( rmat, v1, v2 );
 
   /* Equatorial to ecliptic */
   palEcmat( date, rmat );
-  iauRxp( rmat, v2, v1 );
+  eraRxp( rmat, v2, v1 );
 
   /* Cartesian to spherical */
-  iauC2s( v1, dl, db );
+  eraC2s( v1, dl, db );
 }

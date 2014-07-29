@@ -84,7 +84,7 @@
 */
 
 #include "pal.h"
-#include "sofa.h"
+#include "pal1sofa.h"
 
 #include <string.h>
 
@@ -107,12 +107,12 @@ void palPreces ( const char sys[3], double ep0, double ep1,
   }
 
   /* Convert RA,Dec to x,y,z */
-  iauS2c( *ra, *dc, v1 );
+  eraS2c( *ra, *dc, v1 );
 
   /* Precess */
-  iauRxp( pm, v1, v2 );
+  eraRxp( pm, v1, v2 );
 
   /* Back to RA,Dec */
-  iauC2s( v2, ra, dc );
-  *ra = iauAnp( *ra );
+  eraC2s( v2, ra, dc );
+  *ra = eraAnp( *ra );
 }

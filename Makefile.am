@@ -7,11 +7,11 @@ lib_LTLIBRARIES = libpal.la
 libpal_la_SOURCES = $(PUBLIC_C_FILES) palOne2One.c $(PRIVATE_C_FILES)
 
 # If we are using a non-standard location
-libpal_la_CPPFLAGS = $(SOFA_CPPFLAGS)
-libpal_la_LDFLAGS = $(SOFA_LDFLAGS)
+libpal_la_CPPFLAGS = $(ERFA_CPPFLAGS)
+libpal_la_LDFLAGS = $(ERFA_LDFLAGS)
 
-# Force a link against SOFA and, optionally, starutil
-libpal_la_LIBADD = $(SOFA_LIBADD) $(STARUTIL_LIBADD)
+# Force a link against ERFA and, optionally, starutil
+libpal_la_LIBADD = $(ERFA_LIBADD) $(STARUTIL_LIBADD)
 
 # Misc files
 dist_starnews_DATA = pal.news

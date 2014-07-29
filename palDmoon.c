@@ -86,7 +86,8 @@
 */
 
 #include "pal.h"
-#include "sofam.h"
+#include "pal1sofa.h"
+#include "palmac.h"
 
 /* Autoconf can give us -DPIC */
 #undef PIC
@@ -376,53 +377,53 @@ void palDmoon( double date, double pv[6] ) {
    */
 
   /*  Moon's mean longitude */
-  ELP=DD2R*fmod(ELP0+(ELP1+(ELP2+ELP3*T)*T)*T,360.);
-  DELP=DD2R*(ELP1+(2.*ELP2+3*ELP3*T)*T);
+  ELP=PAL__DD2R*fmod(ELP0+(ELP1+(ELP2+ELP3*T)*T)*T,360.);
+  DELP=PAL__DD2R*(ELP1+(2.*ELP2+3*ELP3*T)*T);
 
   /*  Sun's mean anomaly */
-  EM=DD2R*fmod(EM0+(EM1+(EM2+EM3*T)*T)*T,360.);
-  DEM=DD2R*(EM1+(2.*EM2+3*EM3*T)*T);
+  EM=PAL__DD2R*fmod(EM0+(EM1+(EM2+EM3*T)*T)*T,360.);
+  DEM=PAL__DD2R*(EM1+(2.*EM2+3*EM3*T)*T);
 
   /*  Moon's mean anomaly */
-  EMP=DD2R*fmod(EMP0+(EMP1+(EMP2+EMP3*T)*T)*T,360.);
-  DEMP=DD2R*(EMP1+(2.*EMP2+3*EMP3*T)*T);
+  EMP=PAL__DD2R*fmod(EMP0+(EMP1+(EMP2+EMP3*T)*T)*T,360.);
+  DEMP=PAL__DD2R*(EMP1+(2.*EMP2+3*EMP3*T)*T);
 
   /*  Moon's mean elongation */
-  D=DD2R*fmod(D0+(D1+(D2+D3*T)*T)*T,360.);
-  DD=DD2R*(D1+(2.*D2+3.*D3*T)*T);
+  D=PAL__DD2R*fmod(D0+(D1+(D2+D3*T)*T)*T,360.);
+  DD=PAL__DD2R*(D1+(2.*D2+3.*D3*T)*T);
 
   /*  Mean distance of the Moon from its ascending node */
-  F=DD2R*fmod(F0+(F1+(F2+F3*T)*T)*T,360.);
-  DF=DD2R*(F1+(2.*F2+3.*F3*T)*T);
+  F=PAL__DD2R*fmod(F0+(F1+(F2+F3*T)*T)*T,360.);
+  DF=PAL__DD2R*(F1+(2.*F2+3.*F3*T)*T);
 
   /*  Longitude of the Moon's ascending node */
-  OM=DD2R*fmod(OM0+(OM1+(OM2+OM3*T)*T)*T,360.);
-  DOM=DD2R*(OM1+(2.*OM2+3.*OM3*T)*T);
+  OM=PAL__DD2R*fmod(OM0+(OM1+(OM2+OM3*T)*T)*T,360.);
+  DOM=PAL__DD2R*(OM1+(2.*OM2+3.*OM3*T)*T);
   SINOM=sin(OM);
   COSOM=cos(OM);
   DOMCOM=DOM*COSOM;
 
   /*  Add the periodic variations */
-  THETA=DD2R*(PA0+PA1*T);
+  THETA=PAL__DD2R*(PA0+PA1*T);
   WA=sin(THETA);
-  DWA=DD2R*PA1*cos(THETA);
-  THETA=DD2R*(PE0+(PE1+PE2*T)*T);
+  DWA=PAL__DD2R*PA1*cos(THETA);
+  THETA=PAL__DD2R*(PE0+(PE1+PE2*T)*T);
   WB=PEC*sin(THETA);
-  DWB=DD2R*PEC*(PE1+2.*PE2*T)*cos(THETA);
-  ELP=ELP+DD2R*(PAC*WA+WB+PFC*SINOM);
-  DELP=DELP+DD2R*(PAC*DWA+DWB+PFC*DOMCOM);
-  EM=EM+DD2R*PBC*WA;
-  DEM=DEM+DD2R*PBC*DWA;
-  EMP=EMP+DD2R*(PCC*WA+WB+PGC*SINOM);
-  DEMP=DEMP+DD2R*(PCC*DWA+DWB+PGC*DOMCOM);
-  D=D+DD2R*(PDC*WA+WB+PHC*SINOM);
-  DD=DD+DD2R*(PDC*DWA+DWB+PHC*DOMCOM);
-  WOM=OM+DD2R*(PJ0+PJ1*T);
-  DWOM=DOM+DD2R*PJ1;
+  DWB=PAL__DD2R*PEC*(PE1+2.*PE2*T)*cos(THETA);
+  ELP=ELP+PAL__DD2R*(PAC*WA+WB+PFC*SINOM);
+  DELP=DELP+PAL__DD2R*(PAC*DWA+DWB+PFC*DOMCOM);
+  EM=EM+PAL__DD2R*PBC*WA;
+  DEM=DEM+PAL__DD2R*PBC*DWA;
+  EMP=EMP+PAL__DD2R*(PCC*WA+WB+PGC*SINOM);
+  DEMP=DEMP+PAL__DD2R*(PCC*DWA+DWB+PGC*DOMCOM);
+  D=D+PAL__DD2R*(PDC*WA+WB+PHC*SINOM);
+  DD=DD+PAL__DD2R*(PDC*DWA+DWB+PHC*DOMCOM);
+  WOM=OM+PAL__DD2R*(PJ0+PJ1*T);
+  DWOM=DOM+PAL__DD2R*PJ1;
   SINWOM=sin(WOM);
   COSWOM=cos(WOM);
-  F=F+DD2R*(WB+PIC*SINOM+PJC*SINWOM);
-  DF=DF+DD2R*(DWB+PIC*DOMCOM+PJC*DWOM*COSWOM);
+  F=F+PAL__DD2R*(WB+PIC*SINOM+PJC*SINWOM);
+  DF=DF+PAL__DD2R*(DWB+PIC*DOMCOM+PJC*DWOM*COSWOM);
 
   /*  E-factor, and square */
   E=1.+(E1+E2*T)*T;
@@ -460,8 +461,8 @@ void palDmoon( double date, double pv[6] ) {
     V=V+COEFF*FTHETA*EN;
     DV=DV+COEFF*(cos(THETA)*DTHETA*EN+FTHETA*DEN);
   }
-  EL=ELP+DD2R*V;
-  DEL=(DELP+DD2R*DV)/CJ;
+  EL=ELP+PAL__DD2R*V;
+  DEL=(DELP+PAL__DD2R*DV)/CJ;
 
   /*  Latitude */
   V=0.;
@@ -491,8 +492,8 @@ void palDmoon( double date, double pv[6] ) {
   }
   BF=1.-CW1*COSOM-CW2*COSWOM;
   DBF=CW1*DOM*SINOM+CW2*DWOM*SINWOM;
-  B=DD2R*V*BF;
-  DB=DD2R*(DV*BF+V*DBF)/CJ;
+  B=PAL__DD2R*V*BF;
+  DB=PAL__DD2R*(DV*BF+V*DBF)/CJ;
 
   /*  Parallax */
   V=0.;
@@ -520,8 +521,8 @@ void palDmoon( double date, double pv[6] ) {
     V=V+COEFF*FTHETA*EN;
     DV=DV+COEFF*(-sin(THETA)*DTHETA*EN+FTHETA*DEN);
   }
-  P=DD2R*V;
-  DP=DD2R*DV/CJ;
+  P=PAL__DD2R*V;
+  DP=PAL__DD2R*DV/CJ;
 
   /*
    *  Transformation into final form
@@ -552,10 +553,10 @@ void palDmoon( double date, double pv[6] ) {
 
   /*  Fricke equinox correction */
   EPJ=2000.+T*100.;
-  EQCOR=DS2R*(0.035+0.00085*(EPJ-B1950));
+  EQCOR=PAL__DS2R*(0.035+0.00085*(EPJ-B1950));
 
   /*  Mean obliquity (IAU 1976) */
-  EPS=DAS2R*(84381.448+(-46.8150+(-0.00059+0.001813*T)*T)*T);
+  EPS=PAL__DAS2R*(84381.448+(-46.8150+(-0.00059+0.001813*T)*T)*T);
 
   /*  To the equatorial system, mean of date, FK5 system */
   SINEPS=sin(EPS);

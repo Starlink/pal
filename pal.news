@@ -4,6 +4,12 @@ The Starlink Positional Astronomy Library (PAL) is a C implementation of the
 SLALIB API. It is distributed under the GPL and uses the SOFA library wherever
 possible.
 
+V0.5.0
+
+Now works with ERFA <https://github.com/liberfa/erfa>.
+The configure script has been modified to first check
+for ERFA and then check for SOFA.
+
 V0.4.0
 
 New routines ported from SLA: palRefv, palAtmdsp

@@ -93,7 +93,7 @@
 
 #include "pal.h"
 #include "palmac.h"
-#include "sofa.h"
+#include "pal1sofa.h"
 
 void palMapqk ( double rm, double dm, double pr, double pd,
                 double px, double rv, double amprms[21],
@@ -119,7 +119,7 @@ void palMapqk ( double rm, double dm, double pr, double pd,
    }
 
 /* Spherical to x,y,z. */
-   iauS2c( rm, dm, q);
+   eraS2c( rm, dm, q);
 
  /* Space motion (radians per year) */
    pxr = px * PAL__DAS2R;
@@ -132,10 +132,10 @@ void palMapqk ( double rm, double dm, double pr, double pd,
    for( i = 0; i < 3; i++ ) {
       p[i] = q[i] + pmt * em[i] - pxr * eb[i];
    }
-   iauPn( p, &w, pn );
+   eraPn( p, &w, pn );
 
 /* Light deflection (restrained within the Sun's disc) */
-   pde = iauPdp( pn, ehn );
+   pde = eraPdp( pn, ehn );
    pdep1 = pde + 1.0;
    w = gr2e / ( pdep1 > 1.0e-5 ? pdep1 : 1.0e-5 );
    for( i = 0; i < 3; i++) {
@@ -143,17 +143,17 @@ void palMapqk ( double rm, double dm, double pr, double pd,
    }
 
 /* Aberration (normalisation omitted). */
-   p1dv = iauPdp( p, abv );
+   p1dv = eraPdp( p, abv );
    w = 1.0 + p1dv / ( ab1 + 1.0 );
    for( i = 0; i < 3; i++ ) {
       p2[i] = ( ab1 * p1[i] ) + ( w * abv[i] );
    }
 
 /* Precession and nutation. */
-   iauRxp( (double(*)[3]) &amprms[12], p2, p3 );
+   eraRxp( (double(*)[3]) &amprms[12], p2, p3 );
 
 /* Geocentric apparent RA,dec. */
-   iauC2s( p3, ra, da );
-   *ra = iauAnp( *ra );
+   eraC2s( p3, ra, da );
+   *ra = eraAnp( *ra );
 
 }

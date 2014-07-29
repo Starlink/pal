@@ -125,7 +125,7 @@
 
 #include "pal.h"
 #include "palmac.h"
-#include "sofam.h"
+#include "pal1sofa.h"
 
 #include <math.h>
 
@@ -171,10 +171,10 @@ void palDafin ( const char *string, int *ipos, double *a, int *j ) {
         jf = -3;
 
       /* Tests for range and integrality */
-      } else if (jm == 0 && dint(deg) != deg) { /* Degrees */
+      } else if (jm == 0 && DINT(deg) != deg) { /* Degrees */
         jf = -1;
 
-      } else if ( (js == 0 && dint(arcmin) != arcmin) || arcmin >= 60.0 ) { /* Arcmin */
+      } else if ( (js == 0 && DINT(arcmin) != arcmin) || arcmin >= 60.0 ) { /* Arcmin */
         jf = -2;
 
       } else if (arcsec >= 60.0) { /* Arcsec */

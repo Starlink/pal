@@ -39,9 +39,9 @@
 *     {enter_new_authors_here}
 
 *  Notes:
-*     - See SOFA iauPlan94 for details
+*     - See SOFA eraPlan94 for details
 *     - Note that Pluto is supported in SLA/F but not in this routine
-*     - Status -2 is equivalent to iauPlan94 status +2.
+*     - Status -2 is equivalent to eraPlan94 status +2.
 *     - Note that velocity units here match the SLA/F documentation.
 
 *  History:
@@ -77,21 +77,21 @@
 
 #include "pal.h"
 #include "palmac.h"
-#include "sofa.h"
+#include "pal1sofa.h"
 
 void palPlanet ( double date, int np, double pv[6], int *j ) {
-  double iaupv[2][3];
+  double erapv[2][3];
 
-  *j = iauPlan94( PAL__MJD0, date, np, iaupv );
+  *j = eraPlan94( PAL__MJD0, date, np, erapv );
 
   /* Convert the outputs to the correct form and also correct AU/d
      to AU/s */
-  pv[0] = iaupv[0][0];
-  pv[1] = iaupv[0][1];
-  pv[2] = iaupv[0][2];
-  pv[3] = iaupv[1][0] / PAL__SPD;
-  pv[4] = iaupv[1][1] / PAL__SPD;
-  pv[5] = iaupv[1][2] / PAL__SPD;
+  pv[0] = erapv[0][0];
+  pv[1] = erapv[0][1];
+  pv[2] = erapv[0][2];
+  pv[3] = erapv[1][0] / PAL__SPD;
+  pv[4] = erapv[1][1] / PAL__SPD;
+  pv[5] = erapv[1][2] / PAL__SPD;
 
   /* SLA compatibility for status */
   if (*j == 2) *j = -2;

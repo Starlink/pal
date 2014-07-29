@@ -116,6 +116,9 @@ static const double PAL__SR = 7.2921150e-5;
 /*  Gaussian gravitational constant (exact) */
 static const double PAL__GCON = 0.01720209895;
 
+/* DINR(A) - truncate to nearest whole number towards zero (double) */
+#define DINT(A) ((A)<0.0?ceil(A):floor(A))
+
 /* DNINT(A) - round to nearest whole number (double) */
 #define DNINT(A) ((A)<0.0?ceil((A)-0.5):floor((A)+0.5))
 

@@ -2,7 +2,7 @@ dnl    Process this file with autoconf to produce a configure script
 AC_REVISION($Revision: 27534 $)
 
 dnl    Initialisation: package name and version number
-AC_INIT([pal],[0.4.0],[starlink@jiscmail.ac.uk])
+AC_INIT([pal],[0.5.0],[starlink@jiscmail.ac.uk])
 
 dnl    Require autoconf-2.50 at least
 AC_PREREQ([2.69])
@@ -43,8 +43,8 @@ dnl    If we do not have Starlink we can do the test anyhow just in case
 if test -n "$STARLINK"
 then
   AC_SUBST( STARUTIL_LIBADD, "${libdir}/libstarutil.la" )
-  AC_SUBST( SOFA_LIBADD, "${libdir}/libsofa_c.la" )
-  AC_SUBST( SOFA_LDFLAGS, "" )
+  AC_SUBST( ERFA_LIBADD, "${libdir}/liberfa.la" )
+  AC_SUBST( ERFA_LDFLAGS, "" )
   AC_DEFINE( [HAVE_STAR_UTIL_H], [1], [Define to 1 if you have the <star/util.h> header file])
 else
   dnl AC_CHECK_HEADERS does not search $includedir
@@ -65,14 +65,19 @@ else
                [AC_SUBST(STARUTIL_LIBADD, "-lstarutil")],
                [AC_SUBST(STARUTIL_LIBADD, "")])
 
-  AC_CHECK_LIB([sofa_c],[iauCal2jd],
-               [AC_SUBST(SOFA_LIBADD, "-lsofa_c")],
-               [AC_MSG_ERROR(Missing SOFA library. Can not continue)])
+  AC_CHECK_LIB([erfa],[eraCal2jd],
+               [AC_SUBST(ERFA_LIBADD, "-lerfa")],
+               [
+                AC_CHECK_LIB([sofa_c],[iauCal2jd],
+                             [AC_SUBST(ERFA_LIBADD, "-lsofa_c")
+                              AC_DEFINE([HAVE_SOFA_H],[1],"Build with SOFA library")],
+                             [AC_MSG_ERROR(Neither ERFA nor SOFA library located. Can not continue)])
+               ])
   LDFLAGS="$save_LDFLAGS"
 
   dnl  Ensure that we use the $prefix values
-  AC_SUBST( SOFA_LDFLAGS, "-L${libdir}" )
-  AC_SUBST( SOFA_CPPFLAGS, "-I${includedir}" )
+  AC_SUBST( ERFA_LDFLAGS, "-L${libdir}" )
+  AC_SUBST( ERFA_CPPFLAGS, "-I${includedir}" )
 
   dnl  Disable document building regardless of --without-stardocs
   _star_build_docs=:

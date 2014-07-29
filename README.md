@@ -3,7 +3,8 @@ PAL - Positional Astronomy Library
 
 The PAL library is a partial re-implementation of Pat Wallace's popular SLALIB
 library written in C using a Gnu GPL license and layered on top of the IAU's
-SOFA library where appropriate. PAL attempts to stick to the SLA C API where
+SOFA library (or the BSD-licensed ERFA) where appropriate.
+PAL attempts to stick to the SLA C API where
 possible although `palObs()` has a more C-like API than the equivalent
 `slaObs()` function. In most cases it is enough to simply change the function
 prefix of a routine in order to link against PAL rather than SLALIB. Routines
@@ -24,14 +25,18 @@ A simple `configure` script is provided:
     make install
 
 The tests can be run using `make check`. Use `--prefix` to specify an install location.
-Given the history of the source code as a Starlink libary the default will be `/star`.
+Given the history of the source code as a Starlink library the default will be `/star`.
 
 Requirements
 ------------
 
-Requires that the SOFA C library is installed. The `configure` script will abort if SOFA
-can not be found. SOFA can be obtained either from <http://www.iausofa.org> or from
-an unofficial github repository (with a configure script) at <https://github.com/Starlink/sofa/downloads>.
+Requires that either the SOFA C library or the ERFA library variant
+(which has a more permissive license than SOFA) be installed.  The
+`configure` script will abort if neither SOFA nor ERFA can be
+found. SOFA can be obtained either from <http://www.iausofa.org> or
+from an unofficial github repository (with a configure script) at
+<https://github.com/Starlink/sofa/downloads>.  ERFA can be downloaded
+from <https://github.com/liberfa/erfa>.
 
 Missing Functions
 -----------------

@@ -194,7 +194,7 @@
 
 #include <math.h>
 
-#include "sofa.h"
+#include "pal1sofa.h"
 #include "pal.h"
 #include "palmac.h"
 
@@ -383,15 +383,15 @@ void palPv2el ( const double pv[6], double date, double pmass, int jformr,
   /*  Return the appropriate set of elements. */
   *jform = JF;
   *orbinc = OI;
-  *anode = iauAnp(BIGOM);
+  *anode = eraAnp(BIGOM);
   *e = ECC;
   if (JF == 1) {
-    *perih = iauAnp(PL);
-    *aorl = iauAnp(EL);
+    *perih = eraAnp(PL);
+    *aorl = eraAnp(EL);
     *dm = DN;
   } else {
-    *perih = iauAnp(OM);
-    if (JF == 2) *aorl = iauAnp(AM);
+    *perih = eraAnp(OM);
+    if (JF == 2) *aorl = eraAnp(AM);
   }
   if (JF != 3) {
     *epoch = date;
