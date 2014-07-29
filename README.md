@@ -57,3 +57,11 @@ distribution that comes with its own copies of PAL and SOFA.
 
 The Starlink AST (<http://www.starlink.ac.uk/ast>) library now uses PAL and can be built
 either with a private PAL or with an external PAL.
+
+Documentation
+-------------
+
+The description paper for PAL is: ["_PAL: A Positional Astronomy Library_"](http://adsabs.harvard.edu/abs/2013ASPC..475..307J),
+Jenness, T. & Berry, D. S., in _Astronomical Data Anaysis Software and Systems XXII_,
+Friedel, D. N. (ed), ASP Conf. Ser. **475**, p307.
+
