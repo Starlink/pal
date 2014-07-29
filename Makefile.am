@@ -29,7 +29,7 @@ cinclude_HEADERS = pal.h palmac.h
 
 noinst_HEADERS = $(PRIVATE_INCLUDES)
 
-PRIVATE_INCLUDES = pal1.h
+PRIVATE_INCLUDES = pal1.h pal1sofa.h
 
 PUBLIC_C_FILES = \
 palAddet.c \
