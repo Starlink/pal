@@ -61,7 +61,9 @@
 #ifndef PAL1SOFAHDEF
 #define PAL1SOFAHDEF
 
-#include <config.h>
+#if HAVE_CONFIG_H
+#  include <config.h>
+#endif
 
 # if HAVE_SOFA_H
 
