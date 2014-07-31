@@ -29,6 +29,8 @@
 *          "     (10)   r0.v0
 *       returned (11)   date (t)
 *          "     (12)   universal eccentric anomaly (psi) of date
+*     pv = double [6] (Returned)
+*       Position (AU) and velocity (AU/s)
 *     jstat = int * (Returned)
 *       status:  0 = OK
 *               -1 = radius vector zero
