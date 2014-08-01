@@ -960,6 +960,748 @@ SOFA functions.
    }
 }
 \sstroutine{
+   palAop
+}{
+   Apparent to observed place
+}{
+   \sstdescription{
+      Apparent to observed place for sources distant from the solar system.
+   }
+   \sstinvocation{
+      void palAop ( double rap, double dap, double date, double dut,
+                    double elongm, double phim, double hm, double xp,
+                    double yp, double tdk, double pmb, double rh,
+                    double wl, double tlr,
+                    double $*$aob, double $*$zob, double $*$hob,
+                    double $*$dob, double $*$rob );
+   }
+   \sstarguments{
+      \sstsubsection{
+         rap = double (Given)
+      }{
+         Geocentric apparent right ascension
+      }
+      \sstsubsection{
+         dap = double (Given)
+      }{
+         Geocentirc apparent declination
+      }
+      \sstsubsection{
+         date = double (Given)
+      }{
+         UTC date/time (Modified Julian Date, JD-2400000.5)
+      }
+      \sstsubsection{
+         dut = double (Given)
+      }{
+         delta UT: UT1-UTC (UTC seconds)
+      }
+      \sstsubsection{
+         elongm = double (Given)
+      }{
+         Mean longitude of the observer (radians, east $+$ve)
+      }
+      \sstsubsection{
+         phim = double (Given)
+      }{
+         Mean geodetic latitude of the observer (radians)
+      }
+      \sstsubsection{
+         hm = double (Given)
+      }{
+         Observer{\tt '}s height above sea level (metres)
+      }
+      \sstsubsection{
+         xp = double (Given)
+      }{
+         Polar motion x-coordinates (radians)
+      }
+      \sstsubsection{
+         yp = double (Given)
+      }{
+         Polar motion y-coordinates (radians)
+      }
+      \sstsubsection{
+         tdk = double (Given)
+      }{
+         Local ambient temperature (K; std=273.15)
+      }
+      \sstsubsection{
+         pmb = double (Given)
+      }{
+         Local atmospheric pressure (mb; std=1013.25)
+      }
+      \sstsubsection{
+         rh = double (Given)
+      }{
+         Local relative humidity (in the range 0.0-1.0)
+      }
+      \sstsubsection{
+         wl = double (Given)
+      }{
+         Effective wavelength (micron, e.g. 0.55)
+      }
+      \sstsubsection{
+         tlr = double (Given)
+      }{
+         Tropospheric laps rate (K/metre, e.g. 0.0065)
+      }
+      \sstsubsection{
+         aob = double $*$ (Returned)
+      }{
+         Observed azimuth (radians: N=0; E=90)
+      }
+      \sstsubsection{
+         zob = double $*$ (Returned)
+      }{
+         Observed zenith distance (radians)
+      }
+      \sstsubsection{
+         hob = double $*$ (Returned)
+      }{
+         Observed Hour Angle (radians)
+      }
+      \sstsubsection{
+         dob = double $*$ (Returned)
+      }{
+         Observed Declination (radians)
+      }
+      \sstsubsection{
+         rob = double $*$ (Returned)
+      }{
+         Observed Right Ascension (radians)
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         This routine returns zenith distance rather than elevation
+           in order to reflect the fact that no allowance is made for
+           depression of the horizon.
+
+         \sstitem
+         The accuracy of the result is limited by the corrections for
+           refraction.  Providing the meteorological parameters are
+           known accurately and there are no gross local effects, the
+           predicted apparent RA,Dec should be within about 0.1 arcsec
+           for a zenith distance of less than 70 degrees.  Even at a
+           topocentric zenith distance of 90 degrees, the accuracy in
+           elevation should be better than 1 arcmin;  useful results
+           are available for a further 3 degrees, beyond which the
+           palRefro routine returns a fixed value of the refraction.
+           The complementary routines palAop (or palAopqk) and palOap
+           (or palOapqk) are self-consistent to better than 1 micro-
+           arcsecond all over the celestial sphere.
+
+         \sstitem
+         It is advisable to take great care with units, as even
+           unlikely values of the input parameters are accepted and
+           processed in accordance with the models used.
+
+         \sstitem
+         {\tt "}Apparent{\tt "} place means the geocentric apparent right ascension
+           and declination, which is obtained from a catalogue mean place
+           by allowing for space motion, parallax, precession, nutation,
+           annual aberration, and the Sun{\tt '}s gravitational lens effect.  For
+           star positions in the FK5 system (i.e. J2000), these effects can
+           be applied by means of the palMap etc routines.  Starting from
+           other mean place systems, additional transformations will be
+           needed;  for example, FK4 (i.e. B1950) mean places would first
+           have to be converted to FK5, which can be done with the
+           palFk425 etc routines.
+
+         \sstitem
+         {\tt "}Observed{\tt "} Az,El means the position that would be seen by a
+           perfect theodolite located at the observer.  This is obtained
+           from the geocentric apparent RA,Dec by allowing for Earth
+           orientation and diurnal aberration, rotating from equator
+           to horizon coordinates, and then adjusting for refraction.
+           The HA,Dec is obtained by rotating back into equatorial
+           coordinates, using the geodetic latitude corrected for polar
+           motion, and is the position that would be seen by a perfect
+           equatorial located at the observer and with its polar axis
+           aligned to the Earth{\tt '}s axis of rotation (n.b. not to the
+           refracted pole).  Finally, the RA is obtained by subtracting
+           the HA from the local apparent ST.
+
+         \sstitem
+         To predict the required setting of a real telescope, the
+           observed place produced by this routine would have to be
+           adjusted for the tilt of the azimuth or polar axis of the
+           mounting (with appropriate corrections for mount flexures),
+           for non-perpendicularity between the mounting axes, for the
+           position of the rotator axis and the pointing axis relative
+           to it, for tube flexure, for gear and encoder errors, and
+           finally for encoder zero points.  Some telescopes would, of
+           course, exhibit other properties which would need to be
+           accounted for at the appropriate point in the sequence.
+
+         \sstitem
+         This routine takes time to execute, due mainly to the
+           rigorous integration used to evaluate the refraction.
+           For processing multiple stars for one location and time,
+           call palAoppa once followed by one call per star to palAopqk.
+           Where a range of times within a limited period of a few hours
+           is involved, and the highest precision is not required, call
+           palAoppa once, followed by a call to palAoppat each time the
+           time changes, followed by one call per star to palAopqk.
+
+         \sstitem
+         The DATE argument is UTC expressed as an MJD.  This is,
+           strictly speaking, wrong, because of leap seconds.  However,
+           as long as the delta UT and the UTC are consistent there
+           are no difficulties, except during a leap second.  In this
+           case, the start of the 61st second of the final minute should
+           begin a new MJD day and the old pre-leap delta UT should
+           continue to be used.  As the 61st second completes, the MJD
+           should revert to the start of the day as, simultaneously,
+           the delta UTC changes by one second to its post-leap new value.
+
+         \sstitem
+         The delta UT (UT1-UTC) is tabulated in IERS circulars and
+           elsewhere.  It increases by exactly one second at the end of
+           each UTC leap second, introduced in order to keep delta UT
+           within $+$/- 0.9 seconds.
+
+         \sstitem
+         IMPORTANT -- TAKE CARE WITH THE LONGITUDE SIGN CONVENTION.
+           The longitude required by the present routine is east-positive,
+           in accordance with geographical convention (and right-handed).
+           In particular, note that the longitudes returned by the
+           palObs routine are west-positive, following astronomical
+           usage, and must be reversed in sign before use in the present
+           routine.
+
+         \sstitem
+         The polar coordinates XP,YP can be obtained from IERS
+           circulars and equivalent publications.  The maximum amplitude
+           is about 0.3 arcseconds.  If XP,YP values are unavailable,
+           use XP=YP=0.0.  See page B60 of the 1988 Astronomical Almanac
+           for a definition of the two angles.
+
+         \sstitem
+         The height above sea level of the observing station, HM,
+           can be obtained from the Astronomical Almanac (Section J
+           in the 1988 edition), or via the routine palObs.  If P,
+           the pressure in millibars, is available, an adequate
+           estimate of HM can be obtained from the expression
+
+      }
+              HM $\sim$ -29.3$*$TSL$*$LOG(P/1013.25).
+
+        where TSL is the approximate sea-level air temperature in K
+        (see Astrophysical Quantities, C.W.Allen, 3rd edition,
+        section 52).  Similarly, if the pressure P is not known,
+        it can be estimated from the height of the observing
+        station, HM, as follows:
+
+              P $\sim$ 1013.25$*$EXP(-HM/(29.3$*$TSL)).
+
+        Note, however, that the refraction is nearly proportional to the
+        pressure and that an accurate P value is important for precise
+        work.
+
+      \sstitemlist{
+
+         \sstitem
+         The azimuths etc produced by the present routine are with
+           respect to the celestial pole.  Corrections to the terrestrial
+           pole can be computed using palPolmo.
+      }
+   }
+}
+\sstroutine{
+   palAoppa
+}{
+   Precompute apparent to observed place parameters
+}{
+   \sstdescription{
+      Precompute apparent to observed place parameters required by palAopqk
+      and palOapqk.
+   }
+   \sstinvocation{
+      void palAoppa ( double date, double dut, double elongm, double phim,
+                      double hm, double xp, double yp, double tdk, double pmb,
+                      double rh, double wl, double tlr, double aoprms[14] );
+   }
+   \sstarguments{
+      \sstsubsection{
+         date = double (Given)
+      }{
+         UTC date/time (modified Julian Date, JD-2400000.5)
+      }
+      \sstsubsection{
+         dut = double (Given)
+      }{
+         delta UT:  UT1-UTC (UTC seconds)
+      }
+      \sstsubsection{
+         elongm = double (Given)
+      }{
+         mean longitude of the observer (radians, east $+$ve)
+      }
+      \sstsubsection{
+         phim = double (Given)
+      }{
+         mean geodetic latitude of the observer (radians)
+      }
+      \sstsubsection{
+         hm = double (Given)
+      }{
+         observer{\tt '}s height above sea level (metres)
+      }
+      \sstsubsection{
+         xp = double (Given)
+      }{
+         polar motion x-coordinate (radians)
+      }
+      \sstsubsection{
+         yp = double (Given)
+      }{
+         polar motion y-coordinate (radians)
+      }
+      \sstsubsection{
+         tdk = double (Given)
+      }{
+         local ambient temperature (K; std=273.15)
+      }
+      \sstsubsection{
+         pmb = double (Given)
+      }{
+         local atmospheric pressure (mb; std=1013.25)
+      }
+      \sstsubsection{
+         rh = double (Given)
+      }{
+         local relative humidity (in the range 0.0-1.0)
+      }
+      \sstsubsection{
+         wl = double (Given)
+      }{
+         effective wavelength (micron, e.g. 0.55)
+      }
+      \sstsubsection{
+         tlr = double (Given)
+      }{
+         tropospheric lapse rate (K/metre, e.g. 0.0065)
+      }
+      \sstsubsection{
+         aoprms = double [14] (Returned)
+      }{
+         Star-independent apparent-to-observed parameters
+
+          (0)      geodetic latitude (radians)
+          (1,2)    sine and cosine of geodetic latitude
+          (3)      magnitude of diurnal aberration vector
+          (4)      height (hm)
+          (5)      ambient temperature (tdk)
+          (6)      pressure (pmb)
+          (7)      relative humidity (rh)
+          (8)      wavelength (wl)
+          (9)     lapse rate (tlr)
+          (10,11)  refraction constants A and B (radians)
+          (12)     longitude $+$ eqn of equinoxes $+$ sidereal DUT (radians)
+          (13)     local apparent sidereal time (radians)
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         It is advisable to take great care with units, as even
+           unlikely values of the input parameters are accepted and
+           processed in accordance with the models used.
+
+         \sstitem
+         The DATE argument is UTC expressed as an MJD.  This is,
+           strictly speaking, improper, because of leap seconds.  However,
+           as long as the delta UT and the UTC are consistent there
+           are no difficulties, except during a leap second.  In this
+           case, the start of the 61st second of the final minute should
+           begin a new MJD day and the old pre-leap delta UT should
+           continue to be used.  As the 61st second completes, the MJD
+           should revert to the start of the day as, simultaneously,
+           the delta UTC changes by one second to its post-leap new value.
+
+         \sstitem
+         The delta UT (UT1-UTC) is tabulated in IERS circulars and
+           elsewhere.  It increases by exactly one second at the end of
+           each UTC leap second, introduced in order to keep delta UT
+           within $+$/- 0.9 seconds.
+
+         \sstitem
+         IMPORTANT -- TAKE CARE WITH THE LONGITUDE SIGN CONVENTION.
+           The longitude required by the present routine is east-positive,
+           in accordance with geographical convention (and right-handed).
+           In particular, note that the longitudes returned by the
+           palObs routine are west-positive, following astronomical
+           usage, and must be reversed in sign before use in the present
+           routine.
+
+         \sstitem
+         The polar coordinates XP,YP can be obtained from IERS
+           circulars and equivalent publications.  The maximum amplitude
+           is about 0.3 arcseconds.  If XP,YP values are unavailable,
+           use XP=YP=0.0.  See page B60 of the 1988 Astronomical Almanac
+           for a definition of the two angles.
+
+         \sstitem
+         The height above sea level of the observing station, HM,
+           can be obtained from the Astronomical Almanac (Section J
+           in the 1988 edition), or via the routine palObs.  If P,
+           the pressure in millibars, is available, an adequate
+           estimate of HM can be obtained from the expression
+
+      }
+              HM $\sim$ -29.3$*$TSL$*$log(P/1013.25).
+
+        where TSL is the approximate sea-level air temperature in K
+        (see Astrophysical Quantities, C.W.Allen, 3rd edition,
+        section 52).  Similarly, if the pressure P is not known,
+        it can be estimated from the height of the observing
+        station, HM, as follows:
+
+              P $\sim$ 1013.25$*$exp(-HM/(29.3$*$TSL)).
+
+        Note, however, that the refraction is nearly proportional to the
+        pressure and that an accurate P value is important for precise
+        work.
+
+      \sstitemlist{
+
+         \sstitem
+         Repeated, computationally-expensive, calls to palAoppa for
+           times that are very close together can be avoided by calling
+           palAoppa just once and then using palAoppat for the subsequent
+           times.  Fresh calls to palAoppa will be needed only when
+           changes in the precession have grown to unacceptable levels or
+           when anything affecting the refraction has changed.
+      }
+   }
+}
+\sstroutine{
+   palAoppat
+}{
+   Recompute sidereal time to support apparent to observed place
+}{
+   \sstdescription{
+      This routine recomputes the sidereal time in the apparent to
+      observed place star-independent parameter block.
+   }
+   \sstinvocation{
+      void palAoppat( double date, double aoprms[14] );
+   }
+   \sstarguments{
+      \sstsubsection{
+         date = double (Given)
+      }{
+         UTC date/time (modified Julian Date, JD-2400000.5)
+         (see palAoppa description for comments on leap seconds)
+      }
+      \sstsubsection{
+         aoprms = double[14] (Given \& Returned)
+      }{
+         Star-independent apparent-to-observed parameters. Updated
+         by this routine. Requires element 12 to be the longitude $+$
+         eqn of equinoxes $+$ sidereal DUT and fills in element 13
+         with the local apparent sidereal time (in radians).
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         See palAoppa for more information.
+
+         \sstitem
+         The star-independent parameters are not treated as an opaque
+           struct in order to retain compatibility with SLA.
+      }
+   }
+}
+\sstroutine{
+   palAopqk
+}{
+   Quick apparent to observed place
+}{
+   \sstdescription{
+      Quick apparent to observed place.
+   }
+   \sstinvocation{
+      void palAopqk ( double rap, double dap, const double aoprms[14],
+                      double $*$aob, double $*$zob, double $*$hob,
+                      double $*$dob, double $*$rob );
+   }
+   \sstarguments{
+      \sstsubsection{
+         rap = double (Given)
+      }{
+         Geocentric apparent right ascension
+      }
+      \sstsubsection{
+         dap = double (Given)
+      }{
+         Geocentric apparent declination
+      }
+      \sstsubsection{
+         aoprms = const double [14] (Given)
+      }{
+         Star-independent apparent-to-observed parameters.
+
+          [0]      geodetic latitude (radians)
+          [1,2]    sine and cosine of geodetic latitude
+          [3]      magnitude of diurnal aberration vector
+          [4]      height (HM)
+          [5]      ambient temperature (T)
+          [6]      pressure (P)
+          [7]      relative humidity (RH)
+          [8]      wavelength (WL)
+          [9]      lapse rate (TLR)
+          [10,11]  refraction constants A and B (radians)
+          [12]     longitude $+$ eqn of equinoxes $+$ sidereal DUT (radians)
+          [13]     local apparent sidereal time (radians)
+      }
+      \sstsubsection{
+         aob = double $*$ (Returned)
+      }{
+         Observed azimuth (radians: N=0,E=90)
+      }
+      \sstsubsection{
+         zob = double $*$ (Returned)
+      }{
+         Observed zenith distance (radians)
+      }
+      \sstsubsection{
+         hob = double $*$ (Returned)
+      }{
+         Observed Hour Angle (radians)
+      }
+      \sstsubsection{
+         dob = double $*$ (Returned)
+      }{
+         Observed Declination (radians)
+      }
+      \sstsubsection{
+         rob = double $*$ (Returned)
+      }{
+         Observed Right Ascension (radians)
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         This routine returns zenith distance rather than elevation
+           in order to reflect the fact that no allowance is made for
+           depression of the horizon.
+
+         \sstitem
+         The accuracy of the result is limited by the corrections for
+           refraction.  Providing the meteorological parameters are
+           known accurately and there are no gross local effects, the
+           observed RA,Dec predicted by this routine should be within
+           about 0.1 arcsec for a zenith distance of less than 70 degrees.
+           Even at a topocentric zenith distance of 90 degrees, the
+           accuracy in elevation should be better than 1 arcmin;  useful
+           results are available for a further 3 degrees, beyond which
+           the palRefro routine returns a fixed value of the refraction.
+           The complementary routines palAop (or palAopqk) and palOap
+           (or palOapqk) are self-consistent to better than 1 micro-
+           arcsecond all over the celestial sphere.
+
+         \sstitem
+         It is advisable to take great care with units, as even
+           unlikely values of the input parameters are accepted and
+           processed in accordance with the models used.
+
+         \sstitem
+         {\tt "}Apparent{\tt "} place means the geocentric apparent right ascension
+           and declination, which is obtained from a catalogue mean place
+           by allowing for space motion, parallax, precession, nutation,
+           annual aberration, and the Sun{\tt '}s gravitational lens effect.  For
+           star positions in the FK5 system (i.e. J2000), these effects can
+           be applied by means of the palMap etc routines.  Starting from
+           other mean place systems, additional transformations will be
+           needed;  for example, FK4 (i.e. B1950) mean places would first
+           have to be converted to FK5, which can be done with the
+           palFk425 etc routines.
+
+         \sstitem
+         {\tt "}Observed{\tt "} Az,El means the position that would be seen by a
+           perfect theodolite located at the observer.  This is obtained
+           from the geocentric apparent RA,Dec by allowing for Earth
+           orientation and diurnal aberration, rotating from equator
+           to horizon coordinates, and then adjusting for refraction.
+           The HA,Dec is obtained by rotating back into equatorial
+           coordinates, using the geodetic latitude corrected for polar
+           motion, and is the position that would be seen by a perfect
+           equatorial located at the observer and with its polar axis
+           aligned to the Earth{\tt '}s axis of rotation (n.b. not to the
+           refracted pole).  Finally, the RA is obtained by subtracting
+           the HA from the local apparent ST.
+
+         \sstitem
+         To predict the required setting of a real telescope, the
+           observed place produced by this routine would have to be
+           adjusted for the tilt of the azimuth or polar axis of the
+           mounting (with appropriate corrections for mount flexures),
+           for non-perpendicularity between the mounting axes, for the
+           position of the rotator axis and the pointing axis relative
+           to it, for tube flexure, for gear and encoder errors, and
+           finally for encoder zero points.  Some telescopes would, of
+           course, exhibit other properties which would need to be
+           accounted for at the appropriate point in the sequence.
+
+         \sstitem
+         The star-independent apparent-to-observed-place parameters
+           in AOPRMS may be computed by means of the palAoppa routine.
+           If nothing has changed significantly except the time, the
+           palAoppat routine may be used to perform the requisite
+           partial recomputation of AOPRMS.
+
+         \sstitem
+         At zenith distances beyond about 76 degrees, the need for
+           special care with the corrections for refraction causes a
+           marked increase in execution time.  Moreover, the effect
+           gets worse with increasing zenith distance.  Adroit
+           programming in the calling application may allow the
+           problem to be reduced.  Prepare an alternative AOPRMS array,
+           computed for zero air-pressure;  this will disable the
+           refraction corrections and cause rapid execution.  Using
+           this AOPRMS array, a preliminary call to the present routine
+           will, depending on the application, produce a rough position
+           which may be enough to establish whether the full, slow
+           calculation (using the real AOPRMS array) is worthwhile.
+           For example, there would be no need for the full calculation
+           if the preliminary call had already established that the
+           source was well below the elevation limits for a particular
+           telescope.
+
+         \sstitem
+         The azimuths etc produced by the present routine are with
+           respect to the celestial pole.  Corrections to the terrestrial
+           pole can be computed using palPolmo.
+      }
+   }
+}
+\sstroutine{
+   palAtmdsp
+}{
+   Apply atmospheric-dispersion adjustments to refraction coefficients
+}{
+   \sstdescription{
+      Apply atmospheric-dispersion adjustments to refraction coefficients.
+   }
+   \sstinvocation{
+      void palAtmdsp( double tdk, double pmb, double rh, double wl1,
+                      double a1, double b1, double wl2, double $*$a2, double $*$b2 );
+   }
+   \sstarguments{
+      \sstsubsection{
+         tdk = double (Given)
+      }{
+         Ambient temperature, K
+      }
+      \sstsubsection{
+         pmb = double (Given)
+      }{
+         Ambient pressure, millibars
+      }
+      \sstsubsection{
+         rh = double (Given)
+      }{
+         Ambient relative humidity, 0-1
+      }
+      \sstsubsection{
+         wl1 = double (Given)
+      }{
+         Reference wavelength, micrometre (0.4 recommended)
+      }
+      \sstsubsection{
+         a1 = double (Given)
+      }{
+         Refraction coefficient A for wavelength wl1 (radians)
+      }
+      \sstsubsection{
+         b1 = double (Given)
+      }{
+         Refraction coefficient B for wavelength wl1 (radians)
+      }
+      \sstsubsection{
+         wl2 = double (Given)
+      }{
+         Wavelength for which adjusted A,B required
+      }
+      \sstsubsection{
+         a2 = double $*$ (Returned)
+      }{
+         Refraction coefficient A for wavelength WL2 (radians)
+      }
+      \sstsubsection{
+         b2 = double $*$ (Returned)
+      }{
+         Refraction coefficient B for wavelength WL2 (radians)
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         To use this routine, first call palRefco specifying WL1 as the
+         wavelength.  This yields refraction coefficients A1,B1, correct
+         for that wavelength.  Subsequently, calls to palAtmdsp specifying
+         different wavelengths will produce new, slightly adjusted
+         refraction coefficients which apply to the specified wavelength.
+
+         \sstitem
+         Most of the atmospheric dispersion happens between 0.7 micrometre
+         and the UV atmospheric cutoff, and the effect increases strongly
+         towards the UV end.  For this reason a blue reference wavelength
+         is recommended, for example 0.4 micrometres.
+
+         \sstitem
+         The accuracy, for this set of conditions:
+
+      }
+         height above sea level    2000 m
+                       latitude    29 deg
+                       pressure    793 mb
+                    temperature    17 degC
+                       humidity    50\%
+                     lapse rate    0.0065 degC/m
+           reference wavelength    0.4 micrometre
+                 star elevation    15 deg
+
+      is about 2.5 mas RMS between 0.3 and 1.0 micrometres, and stays
+      within 4 mas for the whole range longward of 0.3 micrometres
+      (compared with a total dispersion from 0.3 to 20.0 micrometres
+      of about 11 arcsec).  These errors are typical for ordinary
+      conditions and the given elevation;  in extreme conditions values
+      a few times this size may occur, while at higher elevations the
+      errors become much smaller.
+
+      \sstitemlist{
+
+         \sstitem
+         If either wavelength exceeds 100 micrometres, the radio case
+         is assumed and the returned refraction coefficients are the
+         same as the given ones.  Note that radio refraction coefficients
+         cannot be turned into optical values using this routine, nor
+         vice versa.
+
+         \sstitem
+         The algorithm consists of calculation of the refractivity of the
+         air at the observer for the two wavelengths, using the methods
+         of the palRefro routine, and then scaling of the two refraction
+         coefficients according to classical refraction theory.  This
+         amounts to scaling the A coefficient in proportion to (n-1) and
+         the B coefficient almost in the same ratio (see R.M.Green,
+         {\tt "}Spherical Astronomy{\tt "}, Cambridge University Press, 1985).
+      }
+   }
+}
+\sstroutine{
    palCaldj
 }{
    Gregorian Calendar to Modified Julian Date
@@ -995,20 +1737,20 @@ SOFA functions.
       \sstsubsection{
          j = status (Returned)
       }{
-         0 = OK. See iauCal2jd for other values.
+         0 = OK. See eraCal2jd for other values.
       }
    }
    \sstnotes{
       \sstitemlist{
 
          \sstitem
-         Uses iauCal2jd
+         Uses eraCal2jd
 
          \sstitem
-         Unlike iauCal2jd this routine treats the years 0-100 as
+         Unlike eraCal2jd this routine treats the years 0-100 as
            referring to the end of the 20th Century and beginning of
            the 21st Century. If this behaviour is not acceptable
-           use the SOFA routine directly or palCldj.
+           use the SOFA/ERFA routine directly or palCldj.
            Acceptable years are 00-49, interpreted as 2000-2049,
                                 50-99,     {\tt "}       {\tt "}  1950-1999,
                                 all others, interpreted literally.
@@ -1340,6 +2082,15 @@ SOFA functions.
            a number) rather than 2 (bad number).
       }
    }
+   \sstimplementationstatus{
+      \sstitemlist{
+
+         \sstitem
+         The code is more robust if the C99 copysign() function is available.
+         This can recognize the -0.0 values returned by strtod. If copysign() is
+         missing we try to scan the string looking for minus signs.
+      }
+   }
 }
 \sstroutine{
    palDh2e
@@ -1451,14 +2202,14 @@ SOFA functions.
       \sstsubsection{
          j = status (Returned)
       }{
-         0 = OK. See iauJd2cal for other values.
+         0 = OK. See eraJd2cal for other values.
       }
    }
    \sstnotes{
       \sstitemlist{
 
          \sstitem
-         Uses iauJd2cal
+         Uses eraJd2cal
       }
    }
 }
@@ -1494,7 +2245,7 @@ SOFA functions.
       \sstsubsection{
          y = double[] (Given \& Returned)
       }{
-         The vector of N unknowns. On exit this vector contains the
+         On input the vector of N knowns. On exit this vector contains the
          N solutions.
       }
       \sstsubsection{
@@ -1509,6 +2260,11 @@ SOFA functions.
          is returned.  If the matrix is singular, jf=-1 \& d=0.0 are
          returned.  In the latter case, the contents of array {\tt "}a{\tt "} on
          return are undefined.
+      }
+      \sstsubsection{
+         iw = int[] (Given)
+      }{
+         Integer workspace of size N.
       }
    }
    \sstnotes{
@@ -1608,18 +2364,18 @@ SOFA functions.
 
          \sstitem
          This routine converts the MJD argument to calendar date before calling
-           the SOFA iauDat function.
+           the SOFA/ERFA eraDat function.
 
          \sstitem
-         This routine matches the slaDat interface which differs from the iauDat
-           interface. Consider coding directly to the SOFA interface.
+         This routine matches the slaDat interface which differs from the eraDat
+           interface. Consider coding directly to the SOFA/ERFA interface.
 
          \sstitem
-         See iauDat for a description of error conditions when calling this function
+         See eraDat for a description of error conditions when calling this function
            with a time outside of the UTC range.
 
          \sstitem
-         The status argument from iauDat is ignored. This is reasonable since the
+         The status argument from eraDat is ignored. This is reasonable since the
            error codes are mainly related to incorrect calendar dates when calculating
            the JD internally.
       }
@@ -1945,7 +2701,7 @@ SOFA functions.
            cookbook:  http://www.iausofa.org/sofa\_ts\_c.pdf.
 
          \sstitem
-         See iauDat for a description of error conditions when calling this function
+         See eraDat for a description of error conditions when calling this function
            with a time outside of the UTC range. This behaviour differs from slaDtt.
       }
    }
@@ -2047,15 +2803,35 @@ SOFA functions.
          u = double [13] (Returned)
       }{
          Universal orbital elements (Note 1)
-             (0)  combined mass (M$+$m)
-             (1)  total energy of the orbit (alpha)
-             (2)  reference (osculating) epoch (t0)
-           (3-5)  position at reference epoch (r0)
-           (6-8)  velocity at reference epoch (v0)
-             (9)  heliocentric distance at reference epoch
-            (10)  r0.v0
-            (11)  date (t)
-            (12)  universal eccentric anomaly (psi) of date, approx
+         \sstitemlist{
+
+            \sstitem
+              (0)  combined mass (M$+$m)
+
+            \sstitem
+              (1)  total energy of the orbit (alpha)
+
+            \sstitem
+              (2)  reference (osculating) epoch (t0)
+
+            \sstitem
+              (3-5)  position at reference epoch (r0)
+
+            \sstitem
+              (6-8)  velocity at reference epoch (v0)
+
+            \sstitem
+              (9)  heliocentric distance at reference epoch
+
+            \sstitem
+              (10)  r0.v0
+
+            \sstitem
+              (11)  date (t)
+
+            \sstitem
+              (12)  universal eccentric anomaly (psi) of date, approx
+         }
       }
       \sstsubsection{
          jstat = int $*$ (Returned)
@@ -2064,19 +2840,19 @@ SOFA functions.
          \sstitemlist{
 
             \sstitem
-                    1 = illegal JFORM
+                  -1 = illegal JFORM
 
             \sstitem
-                    2 = illegal E
+                  -2 = illegal E
 
             \sstitem
-                    3 = illegal AORQ
+                  -3 = illegal AORQ
 
             \sstitem
-                    4 = illegal DM
+                  -4 = illegal DM
 
             \sstitem
-                    5 = numerical error
+                  -5 = numerical error
          }
       }
    }
@@ -2265,10 +3041,10 @@ SOFA functions.
       \sstitemlist{
 
          \sstitem
-         See iauEpv00 for details on accuracy
+         See eraEpv00 for details on accuracy
 
          \sstitem
-         Note that the status argument from iauEpv00 is ignored
+         Note that the status argument from eraEpv00 is ignored
       }
    }
 }
@@ -2411,7 +3187,7 @@ SOFA functions.
    \sstdescription{
       Returns the barycentric and heliocentric velocity and position of the
       Earth at a given epoch, given with respect to a specified equinox.
-      For information about accuracy, see the function iauEpv00.
+      For information about accuracy, see the function eraEpv00.
    }
    \sstinvocation{
       void palEvp( double date, double deqx, double dvb[3], double dpb[3],
@@ -2967,7 +3743,7 @@ SOFA functions.
          Geocentric latitude can be obtained by evaluating atan2(z,r)
 
          \sstitem
-         Uses WGS84 reference ellipsoid and calls iauGd2gc
+         Uses WGS84 reference ellipsoid and calls eraGd2gc
       }
    }
 }
@@ -3104,6 +3880,39 @@ SOFA functions.
 
          \sstitem
          The reference systems and timescales used are IAU 2006.
+
+         \sstitem
+         EQ is the Julian epoch specifying both the reference frame and
+           the epoch of the position - usually 2000.  For positions where
+           the epoch and equinox are different, use the routine palPm to
+           apply proper motion corrections before using this routine.
+
+         \sstitem
+         The distinction between the required TDB and TT is always
+           negligible.  Moreover, for all but the most critical
+           applications UTC is adequate.
+
+         \sstitem
+         The proper motions in RA are dRA/dt rather than cos(Dec)$*$dRA/dt.
+
+         \sstitem
+         This routine may be wasteful for some applications because it
+           recomputes the Earth position/velocity and the precession-
+           nutation matrix each time, and because it allows for parallax
+           and proper motion.  Where multiple transformations are to be
+           carried out for one epoch, a faster method is to call the
+           palMappa routine once and then either the palMapqk routine
+           (which includes parallax and proper motion) or palMapqkz (which
+           assumes zero parallax and proper motion).
+
+         \sstitem
+         The accuracy is sub-milliarcsecond, limited by the
+           precession-nutation model (see palPrenut for details).
+
+         \sstitem
+         The accuracy is further limited by the routine palEvp, called
+           by palMappa, which computes the Earth position and velocity.
+           See eraEpv00 for details on that calculation.
       }
    }
 }
@@ -3358,7 +4167,7 @@ SOFA functions.
       \sstitemlist{
 
          \sstitem
-         Uses iauNut06a via palNutc
+         Uses eraNut06a via palNutc
 
          \sstitem
          The distinction between TDB and TT is negligible. For all but
@@ -3373,7 +4182,7 @@ SOFA functions.
 }{
    \sstdescription{
       Calculates the longitude $*$ obliquity components and mean obliquity
-      using the SOFA library.
+      using the SOFA/ERFA library.
    }
    \sstinvocation{
       void palNutc( double date, double $*$ dpsi, double $*$deps, double $*$eps0 );
@@ -3404,12 +4213,368 @@ SOFA functions.
       \sstitemlist{
 
          \sstitem
-         Calls iauObl06 and iauNut06a and therefore uses the IAU 206
+         Calls eraObl06 and eraNut06a and therefore uses the IAU 206
            precession/nutation model.
 
          \sstitem
          Note the change from SLA/F regarding the date. TT is used
            rather than TDB.
+      }
+   }
+}
+\sstroutine{
+   palOap
+}{
+   Observed to apparent place
+}{
+   \sstdescription{
+      Observed to apparent place.
+   }
+   \sstinvocation{
+      void palOap ( const char $*$type, double ob1, double ob2, double date,
+                    double dut, double elongm, double phim, double hm,
+                    double xp, double yp, double tdk, double pmb,
+                    double rh, double wl, double tlr,
+                    double $*$rap, double $*$dap );
+   }
+   \sstarguments{
+      \sstsubsection{
+         type = const char $*$ (Given)
+      }{
+         Type of coordinates - {\tt '}R{\tt '}, {\tt '}H{\tt '} or {\tt '}A{\tt '} (see below)
+      }
+      \sstsubsection{
+         ob1 = double (Given)
+      }{
+         Observed Az, HA or RA (radians; Az is N=0;E=90)
+      }
+      \sstsubsection{
+         ob2 = double (Given)
+      }{
+         Observed ZD or Dec (radians)
+      }
+      \sstsubsection{
+         date = double (Given)
+      }{
+         UTC date/time (Modified Julian Date, JD-2400000.5)
+      }
+      \sstsubsection{
+         dut = double (Given)
+      }{
+         delta UT: UT1-UTC (UTC seconds)
+      }
+      \sstsubsection{
+         elongm = double (Given)
+      }{
+         Mean longitude of the observer (radians, east $+$ve)
+      }
+      \sstsubsection{
+         phim = double (Given)
+      }{
+         Mean geodetic latitude of the observer (radians)
+      }
+      \sstsubsection{
+         hm = double (Given)
+      }{
+         Observer{\tt '}s height above sea level (metres)
+      }
+      \sstsubsection{
+         xp = double (Given)
+      }{
+         Polar motion x-coordinates (radians)
+      }
+      \sstsubsection{
+         yp = double (Given)
+      }{
+         Polar motion y-coordinates (radians)
+      }
+      \sstsubsection{
+         tdk = double (Given)
+      }{
+         Local ambient temperature (K; std=273.15)
+      }
+      \sstsubsection{
+         pmb = double (Given)
+      }{
+         Local atmospheric pressure (mb; std=1013.25)
+      }
+      \sstsubsection{
+         rh = double (Given)
+      }{
+         Local relative humidity (in the range 0.0-1.0)
+      }
+      \sstsubsection{
+         wl = double (Given)
+      }{
+         Effective wavelength (micron, e.g. 0.55)
+      }
+      \sstsubsection{
+         tlr = double (Given)
+      }{
+         Tropospheric laps rate (K/metre, e.g. 0.0065)
+      }
+      \sstsubsection{
+         rap = double $*$ (Given)
+      }{
+         Geocentric apparent right ascension
+      }
+      \sstsubsection{
+         dap = double $*$ (Given)
+      }{
+         Geocentric apparent declination
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         Only the first character of the TYPE argument is significant.
+         {\tt '}R{\tt '} or {\tt '}r{\tt '} indicates that OBS1 and OBS2 are the observed right
+         ascension and declination;  {\tt '}H{\tt '} or {\tt '}h{\tt '} indicates that they are
+         hour angle (west $+$ve) and declination;  anything else ({\tt '}A{\tt '} or
+         {\tt '}a{\tt '} is recommended) indicates that OBS1 and OBS2 are azimuth
+         (north zero, east 90 deg) and zenith distance.  (Zenith
+         distance is used rather than elevation in order to reflect the
+         fact that no allowance is made for depression of the horizon.)
+
+         \sstitem
+         The accuracy of the result is limited by the corrections for
+         refraction.  Providing the meteorological parameters are
+         known accurately and there are no gross local effects, the
+         predicted apparent RA,Dec should be within about 0.1 arcsec
+         for a zenith distance of less than 70 degrees.  Even at a
+         topocentric zenith distance of 90 degrees, the accuracy in
+         elevation should be better than 1 arcmin;  useful results
+         are available for a further 3 degrees, beyond which the
+         palRefro routine returns a fixed value of the refraction.
+         The complementary routines palAop (or palAopqk) and palOap
+         (or palOapqk) are self-consistent to better than 1 micro-
+         arcsecond all over the celestial sphere.
+
+         \sstitem
+         It is advisable to take great care with units, as even
+         unlikely values of the input parameters are accepted and
+         processed in accordance with the models used.
+
+         \sstitem
+         {\tt "}Observed{\tt "} Az,El means the position that would be seen by a
+         perfect theodolite located at the observer.  This is
+         related to the observed HA,Dec via the standard rotation, using
+         the geodetic latitude (corrected for polar motion), while the
+         observed HA and RA are related simply through the local
+         apparent ST.  {\tt "}Observed{\tt "} RA,Dec or HA,Dec thus means the
+         position that would be seen by a perfect equatorial located
+         at the observer and with its polar axis aligned to the
+         Earth{\tt '}s axis of rotation (n.b. not to the refracted pole).
+         By removing from the observed place the effects of
+         atmospheric refraction and diurnal aberration, the
+         geocentric apparent RA,Dec is obtained.
+
+         \sstitem
+         Frequently, mean rather than apparent RA,Dec will be required,
+         in which case further transformations will be necessary.  The
+         palAmp etc routines will convert the apparent RA,Dec produced
+         by the present routine into an {\tt "}FK5{\tt "} (J2000) mean place, by
+         allowing for the Sun{\tt '}s gravitational lens effect, annual
+         aberration, nutation and precession.  Should {\tt "}FK4{\tt "} (1950)
+         coordinates be needed, the routines palFk524 etc will also
+         need to be applied.
+
+         \sstitem
+         To convert to apparent RA,Dec the coordinates read from a
+         real telescope, corrections would have to be applied for
+         encoder zero points, gear and encoder errors, tube flexure,
+         the position of the rotator axis and the pointing axis
+         relative to it, non-perpendicularity between the mounting
+         axes, and finally for the tilt of the azimuth or polar axis
+         of the mounting (with appropriate corrections for mount
+         flexures).  Some telescopes would, of course, exhibit other
+         properties which would need to be accounted for at the
+         appropriate point in the sequence.
+
+         \sstitem
+         This routine takes time to execute, due mainly to the rigorous
+         integration used to evaluate the refraction.  For processing
+         multiple stars for one location and time, call palAoppa once
+         followed by one call per star to palOapqk.  Where a range of
+         times within a limited period of a few hours is involved, and the
+         highest precision is not required, call palAoppa once, followed
+         by a call to palAoppat each time the time changes, followed by
+         one call per star to palOapqk.
+
+         \sstitem
+         The DATE argument is UTC expressed as an MJD.  This is, strictly
+         speaking, wrong, because of leap seconds.  However, as long as
+         the delta UT and the UTC are consistent there are no
+         difficulties, except during a leap second.  In this case, the
+         start of the 61st second of the final minute should begin a new
+         MJD day and the old pre-leap delta UT should continue to be used.
+         As the 61st second completes, the MJD should revert to the start
+         of the day as, simultaneously, the delta UTC changes by one
+         second to its post-leap new value.
+
+         \sstitem
+         The delta UT (UT1-UTC) is tabulated in IERS circulars and
+         elsewhere.  It increases by exactly one second at the end of
+         each UTC leap second, introduced in order to keep delta UT
+         within $+$/- 0.9 seconds.
+
+         \sstitem
+         IMPORTANT -- TAKE CARE WITH THE LONGITUDE SIGN CONVENTION.
+         The longitude required by the present routine is east-positive,
+         in accordance with geographical convention (and right-handed).
+         In particular, note that the longitudes returned by the
+         palOBS routine are west-positive, following astronomical
+         usage, and must be reversed in sign before use in the present
+         routine.
+
+         \sstitem
+         The polar coordinates XP,YP can be obtained from IERS
+         circulars and equivalent publications.  The maximum amplitude
+         is about 0.3 arcseconds.  If XP,YP values are unavailable,
+         use XP=YP=0D0.  See page B60 of the 1988 Astronomical Almanac
+         for a definition of the two angles.
+
+         \sstitem
+         The height above sea level of the observing station, HM,
+         can be obtained from the Astronomical Almanac (Section J
+         in the 1988 edition), or via the routine palOBS.  If P,
+         the pressure in millibars, is available, an adequate
+         estimate of HM can be obtained from the expression
+
+      }
+             HM $\sim$ -29.3$*$TSL$*$LOG(P/1013.25).
+
+      where TSL is the approximate sea-level air temperature in K
+      (see Astrophysical Quantities, C.W.Allen, 3rd edition,
+      section 52).  Similarly, if the pressure P is not known,
+      it can be estimated from the height of the observing
+      station, HM, as follows:
+
+             P $\sim$ 1013.25$*$EXP(-HM/(29.3$*$TSL)).
+
+      Note, however, that the refraction is nearly proportional to the
+      pressure and that an accurate P value is important for precise
+      work.
+
+      \sstitemlist{
+
+         \sstitem
+         The azimuths etc. used by the present routine are with respect
+         to the celestial pole.  Corrections from the terrestrial pole
+         can be computed using palPolmo.
+      }
+   }
+}
+\sstroutine{
+   palOapqk
+}{
+   Quick observed to apparent place
+}{
+   \sstdescription{
+      type = const char $*$ (Given)
+         Type of coordinates - {\tt '}R{\tt '}, {\tt '}H{\tt '} or {\tt '}A{\tt '} (see below)
+      ob1 = double (Given)
+         Observed Az, HA or RA (radians; Az is N=0;E=90)
+      ob2 = double (Given)
+         Observed ZD or Dec (radians)
+      aoprms = const double [14] (Given)
+         Star-independent apparent-to-observed parameters.
+         See palAopqk for details.
+      rap = double $*$ (Given)
+         Geocentric apparent right ascension
+      dap = double $*$ (Given)
+         Geocentric apparent declination
+   }
+   \sstinvocation{
+      void palOapqk ( const char $*$type, double ob1, double ob2,
+                      const  double aoprms[14], double $*$rap, double $*$dap );
+   }
+   \sstarguments{
+      \sstsubsection{
+         Quick observed to apparent place.
+      }{
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         Only the first character of the TYPE argument is significant.
+         {\tt '}R{\tt '} or {\tt '}r{\tt '} indicates that OBS1 and OBS2 are the observed right
+         ascension and declination;  {\tt '}H{\tt '} or {\tt '}h{\tt '} indicates that they are
+         hour angle (west $+$ve) and declination;  anything else ({\tt '}A{\tt '} or
+         {\tt '}a{\tt '} is recommended) indicates that OBS1 and OBS2 are azimuth
+         (north zero, east 90 deg) and zenith distance.  (Zenith distance
+         is used rather than elevation in order to reflect the fact that
+         no allowance is made for depression of the horizon.)
+
+         \sstitem
+         The accuracy of the result is limited by the corrections for
+         refraction.  Providing the meteorological parameters are
+         known accurately and there are no gross local effects, the
+         predicted apparent RA,Dec should be within about 0.1 arcsec
+         for a zenith distance of less than 70 degrees.  Even at a
+         topocentric zenith distance of 90 degrees, the accuracy in
+         elevation should be better than 1 arcmin;  useful results
+         are available for a further 3 degrees, beyond which the
+         palREFRO routine returns a fixed value of the refraction.
+         The complementary routines palAop (or palAopqk) and palOap
+         (or palOapqk) are self-consistent to better than 1 micro-
+         arcsecond all over the celestial sphere.
+
+         \sstitem
+         It is advisable to take great care with units, as even
+         unlikely values of the input parameters are accepted and
+         processed in accordance with the models used.
+
+         \sstitem
+         {\tt "}Observed{\tt "} Az,El means the position that would be seen by a
+         perfect theodolite located at the observer.  This is
+         related to the observed HA,Dec via the standard rotation, using
+         the geodetic latitude (corrected for polar motion), while the
+         observed HA and RA are related simply through the local
+         apparent ST.  {\tt "}Observed{\tt "} RA,Dec or HA,Dec thus means the
+         position that would be seen by a perfect equatorial located
+         at the observer and with its polar axis aligned to the
+         Earth{\tt '}s axis of rotation (n.b. not to the refracted pole).
+         By removing from the observed place the effects of
+         atmospheric refraction and diurnal aberration, the
+         geocentric apparent RA,Dec is obtained.
+
+         \sstitem
+         Frequently, mean rather than apparent RA,Dec will be required,
+         in which case further transformations will be necessary.  The
+         palAmp etc routines will convert the apparent RA,Dec produced
+         by the present routine into an {\tt "}FK5{\tt "} (J2000) mean place, by
+         allowing for the Sun{\tt '}s gravitational lens effect, annual
+         aberration, nutation and precession.  Should {\tt "}FK4{\tt "} (1950)
+         coordinates be needed, the routines palFk524 etc will also
+         need to be applied.
+
+         \sstitem
+         To convert to apparent RA,Dec the coordinates read from a
+         real telescope, corrections would have to be applied for
+         encoder zero points, gear and encoder errors, tube flexure,
+         the position of the rotator axis and the pointing axis
+         relative to it, non-perpendicularity between the mounting
+         axes, and finally for the tilt of the azimuth or polar axis
+         of the mounting (with appropriate corrections for mount
+         flexures).  Some telescopes would, of course, exhibit other
+         properties which would need to be accounted for at the
+         appropriate point in the sequence.
+
+         \sstitem
+         The star-independent apparent-to-observed-place parameters
+         in AOPRMS may be computed by means of the palAoppa routine.
+         If nothing has changed significantly except the time, the
+         palAoppat routine may be used to perform the requisite
+         partial recomputation of AOPRMS.
+
+         \sstitem
+         The azimuths etc used by the present routine are with respect
+         to the celestial pole.  Corrections from the terrestrial pole
+         can be computed using palPolmo.
       }
    }
 }
@@ -4240,13 +5405,13 @@ SOFA functions.
       \sstitemlist{
 
          \sstitem
-         See SOFA iauPlan94 for details
+         See SOFA/ERFA eraPlan94 for details
 
          \sstitem
          Note that Pluto is supported in SLA/F but not in this routine
 
          \sstitem
-         Status -2 is equivalent to iauPlan94 status $+$2.
+         Status -2 is equivalent to eraPlan94 status $+$2.
 
          \sstitem
          Note that velocity units here match the SLA/F documentation.
@@ -4699,7 +5864,7 @@ SOFA functions.
 }{
    \sstdescription{
       Apply corrections for proper motion to a star RA,Dec using the
-      SOFA routine iauStarpm.
+      SOFA/ERFA routine eraStarpm.
    }
    \sstinvocation{
       void palPm ( double r0, double d0, double pr, double pd,
@@ -4762,7 +5927,7 @@ SOFA functions.
       \sstitemlist{
 
          \sstitem
-         Uses iauStarpm but ignores the status returns from that routine.
+         Uses eraStarpm but ignores the status returns from that routine.
            In particular note that parallax should not be zero when the
            proper motions are non-zero. SLA/F allows parallax to be zero.
 
@@ -5393,8 +6558,485 @@ SOFA functions.
            context of the limited accuracy of the present routine its
            effect on planetary positions is small (negligible for the
            outer planets).  Geocentric positions can be generated by
-           appropriate use of the routines palDmoon and iauPlan94.
+           appropriate use of the routines palDmoon and eraPlan94.
       }
+   }
+}
+\sstroutine{
+   palRefco
+}{
+   Determine constants in atmospheric refraction model
+}{
+   \sstdescription{
+      Determine the constants A and B in the atmospheric refraction
+      model dZ = A tan Z $+$ B tan$*$$*$3 Z.
+
+      Z is the {\tt "}observed{\tt "} zenith distance (i.e. affected by refraction)
+      and dZ is what to add to Z to give the {\tt "}topocentric{\tt "} (i.e. in vacuo)
+      zenith distance.
+   }
+   \sstinvocation{
+      void palRefco ( double hm, double tdk, double pmb, double rh,
+                      double wl, double phi, double tlr, double eps,
+                      double $*$refa, double $*$refb );
+   }
+   \sstarguments{
+      \sstsubsection{
+         hm = double (Given)
+      }{
+         Height of the observer above sea level (metre)
+      }
+      \sstsubsection{
+         tdk = double (Given)
+      }{
+         Ambient temperature at the observer (K)
+      }
+      \sstsubsection{
+         pmb = double (Given)
+      }{
+         Pressure at the observer (millibar)
+      }
+      \sstsubsection{
+         rh = double (Given)
+      }{
+         Relative humidity at the observer (range 0-1)
+      }
+      \sstsubsection{
+         wl = double (Given)
+      }{
+         Effective wavelength of the source (micrometre)
+      }
+      \sstsubsection{
+         phi = double (Given)
+      }{
+         Latitude of the observer (radian, astronomical)
+      }
+      \sstsubsection{
+         tlr = double (Given)
+      }{
+         Temperature lapse rate in the troposphere (K/metre)
+      }
+      \sstsubsection{
+         eps = double (Given)
+      }{
+         Precision required to terminate iteration (radian)
+      }
+      \sstsubsection{
+         refa = double $*$ (Returned)
+      }{
+         tan Z coefficient (radian)
+      }
+      \sstsubsection{
+         refb = double $*$ (Returned)
+      }{
+         tan$*$$*$3 Z coefficient (radian)
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         Typical values for the TLR and EPS arguments might be 0.0065 and
+         1E-10 respectively.
+
+         \sstitem
+         The radio refraction is chosen by specifying WL $>$ 100 micrometres.
+
+         \sstitem
+         The routine is a slower but more accurate alternative to the
+         palRefcoq routine.  The constants it produces give perfect
+         agreement with palRefro at zenith distances arctan(1) (45 deg)
+         and arctan(4) (about 76 deg).  It achieves 0.5 arcsec accuracy
+         for ZD $<$ 80 deg, 0.01 arcsec accuracy for ZD $<$ 60 deg, and
+         0.001 arcsec accuracy for ZD $<$ 45 deg.
+      }
+   }
+}
+\sstroutine{
+   palRefro
+}{
+   Atmospheric refraction for radio and optical/IR wavelengths
+}{
+   \sstdescription{
+      Calculates the atmospheric refraction for radio and optical/IR
+      wavelengths.
+   }
+   \sstinvocation{
+      void palRefro( double zobs, double hm, double tdk, double pmb,
+   }
+   \sstarguments{
+      \sstsubsection{
+         zobs = double (Given)
+      }{
+         Observed zenith distance of the source (radian)
+      }
+      \sstsubsection{
+         hm = double (Given)
+      }{
+         Height of the observer above sea level (metre)
+      }
+      \sstsubsection{
+         tdk = double (Given)
+      }{
+         Ambient temperature at the observer (K)
+      }
+      \sstsubsection{
+         pmb = double (Given)
+      }{
+         Pressure at the observer (millibar)
+      }
+      \sstsubsection{
+         rh = double (Given)
+      }{
+         Relative humidity at the observer (range 0-1)
+      }
+      \sstsubsection{
+         wl = double (Given)
+      }{
+         Effective wavelength of the source (micrometre)
+      }
+      \sstsubsection{
+         phi = double (Given)
+      }{
+         Latitude of the observer (radian, astronomical)
+      }
+      \sstsubsection{
+         tlr = double (Given)
+      }{
+         Temperature lapse rate in the troposphere (K/metre)
+      }
+      \sstsubsection{
+         eps = double (Given)
+      }{
+         Precision required to terminate iteration (radian)
+      }
+      \sstsubsection{
+         ref = double $*$ (Returned)
+      }{
+         Refraction: in vacuao ZD minus observed ZD (radian)
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         A suggested value for the TLR argument is 0.0065.  The
+         refraction is significantly affected by TLR, and if studies
+         of the local atmosphere have been carried out a better TLR
+         value may be available.  The sign of the supplied TLR value
+         is ignored.
+
+         \sstitem
+         A suggested value for the EPS argument is 1E-8.  The result is
+         usually at least two orders of magnitude more computationally
+         precise than the supplied EPS value.
+
+         \sstitem
+         The routine computes the refraction for zenith distances up
+         to and a little beyond 90 deg using the method of Hohenkerk
+         and Sinclair (NAO Technical Notes 59 and 63, subsequently adopted
+         in the Explanatory Supplement, 1992 edition - see section 3.281).
+
+         \sstitem
+         The code is a development of the optical/IR refraction subroutine
+         AREF of C.Hohenkerk (HMNAO, September 1984), with extensions to
+         support the radio case.  Apart from merely cosmetic changes, the
+         following modifications to the original HMNAO optical/IR refraction
+         code have been made:
+
+      }
+      .  The angle arguments have been changed to radians.
+
+      .  Any value of ZOBS is allowed (see note 6, below).
+
+      .  Other argument values have been limited to safe values.
+
+      .  Murray{\tt '}s values for the gas constants have been used
+         (Vectorial Astrometry, Adam Hilger, 1983).
+
+      .  The numerical integration phase has been rearranged for
+         extra clarity.
+
+      .  A better model for Ps(T) has been adopted (taken from
+         Gill, Atmosphere-Ocean Dynamics, Academic Press, 1982).
+
+      .  More accurate expressions for Pwo have been adopted
+         (again from Gill 1982).
+
+      .  The formula for the water vapour pressure, given the
+         saturation pressure and the relative humidity, is from
+         Crane (1976), expression 2.5.5.
+
+      .  Provision for radio wavelengths has been added using
+         expressions devised by A.T.Sinclair, RGO (private
+         communication 1989).  The refractivity model currently
+         used is from J.M.Rueger, {\tt "}Refractive Index Formulae for
+         Electronic Distance Measurement with Radio and Millimetre
+         Waves{\tt "}, in Unisurv Report S-68 (2002), School of Surveying
+         and Spatial Information Systems, University of New South
+         Wales, Sydney, Australia.
+
+      .  The optical refractivity for dry air is from Resolution 3 of
+         the International Association of Geodesy adopted at the XXIIth
+         General Assembly in Birmingham, UK, 1999.
+
+      .  Various small changes have been made to gain speed.
+
+      \sstitemlist{
+
+         \sstitem
+         The radio refraction is chosen by specifying WL $>$ 100 micrometres.
+         Because the algorithm takes no account of the ionosphere, the
+         accuracy deteriorates at low frequencies, below about 30 MHz.
+
+         \sstitem
+         Before use, the value of ZOBS is expressed in the range $+$/- pi.
+         If this ranged ZOBS is -ve, the result REF is computed from its
+         absolute value before being made -ve to match.  In addition, if
+         it has an absolute value greater than 93 deg, a fixed REF value
+         equal to the result for ZOBS = 93 deg is returned, appropriately
+         signed.
+
+         \sstitem
+         As in the original Hohenkerk and Sinclair algorithm, fixed values
+         of the water vapour polytrope exponent, the height of the
+         tropopause, and the height at which refraction is negligible are
+         used.
+
+         \sstitem
+         The radio refraction has been tested against work done by
+         Iain Coulson, JACH, (private communication 1995) for the
+         James Clerk Maxwell Telescope, Mauna Kea.  For typical conditions,
+         agreement at the 0.1 arcsec level is achieved for moderate ZD,
+         worsening to perhaps 0.5-1.0 arcsec at ZD 80 deg.  At hot and
+         humid sea-level sites the accuracy will not be as good.
+
+         \sstitem
+         It should be noted that the relative humidity RH is formally
+         defined in terms of {\tt "}mixing ratio{\tt "} rather than pressures or
+         densities as is often stated.  It is the mass of water per unit
+         mass of dry air divided by that for saturated air at the same
+         temperature and pressure (see Gill 1982).
+
+         \sstitem
+         The algorithm is designed for observers in the troposphere. The
+         supplied temperature, pressure and lapse rate are assumed to be
+         for a point in the troposphere and are used to define a model
+         atmosphere with the tropopause at 11km altitude and a constant
+         temperature above that.  However, in practice, the refraction
+         values returned for stratospheric observers, at altitudes up to
+         25km, are quite usable.
+      }
+   }
+}
+\sstroutine{
+   palRefv
+}{
+   Adjust an unrefracted Cartesian vector to include the effect of atmospheric refraction
+}{
+   \sstdescription{
+      Adjust an unrefracted Cartesian vector to include the effect of
+      atmospheric refraction, using the simple A tan Z $+$ B tan$*$$*$3 Z
+      model.
+   }
+   \sstinvocation{
+      void palRefv ( double vu[3], double refa, double refb, double vr[3] );
+   }
+   \sstarguments{
+      \sstsubsection{
+         vu[3] = double (Given)
+      }{
+         Unrefracted position of the source (Az/El 3-vector)
+      }
+      \sstsubsection{
+         refa = double (Given)
+      }{
+         tan Z coefficient (radian)
+      }
+      \sstsubsection{
+         refb = double (Given)
+      }{
+         tan$*$$*$3 Z coefficient (radian)
+      }
+      \sstsubsection{
+         vr[3] = double (Returned)
+      }{
+         Refracted position of the source (Az/El 3-vector)
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         This routine applies the adjustment for refraction in the
+         opposite sense to the usual one - it takes an unrefracted
+         (in vacuo) position and produces an observed (refracted)
+         position, whereas the A tan Z $+$ B tan$*$$*$3 Z model strictly
+         applies to the case where an observed position is to have the
+         refraction removed.  The unrefracted to refracted case is
+         harder, and requires an inverted form of the text-book
+         refraction models;  the algorithm used here is equivalent to
+         one iteration of the Newton-Raphson method applied to the above
+         formula.
+
+         \sstitem
+         Though optimized for speed rather than precision, the present
+         routine achieves consistency with the refracted-to-unrefracted
+         A tan Z $+$ B tan$*$$*$3 Z model at better than 1 microarcsecond within
+         30 degrees of the zenith and remains within 1 milliarcsecond to
+         beyond ZD 70 degrees.  The inherent accuracy of the model is, of
+         course, far worse than this - see the documentation for sla\_REFCO
+         for more information.
+
+         \sstitem
+         At low elevations (below about 3 degrees) the refraction
+         correction is held back to prevent arithmetic problems and
+         wildly wrong results.  For optical/IR wavelengths, over a wide
+         range of observer heights and corresponding temperatures and
+         pressures, the following levels of accuracy (arcsec, worst case)
+         are achieved, relative to numerical integration through a model
+         atmosphere:
+
+      }
+               ZD    error
+
+               80      0.7
+               81      1.3
+               82      2.5
+               83      5
+               84     10
+               85     20
+               86     55
+               87    160
+               88    360
+               89    640
+               90   1100
+               91   1700         \} relevant only to
+               92   2600         \} high-elevation sites
+
+      The results for radio are slightly worse over most of the range,
+      becoming significantly worse below ZD=88 and unusable beyond
+      ZD=90.
+
+      \sstitemlist{
+
+         \sstitem
+         See also the routine palRefz, which performs the adjustment to
+         the zenith distance rather than in Cartesian Az/El coordinates.
+         The present routine is faster than palRefz and, except very low down,
+         is equally accurate for all practical purposes.  However, beyond
+         about ZD 84 degrees palRefz should be used, and for the utmost
+         accuracy iterative use of palRefro should be considered.
+      }
+   }
+}
+\sstroutine{
+   palRefz
+}{
+   Adjust unrefracted zenith distance
+}{
+   \sstdescription{
+      Adjust an unrefracted zenith distance to include the effect of
+      atmospheric refraction, using the simple A tan Z $+$ B tan$*$$*$3 Z
+      model (plus special handling for large ZDs).
+   }
+   \sstinvocation{
+      void palRefz ( double zu, double refa, double refb, double $*$zr );
+   }
+   \sstarguments{
+      \sstsubsection{
+         zu = double (Given)
+      }{
+         Unrefracted zenith distance of the source (radians)
+      }
+      \sstsubsection{
+         refa = double (Given)
+      }{
+         tan Z coefficient (radians)
+      }
+      \sstsubsection{
+         refb = double (Given)
+      }{
+         tan$*$$*$3 Z coefficient (radian)
+      }
+      \sstsubsection{
+         zr = double $*$ (Returned)
+      }{
+         Refracted zenith distance (radians)
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         This routine applies the adjustment for refraction in the
+         opposite sense to the usual one - it takes an unrefracted
+         (in vacuo) position and produces an observed (refracted)
+         position, whereas the A tan Z $+$ B tan$*$$*$3 Z model strictly
+         applies to the case where an observed position is to have the
+         refraction removed.  The unrefracted to refracted case is
+         harder, and requires an inverted form of the text-book
+         refraction models;  the formula used here is based on the
+         Newton-Raphson method.  For the utmost numerical consistency
+         with the refracted to unrefracted model, two iterations are
+         carried out, achieving agreement at the 1D-11 arcseconds level
+         for a ZD of 80 degrees.  The inherent accuracy of the model
+         is, of course, far worse than this - see the documentation for
+         palRefco for more information.
+
+         \sstitem
+         At ZD 83 degrees, the rapidly-worsening A tan Z $+$ B tan$\wedge$3 Z
+         model is abandoned and an empirical formula takes over.  For
+         optical/IR wavelengths, over a wide range of observer heights and
+         corresponding temperatures and pressures, the following levels of
+         accuracy (arcsec, worst case) are achieved, relative to numerical
+         integration through a model atmosphere:
+
+      }
+               ZR    error
+
+               80      0.7
+               81      1.3
+               82      2.4
+               83      4.7
+               84      6.2
+               85      6.4
+               86      8
+               87     10
+               88     15
+               89     30
+               90     60
+               91    150         \} relevant only to
+               92    400         \} high-elevation sites
+
+      For radio wavelengths the errors are typically 50\% larger than
+      the optical figures and by ZD 85 deg are twice as bad, worsening
+      rapidly below that.  To maintain 1 arcsec accuracy down to ZD=85
+      at the Green Bank site, Condon (2004) has suggested amplifying
+      the amount of refraction predicted by palRefz below 10.8 deg
+      elevation by the factor (1$+$0.00195$*$(10.8-E\_t)), where E\_t is the
+      unrefracted elevation in degrees.
+
+      The high-ZD model is scaled to match the normal model at the
+      transition point;  there is no glitch.
+
+      \sstitemlist{
+
+         \sstitem
+         Beyond 93 deg zenith distance, the refraction is held at its
+         93 deg value.
+
+         \sstitem
+         See also the routine palRefv, which performs the adjustment in
+         Cartesian Az/El coordinates, and with the emphasis on speed
+         rather than numerical accuracy.
+      }
+   }
+   \sstdiytopic{
+      References
+   }{
+      Condon,J.J., Refraction Corrections for the GBT, PTCS/PN/35.2,
+      NRAO Green Bank, 2004.
    }
 }
 \sstroutine{
@@ -6042,6 +7684,11 @@ SOFA functions.
             {\tt "}     (10)   r0.v0
          returned (11)   date (t)
             {\tt "}     (12)   universal eccentric anomaly (psi) of date
+      }
+      \sstsubsection{
+         pv = double [6] (Returned)
+      }{
+         Position (AU) and velocity (AU/s)
       }
       \sstsubsection{
          jstat = int $*$ (Returned)
