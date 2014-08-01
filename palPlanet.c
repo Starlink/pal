@@ -39,7 +39,7 @@
 *     {enter_new_authors_here}
 
 *  Notes:
-*     - See SOFA eraPlan94 for details
+*     - See SOFA/ERFA eraPlan94 for details
 *     - Note that Pluto is supported in SLA/F but not in this routine
 *     - Status -2 is equivalent to eraPlan94 status +2.
 *     - Note that velocity units here match the SLA/F documentation.

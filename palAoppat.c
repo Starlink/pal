@@ -80,7 +80,7 @@ void palAoppat( double date, double aoprms[14] ) {
 }
 
 /* Use a private implementation of palGmst for testing that matches
-   the SLA rather than SOFA implementation. This is used for comparing
+   the SLA rather than SOFA/ERFA implementation. This is used for comparing
    SLA with PAL refraction code. */
 
 #include "math.h"

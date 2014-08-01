@@ -675,6 +675,15 @@ ASP Conf.\ Ser. \textbf{475}, p307.
 \appendix
 \section{\label{APP:SPEC}Function Descriptions}
 
+By default PAL is set up to use the ERFA variant of SOFA. ERFA is an
+approved redistribution of the SOFA code using a BSD-license and
+renamed function calls. Whereas SOFA routines have a \texttt{iau} prefix
+the ERFA equivalents have a \texttt{era} prefix. The PAL build script
+will try to detect which of ERFA and SOFA is available. Wherever SOFA
+is mentioned in this document the ERFA equivalent can be substituted.
+
+ERFA can be obtained from \htmladdnormallink{https://github.com/liberfa/erfa}.
+
 \subsection{SOFA Mappings}
 
 The following table lists PAL/SLA functions that have direct

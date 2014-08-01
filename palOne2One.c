@@ -16,11 +16,11 @@
 *     Library routine
 
 *  Description:
-*     Some SOFA routines are identical to their SLA counterparts. PAL provides
+*     Some SOFA/ERFA routines are identical to their SLA counterparts. PAL provides
 *     direct counterparts to these although it is generally a better idea to
-*     use the SOFA routine directly in new code.
+*     use the SOFA/ERFA routine directly in new code.
 *
-*     The PAL routines with direct equivalents in SOFA are:
+*     The PAL routines with direct equivalents in SOFA/ERFA are:
 *     - palCldj
 *     - palDbear
 *     - palDaf2r
@@ -62,11 +62,11 @@
 
 *  Notes:
 *     - Do not call these functions from other PAL functions. Always use
-*       the SOFA routines directly in new code.
+*       the SOFA/ERFA routines directly in new code.
 *     - These are implemented as real functions rather than C preprocessor
 *       macros so there may be a performance penalty in using the PAL
-*       version instead of the SOFA version.
-*     - Routines that take MJDs have SOFA equivalents that have an explicit
+*       version instead of the SOFA/ERFA version.
+*     - Routines that take MJDs have SOFA/ERFA equivalents that have an explicit
 *       MJD offset included.
 *     - palEqeqx, palGmst and palGmsta use the IAU 2006 precession model.
 
@@ -248,12 +248,13 @@ void palFk5hz ( double r5, double d5, double epoch,
   eraFk5hz( r5, d5, date1, date2, rh, dh );
 }
 
-/* Note that SOFA has more accurate time arguments and we use the 2006 precession model */
+/* Note that SOFA/ERFA has more accurate time arguments
+   and we use the 2006 precession model */
 double palGmst ( double ut1 ) {
   return eraGmst06( PAL__MJD0, ut1, PAL__MJD0, ut1 );
 }
 
-/* Slightly better but still not as accurate as SOFA */
+/* Slightly better but still not as accurate as SOFA/ERFA */
 
 double palGmsta( double date, double ut ) {
   date += PAL__MJD0;
@@ -271,6 +272,6 @@ void palHfk5z ( double rh, double dh, double epoch,
 void palRefcoq ( double tdk, double pmb, double rh, double wl,
                  double *refa, double *refb ) {
   /* Note that SLA (and therefore PAL) uses units of kelvin
-     but SOFA uses deg C */
+     but SOFA/ERFA uses deg C */
   eraRefco( pmb, tdk - 273.15, rh, wl, refa, refb );
 }

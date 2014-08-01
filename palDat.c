@@ -33,9 +33,9 @@
 
 *  Notes:
 *     - This routine converts the MJD argument to calendar date before calling
-*       the SOFA eraDat function.
+*       the SOFA/ERFA eraDat function.
 *     - This routine matches the slaDat interface which differs from the eraDat
-*       interface. Consider coding directly to the SOFA interface.
+*       interface. Consider coding directly to the SOFA/ERFA interface.
 *     - See eraDat for a description of error conditions when calling this function
 *       with a time outside of the UTC range.
 *     - The status argument from eraDat is ignored. This is reasonable since the

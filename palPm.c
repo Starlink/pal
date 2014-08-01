@@ -41,7 +41,7 @@
 
 *  Description:
 *     Apply corrections for proper motion to a star RA,Dec using the
-*     SOFA routine eraStarpm.
+*     SOFA/ERFA routine eraStarpm.
 
 *  Authors:
 *     TIMJ: Tim Jenness (JAC, Hawaii)
@@ -95,7 +95,7 @@ void palPm ( double r0, double d0, double pr, double pd,
   double ep1a, ep1b, ep2a, ep2b;
   double pmr2, pmd2, px2, rv2;
 
-  /* SOFA requires the epochs in TDB MJD so we have to
+  /* SOFA/ERFA requires the epochs in TDB MJD so we have to
      assume that the supplied epochs are Julian years */
   eraEpj2jd( ep0, &ep1a, &ep1b );
   eraEpj2jd( ep1, &ep2a, &ep2b );

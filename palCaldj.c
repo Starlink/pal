@@ -47,7 +47,7 @@
 *     - Unlike eraCal2jd this routine treats the years 0-100 as
 *       referring to the end of the 20th Century and beginning of
 *       the 21st Century. If this behaviour is not acceptable
-*       use the SOFA routine directly or palCldj.
+*       use the SOFA/ERFA routine directly or palCldj.
 *       Acceptable years are 00-49, interpreted as 2000-2049,
 *                            50-99,     "       "  1950-1999,
 *                            all others, interpreted literally.

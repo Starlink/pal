@@ -27,7 +27,7 @@
 
 *  Description:
 *     Calculates the longitude * obliquity components and mean obliquity
-*     using the SOFA library.
+*     using the SOFA/ERFA library.
 
 *  Authors:
 *     TIMJ: Tim Jenness (JAC, Hawaii)

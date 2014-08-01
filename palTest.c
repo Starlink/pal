@@ -59,7 +59,8 @@
 
 static int verbose = 1;
 
-/* Support functions to allow to test results. viv and vvd match the SOFA implementations */
+/* Support functions to allow to test results.
+   viv and vvd match the SOFA/ERFA implementations */
 
 static void viv(int ival, int ivalok, const char *func, const char *test,
                 int *status)
@@ -666,7 +667,7 @@ static void t_epj2d( int *status ) {
 
 /* Equation of the equinoxes */
 
-/* Use SOFA test because of change in precession model */
+/* Use SOFA/ERFA test because of change in precession model */
 static void t_eqeqx (int *status ) {
   vvd ( palEqeqx( 53736. ), -0.8834195072043790156e-5,
         1e-15, "palEqeqx", " ", status );
@@ -738,7 +739,7 @@ static void t_geoc( int *status ) {
   palGeoc( lat, alt, &r, &z );
 
   /* Note the lower tolerance than normal since the models in SLA
-     differ from the more up to date model in SOFA */
+     differ from the more up to date model in SOFA/ERFA */
   vvd( r, 4.01502667039618e-05, 1e-10, "palGeoc", "R", status );
   vvd( z, 1.43762411970295e-05, 1e-10, "palGeoc", "Z", status );
 
@@ -759,7 +760,7 @@ static void t_ge50 ( int *status ) {
 
 /* GMST */
 
-/* We use the SOFA test values rather than the values from SLA
+/* We use the SOFA/ERFA test values rather than the values from SLA
    because the precession models have changed */
 
 static void t_gmst( int *status ) {
@@ -862,7 +863,7 @@ static void t_nut( int *status ) {
   palNut( 46012.32, rmatn );
   vrmat( rmatn, expected, "palNut", 1.0e-3, status );
 
-  /* Use the SOFA tests */
+  /* Use the SOFA/ERFA tests */
   palNutc( 54388.0, &dpsi, &deps, &eps0 );
   vvd( eps0, 0.4090749229387258204, 1e-14,
       "palNutc", "eps0", status);
@@ -1195,7 +1196,7 @@ static void t_map( int *status ) {
            0.123, 32.1, 1999, 43210.9, &ra, &da );
 
   /* These are the SLA tests but and they agree to 0.1 arcsec
-     with PAL/SOFA. We expect a slight difference from the change
+     with PAL/SOFA/ERFA. We expect a slight difference from the change
      to nutation models. */
   vvd ( ra, 6.117130429775647, 1e-6, "palMap",
           "RA", status );
@@ -1721,7 +1722,7 @@ static void t_pm( int * status ) {
   vvd ( dec2, -0.8696617307805072, 1e-10, "palPm",
         "D", status );
 
-  /* SOFA test */
+  /* SOFA/ERFA test */
   ra1 =   0.01686756;
   dec1 = -1.093989828;
   pmr1 = -1.78323516e-5;
@@ -1883,7 +1884,7 @@ static void t_ref( int *status ) {
 
 int main (void) {
 
-  /* Use the SLA and SOFA conventions */
+  /* Use the SLA and SOFA/ERFA conventions */
   int status = 0; /* Unix and SAE convention */
 
   t_addet(&status);
