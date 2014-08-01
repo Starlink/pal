@@ -14,7 +14,7 @@
     except for the use of a "pal" prefix.
     </p></abstract>
   <dependencies >
-    <build>sofa</build><build>starutil</build><link>sofa</link><link>starutil</link><sourceset>star2html</sourceset>
+    <build>erfa</build><build>starutil</build><link>erfa</link><link>starutil</link><sourceset>star2html</sourceset>
   </dependencies>
   <developers>
     <person>
