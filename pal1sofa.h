@@ -13,7 +13,7 @@
 *     Include file
 
 *  Invocation:
-*     #include "pal1.h"
+*     #include "pal1sofa.h"
 
 *  Description:
 *     PAL will work with both SOFA and ERFA libraries and the
