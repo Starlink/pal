@@ -71,7 +71,7 @@
 *-
 */
 
-#include <pal.h>
+#include "pal.h"
 
 void palNut( double date, double rmatn[3][3]) {
   double dpsi, deps, eps0;
