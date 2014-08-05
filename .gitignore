@@ -42,3 +42,10 @@ stamp-h2
 pal-*.tar.gz
 pubs/adass2012/P56.pdf
 test-driver
+*.os
+.sconf_temp/
+.sconsign.dblite
+libpal.*.dylib
+libpal.a
+libpal.dylib
+sun267.fls
