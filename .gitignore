@@ -9,6 +9,7 @@ configure.in
 *.o
 *.lo
 *.la
+*.dSYM
 palTest
 make.log
 make.log.err
