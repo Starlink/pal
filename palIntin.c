@@ -53,10 +53,12 @@
 *        Initial version
 *        Matches the SLALIB interface but brand new implementation using
 *        C library calls and not a direct port of the Fortran.
+*     2014-08-07 (TIMJ):
+*        Check for isblank availability.
 *     {enter_further_changes_here}
 
 *  Copyright:
-*     Copyright (C) 2012 Science and Technology Facilities Council.
+*     Copyright (C) 2012,2014 Science and Technology Facilities Council.
 *     All Rights Reserved.
 
 *  Licence:
