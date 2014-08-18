@@ -20,12 +20,19 @@ Building
 
 A simple `configure` script is provided:
 
-    ./configure --prefix=/usr/local
+    ./configure --prefix=/usr/local --without-starlink
     make
     make install
 
 The tests can be run using `make check`. Use `--prefix` to specify an install location.
 Given the history of the source code as a Starlink library the default will be `/star`.
+
+`--without-starlink` forces the configure script to forget about any Starlink
+configurations. This is the safe option if you run into problems when using
+a simple `--prefix` for building outside of Starlink. The configure script
+will assume Starlink is not being used by looking to see if
+`STARLINK_DIR` environment variable is set. You may run into problems if
+`STARLINK_DIR` is set but you use `--without-starlink`.
 
 Requirements
 ------------
