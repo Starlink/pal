@@ -50,7 +50,7 @@ then
 else
   dnl AC_CHECK_HEADERS does not search $includedir
   save_CPPFLAGS="$CPPFLAGS"
-  eval CPPFLAGS=\"$CPPFLAGS -I${includdir}\"
+  eval CPPFLAGS=\"$CPPFLAGS -I${includedir}\"
   eval CPPFLAGS=\"$CPPFLAGS\"
   AC_CHECK_HEADERS( star/util.h )
   CPPFLAGS="$save_CPPFLAGS"
