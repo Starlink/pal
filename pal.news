@@ -4,6 +4,26 @@ The Starlink Positional Astronomy Library (PAL) is a C implementation of the
 SLALIB API. It is distributed under the GPL and uses the SOFA library wherever
 possible.
 
+V0.5.1
+
+The configure script was getting confused if run outside of
+Starlink without using --without-starlink. This was because
+$STARLINK is set in the script if it is not set and the
+configure script was assuming $STARLINK would be unset
+outside of a Starlink environment. The configure script
+now keys off $STARLINK_DIR but that may interact badly
+if STARLINK_DIR is set and --without-starlink is used.
+
+An experimental SConstruct build script is now available
+for users of scons.
+
+SUN/267 has been synced up with the associated source files.
+
+palIntin now respects the isblank configure check (as it
+should have done all along).
+
+Minor clean ups of some source prologues.
+
 V0.5.0
 
 Now works with ERFA <https://github.com/liberfa/erfa>.
