@@ -73,9 +73,9 @@ if not GetOption("help") and not GetOption("clean"):
         conf.env.Append(CPPDEFINES={"HAVE_STAR_UTIL": 1})
         conf.env.Append(LIBS=["starutil"])
     else:
-        # For testing
-        conf.env.Append(CPPPATH=["/star/include"])
-        conf.env.Append(LIBPATH=["/star/lib"])
+        # Allow PREFIX to work
+        conf.env.Append(CPPPATH=[os.path.join("$PREFIX", "include")])
+        conf.env.Append(LIBPATH=[os.path.join("$PREFIX", "lib")])
 
         # Maybe starutil will be available
         if conf.CheckLib("starutil"):
