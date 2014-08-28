@@ -533,6 +533,8 @@ void palV2tp ( float v[3], float v0[3], float *xi, float *eta, int *j );
 
 float palVdv ( float va[3], float vb[3] );
 
+int palVers ( char * verstring, size_t verlen );
+
 void palVn ( float v[3], float uv[3], float *vm );
 
 void palVxv ( float va[3], float vb[3], float vc[3] );

@@ -110,7 +110,8 @@ palRvlsrk.c \
 palSubet.c \
 palSupgal.c \
 palUe2el.c \
-palUe2pv.c
+palUe2pv.c \
+palVers.c
 
 PRIVATE_C_FILES = \
 pal1Atms.c \

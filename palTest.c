@@ -1880,6 +1880,16 @@ static void t_ref( int *status ) {
 
 }
 
+static void t_vers( int *status ) {
+  char verstring[32];
+
+  int ver = palVers( verstring, sizeof(verstring));
+  printf("PAL Version %s (%d)\n", verstring, ver);
+  if ( ver < 6000 ) {
+    *status = 1; /* palVers introduced at v0.6.0 */
+  }
+}
+
 /**********************************************************************/
 
 int main (void) {
@@ -1954,6 +1964,7 @@ int main (void) {
   t_supgal(&status);
   t_tp(&status);
   t_vecmat(&status);
+  t_vers(&status);
   return status;
 }
 

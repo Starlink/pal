@@ -17,6 +17,10 @@ AC_CONFIG_SRCDIR([pal.h])
 dnl    Include defaults for Starlink configurations
 STAR_DEFAULTS
 
+dnl    Would like the version number as an integer
+AC_DEFINE_UNQUOTED([PACKAGE_VERSION_INTEGER], $PACKAGE_VERSION_INTEGER,
+                    [Integer version number, in the form major*1e6+minor*1e3+release])
+
 dnl    Find required versions of the programs we need for configuration
 AC_PROG_CC
 LT_INIT
