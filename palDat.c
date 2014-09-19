@@ -1,10 +1,10 @@
 /*
 *+
 *  Name:
-*     palDtt
+*     palDat
 
 *  Purpose:
-*     Return offset between UTC and TT
+*     Return offset between UTC and TAI
 
 *  Language:
 *     Starlink ANSI C
