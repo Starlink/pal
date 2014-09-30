@@ -226,6 +226,33 @@ static void t_afin( int * status ) {
   viv ( j, 0, "palDafin", "J", status );
 }
 
+/* Altaz */
+
+static void t_altaz( int *status ) {
+  double az, azd, azdd, el, eld, eldd, pa, pad, padd;
+  palAltaz( 0.7, -0.7, -0.65,
+            &az, &azd, &azdd, &el, &eld, &eldd, &pa, &pad, &padd );
+
+  vvd ( az, 4.400560746660174, 1e-12, "palAltaz",
+        "AZ", status );
+  vvd ( azd, -0.2015438937145421, 1e-13, "palAltaz",
+        "AZD", status );
+  vvd ( azdd, -0.4381266949668748, 1e-13, "palAltaz",
+        "AZDD", status );
+  vvd ( el, 1.026646506651396, 1e-12, "palAltaz",
+        "EL", status );
+  vvd ( eld, -0.7576920683826450, 1e-13, "palAltaz",
+        "ELD", status );
+  vvd ( eldd, 0.04922465406857453, 1e-14, "palAltaz",
+        "ELDD", status );
+  vvd ( pa, 1.707639969653937, 1e-12, "palAltaz",
+        "PA", status );
+  vvd ( pad, 0.4717832355365627, 1e-13, "palAltaz",
+        "PAD", status );
+  vvd ( padd, -0.2957914128185515, 1e-13, "palAltaz",
+        "PADD", status );
+}
+
 /* Airmass */
 
 static void t_airmas( int *status ) {
@@ -1899,6 +1926,7 @@ int main (void) {
 
   t_addet(&status);
   t_afin(&status);
+  t_altaz(&status);
   t_ampqk(&status);
   t_aop(&status);
   t_airmas(&status);

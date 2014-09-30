@@ -34,6 +34,7 @@ PRIVATE_INCLUDES = pal1.h pal1sofa.h
 PUBLIC_C_FILES = \
 palAddet.c \
 palAirmas.c \
+palAltaz.c \
 palAmp.c \
 palAmpqk.c \
 palAop.c \

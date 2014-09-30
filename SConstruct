@@ -97,6 +97,7 @@ libpal_sources = [
     "pal1Atmt.c",
     "palAddet.c",
     "palAirmas.c",
+    "palAltaz.c",
     "palAmp.c",
     "palAmpqk.c",
     "palAop.c",
