@@ -254,7 +254,7 @@ static double pal__Eqeqx( double date ) {
 
   const double T2AS=1296000.0;
 
-  double sla_eqeqx;
+  double pal_eqeqx;
   double t, om, dpsi, deps, eps0;
 
   /*  interval between basic epoch j2000.0 and current epoch (jc) */
@@ -269,10 +269,10 @@ static double pal__Eqeqx( double date ) {
   pal__Nutc(date,&dpsi,&deps,&eps0);
 
   /*  equation of the equinoxes */
-  sla_eqeqx=dpsi*cos(eps0)+PAL__DAS2R*(0.00264*sin(om)+
+  pal_eqeqx=dpsi*cos(eps0)+PAL__DAS2R*(0.00264*sin(om)+
                                  0.000063*sin(om+om));
 
-  return sla_eqeqx;
+  return pal_eqeqx;
 }
 
 #include "palmac.h"
