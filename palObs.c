@@ -65,7 +65,7 @@
 *     contain embedded spaces. "c" must not have leading spaces.
 *
 *     IMPORTANT -- BEWARE OF THE LONGITUDE SIGN CONVENTION.  The
-*     longitude returned by sla_OBS is west-positive in accordance
+*     longitude returned by palOBS (and SLA_OBS) is west-positive in accordance
 *     with astronomical usage.  However, this sign convention is
 *     left-handed and is the opposite of the one used by geographers;
 *     elsewhere in PAL the preferable east-positive convention is

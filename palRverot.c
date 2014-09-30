@@ -23,7 +23,7 @@
 *     da = double (Given)
 *        apparent Dec (radians)
 *     st = double (Given)
-8        Local apparent sidereal time.
+*        Local apparent sidereal time.
 
 *  Returned Value:
 *     palRverot = double

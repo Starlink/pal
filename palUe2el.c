@@ -169,7 +169,7 @@
 *       the other elements are automatically adjusted to compensate,
 *       and so the elements remain a valid description of the orbit.
 
-*   See Also:
+*  See Also:
 *     - Sterne, Theodore E., "An Introduction to Celestial Mechanics",
 *       Interscience Publishers Inc., 1960.  Section 6.7, p199.
 *     - Everhart, E. & Pitkin, E.T., Am.J.Phys. 51, 712, 1983.

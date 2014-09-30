@@ -150,7 +150,7 @@
 *
 *       . The osculating epoch is not used and is assumed to be close
 *         enough to the epoch of observation to deliver adequate accuracy.
-*         If not, a preliminary call to sla_PERTEL may be used to update
+*         If not, a preliminary call to palPertel may be used to update
 *         the element-set (and its associated osculating epoch) by
 *         applying planetary perturbations.
 *     - The reference frame for the result is with respect to the mean

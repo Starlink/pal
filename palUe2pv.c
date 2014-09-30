@@ -64,17 +64,17 @@
 *       needed by the present routine.  A single prediction requires one
 *       one call to palEl2ue followed by one call to the present routine;
 *       for convenience, the two calls are packaged as the routine
-*       sla_PLANEL.  Multiple predictions may be made by again
+*       palPlanel.  Multiple predictions may be made by again
 *       calling palEl2ue once, but then calling the present routine
 *       multiple times, which is faster than multiple calls to palPlanel.
 *     - It is not obligatory to use palEl2ue to obtain the parameters.
 *       However, it should be noted that because palEl2ue performs its
 *       own validation, no checks on the contents of the array U are made
 *       by the present routine.
-      - DATE is the instant for which the prediction is required.  It is
+*     - DATE is the instant for which the prediction is required.  It is
 *       in the TT timescale (formerly Ephemeris Time, ET) and is a
 *       Modified Julian Date (JD-2400000.5).
-      - The universal elements supplied in the array U are in canonical
+*     - The universal elements supplied in the array U are in canonical
 *       units (solar masses, AU and canonical days).  The position and
 *       velocity are not sensitive to the choice of reference frame.  The
 *       palEl2ue routine in fact produces coordinates with respect to the

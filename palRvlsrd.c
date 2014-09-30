@@ -42,7 +42,7 @@
 *     kinematical LSRs are in use.  The Sun's motion with respect to an
 *     agreed kinematical LSR is known as the "standard" solar motion.
 *     To obtain a radial velocity correction with respect to an adopted
-*     kinematical LSR use the routine sla_RVLSRK.
+*     kinematical LSR use the routine palRvlsrk.
 
 *  Reference:
 *     - Delhaye (1965), in "Stars and Stellar Systems", vol 5, p73.

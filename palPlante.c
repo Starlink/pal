@@ -156,7 +156,7 @@
 *
 *       . The osculating epoch is not used and is assumed to be close
 *         enough to the epoch of observation to deliver adequate accuracy.
-*         If not, a preliminary call to sla_PERTEL may be used to update
+*         If not, a preliminary call to palPertel may be used to update
 *         the element-set (and its associated osculating epoch) by
 *         applying planetary perturbations.
 *     - Two important sources for orbital elements are Horizons, operated
@@ -164,7 +164,7 @@
 *       Center, operated by the Center for Astrophysics, Harvard.
 *
 *       The JPL Horizons elements (heliocentric, J2000 ecliptic and
-*       equinox) correspond to SLALIB arguments as follows.
+*       equinox) correspond to PAL/SLALIB arguments as follows.
 *
 *        Major planets:
 *

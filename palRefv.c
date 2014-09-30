@@ -52,7 +52,7 @@
 *     A tan Z + B tan**3 Z model at better than 1 microarcsecond within
 *     30 degrees of the zenith and remains within 1 milliarcsecond to
 *     beyond ZD 70 degrees.  The inherent accuracy of the model is, of
-*     course, far worse than this - see the documentation for sla_REFCO
+*     course, far worse than this - see the documentation for palRefco
 *     for more information.
 *
 *     - At low elevations (below about 3 degrees) the refraction

@@ -26,7 +26,7 @@
 *     phi = double (Given)
 *        Observatory latitude (radians)
 *     az = double * (Returned)
-         Azimuth (radians)
+*        Azimuth (radians)
 *     azd = double * (Returned)
 *        Azimuth velocity (radians per radian of HA)
 *     azdd = double * (Returned)

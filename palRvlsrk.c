@@ -42,7 +42,7 @@
 *     around the Galactic centre.  The Sun's motion with respect to
 *     the dynamical LSR is called the "peculiar" solar motion.  To
 *     obtain a radial velocity correction with respect to the
-*     dynamical LSR use the routine sla_RVLSRD.
+*     dynamical LSR use the routine palRvlsrd.
 
 *  Reference:
 *     - Delhaye (1965), in "Stars and Stellar Systems", vol 5, p73.

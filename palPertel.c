@@ -121,7 +121,7 @@
 *       to specify either the longitude of perihelion or the daily
 *       motion.  However, if JFORM=2 elements are somehow obtained for a
 *       major planet and supplied to the routine, sensible results will,
-*       in fact, be produced.  This happens because the sla_PERTUE routine
+*       in fact, be produced.  This happens because the palPertue routine
 *       that is called to perform the calculations checks the separation
 *       between the body and each of the planets and interprets a
 *       suspiciously small value (0.001 AU) as an attempt to apply it to

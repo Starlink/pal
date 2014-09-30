@@ -151,7 +151,7 @@ void palOapqk ( const char *type, double ob1, double ob2, const double aoprms[14
                 double *rap, double *dap ) {
 
   /*  breakpoint for fast/slow refraction algorithm:
-   *  zd greater than arctan(4), (see sla_refco routine)
+   *  zd greater than arctan(4), (see palRefco routine)
    *  or vector z less than cosine(arctan(z)) = 1/sqrt(17) */
   const double zbreak = 0.242535625;
 

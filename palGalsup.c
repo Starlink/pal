@@ -41,7 +41,7 @@
 *       machine-readable version of the above catalogue,
 *       Contract NAS 5-26490.
 *
-*    (These two references give different values for the galactic
+*     (These two references give different values for the galactic
 *     longitude of the supergalactic origin.  Both are wrong;  the
 *     correct value is L2=137.37.)
 

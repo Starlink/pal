@@ -14,8 +14,8 @@
 
 *  Invocation:
 *     void palRefro( double zobs, double hm, double tdk, double pmb,
-                     double rh, double wl, double phi, double tlr,
-                     double eps, double * ref ) {
+*                    double rh, double wl, double phi, double tlr,
+*                    double eps, double * ref ) {
 
 *  Arguments:
 *     zobs = double (Given)
