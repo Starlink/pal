@@ -4,7 +4,7 @@
 *     palMapqkz
 
 *  Purpose:
-*     Quick mean to apparent place.
+*     Quick mean to apparent place (no proper motion or parallax).
 
 *  Language:
 *     Starlink ANSI C
