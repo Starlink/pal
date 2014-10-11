@@ -728,6 +728,1354 @@ SLA/PAL \>  SOFA \\
 \texttt{palRefcoq} \> \texttt{iauRefco}\\
 \end{tabbing}
 
+\sstroutine{
+   palCldj
+}{
+   Gregorian Calendar to Modified Julian Date
+}{
+   \sstdescription{
+      Gregorian calendar to Modified Julian Date.
+   }
+   \sstinvocation{
+      palCldj( int iy, int im, int id, double $*$djm, int $*$j );
+   }
+   \sstarguments{
+      \sstsubsection{
+         iy = int (Given)
+      }{
+         Year in Gregorian calendar
+      }
+      \sstsubsection{
+         im = int (Given)
+      }{
+         Month in Gregorian calendar
+      }
+      \sstsubsection{
+         id = int (Given)
+      }{
+         Day in Gregorian calendar
+      }
+      \sstsubsection{
+         djm = double $*$ (Returned)
+      }{
+         Modified Julian Date (JD-2400000.5) for 0 hrs
+      }
+      \sstsubsection{
+         j = int $*$ (Returned)
+      }{
+         status: 0 = OK, 1 = bad year (MJD not computed),
+         2 = bad month (MJD not computed), 3 = bad day (MJD computed).
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         Uses eraCal2jd(). See SOFA/ERFA documentation for details.
+      }
+   }
+}
+\sstroutine{
+   palDbear
+}{
+   Bearing (position angle) of one point on a sphere relative to another
+}{
+   \sstdescription{
+      Bearing (position angle) of one point in a sphere relative to another.
+   }
+   \sstinvocation{
+      pa = palDbear( double a1, double b1, double a2, double b2 );
+   }
+   \sstarguments{
+      \sstsubsection{
+         a1 = double (Given)
+      }{
+         Longitude of point A (e.g. RA) in radians.
+      }
+      \sstsubsection{
+         a2 = double (Given)
+      }{
+         Latitude of point A (e.g. Dec) in radians.
+      }
+      \sstsubsection{
+         b1 = double (Given)
+      }{
+         Longitude of point B in radians.
+      }
+      \sstsubsection{
+         b2 = double (Given)
+      }{
+         Latitude of point B in radians.
+      }
+   }
+   \sstreturnedvalue{
+      \sstsubsection{
+         The result is the bearing (position angle), in radians, of point
+      }{
+      }
+      \sstsubsection{
+         A2,B2 as seen from point A1,B1.  It is in the range $+$/- pi.  If
+      }{
+      }
+      \sstsubsection{
+         A2,B2 is due east of A1,B1 the bearing is $+$pi/2.  Zero is returned
+      }{
+      }
+      \sstsubsection{
+         if the two points are coincident.
+      }{
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         Uses eraPas(). See SOFA/ERFA documentation for details.
+      }
+   }
+}
+\sstroutine{
+   palDaf2r
+}{
+   Convert degrees, arcminutes, arcseconds to radians
+}{
+   \sstdescription{
+      Convert degrees, arcminutes, arcseconds to radians.
+   }
+   \sstinvocation{
+      palDaf2r( int ideg, int iamin, double asec, double $*$rad, int $*$j );
+   }
+   \sstarguments{
+      \sstsubsection{
+         ideg = int (Given)
+      }{
+         Degrees.
+      }
+      \sstsubsection{
+         iamin = int (Given)
+      }{
+         Arcminutes.
+      }
+      \sstsubsection{
+         iasec = double (Given)
+      }{
+         Arcseconds.
+      }
+      \sstsubsection{
+         rad = double $*$ (Returned)
+      }{
+         Angle in radians.
+      }
+      \sstsubsection{
+         j = int $*$ (Returned)
+      }{
+         Status: 0 = OK, 1 = {\tt "}ideg{\tt "} out of range 0-359,
+                 2 = {\tt "}iamin{\tt "} outside of range 0-59,
+                 2 = {\tt "}asec{\tt "} outside range 0-59.99999
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         Uses eraAf2a(). See SOFA/ERFA documentation for details.
+      }
+   }
+}
+\sstroutine{
+   palDav2m
+}{
+   Form the rotation matrix corresponding to a given axial vector
+}{
+   \sstdescription{
+      A rotation matrix describes a rotation about some arbitrary axis,
+      called the Euler axis.  The {\tt "}axial vector{\tt "} supplied to this routine
+      has the same direction as the Euler axis, and its magnitude is the
+      amount of rotation in radians.
+   }
+   \sstinvocation{
+      palDav2m( double axvec[3], double rmat[3][3] );
+   }
+   \sstarguments{
+      \sstsubsection{
+         axvec = double [3] (Given)
+      }{
+         Axial vector (radians)
+      }
+      \sstsubsection{
+         rmat = double [3][3] (Returned)
+      }{
+         Rotation matrix.
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         Uses eraRv2m(). See SOFA/ERFA documentation for details.
+      }
+   }
+}
+\sstroutine{
+   palDcc2s
+}{
+   Cartesian to spherical coordinates
+}{
+   \sstdescription{
+      The spherical coordinates are longitude ($+$ve anticlockwise looking
+      from the $+$ve latitude pole) and latitude.  The Cartesian coordinates
+      are right handed, with the x axis at zero longitude and latitude, and
+      the z axis at the $+$ve latitude pole.
+   }
+   \sstinvocation{
+      palDcc2s( double v[3], double $*$a, double $*$b );
+   }
+   \sstarguments{
+      \sstsubsection{
+         v = double [3] (Given)
+      }{
+         x, y, z vector.
+      }
+      \sstsubsection{
+         a = double $*$ (Returned)
+      }{
+         Spherical coordinate (radians)
+      }
+      \sstsubsection{
+         b = double $*$ (Returned)
+      }{
+         Spherical coordinate (radians)
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         Uses eraC2s(). See SOFA/ERFA documentation for details.
+      }
+   }
+}
+\sstroutine{
+   palDcs2c
+}{
+   Spherical coordinates to direction cosines
+}{
+   \sstdescription{
+      The spherical coordinates are longitude ($+$ve anticlockwise looking
+      from the $+$ve latitude pole) and latitude.  The Cartesian coordinates
+      are right handed, with the x axis at zero longitude and latitude, and
+      the z axis at the $+$ve latitude pole.
+   }
+   \sstinvocation{
+      palDcs2c( double a, double b, double v[3] );
+   }
+   \sstarguments{
+      \sstsubsection{
+         a = double (Given)
+      }{
+         Spherical coordinate in radians (ra, long etc).
+      }
+      \sstsubsection{
+         b = double (Given)
+      }{
+         Spherical coordinate in radians (dec, lat etc).
+      }
+      \sstsubsection{
+         v = double [3] (Returned)
+      }{
+         x, y, z vector
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         Uses eraS2c(). See SOFA/ERFA documentation for details.
+      }
+   }
+}
+\sstroutine{
+   palDd2tf
+}{
+   Convert an interval in days into hours, minutes, seconds
+}{
+   \sstdescription{
+      Convert and interval in days into hours, minutes, seconds.
+   }
+   \sstinvocation{
+      palDd2tf( int ndp, double days, char $*$sign, int ihmsf[4] );
+   }
+   \sstarguments{
+      \sstsubsection{
+         ndp = int (Given)
+      }{
+         Number of decimal places of seconds
+      }
+      \sstsubsection{
+         days = double (Given)
+      }{
+         Interval in days
+      }
+      \sstsubsection{
+         sign = char $*$ (Returned)
+      }{
+         {\tt '}$+${\tt '} or {\tt '}-{\tt '} (single character, not string)
+      }
+      \sstsubsection{
+         ihmsf = int [4] (Returned)
+      }{
+         Hours, minutes, seconds, fraction
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         Uses eraD2tf(). See SOFA/ERFA documentation for details.
+      }
+   }
+}
+\sstroutine{
+   palDimxv
+}{
+   Perform the 3-D backward unitary transformation
+}{
+   \sstdescription{
+      Perform the 3-D backward unitary transformation.
+   }
+   \sstinvocation{
+      palDimxv( double dm[3][3], double va[3], double vb[3] );
+   }
+   \sstarguments{
+      \sstsubsection{
+         dm = double [3][3] (Given)
+      }{
+         Matrix
+      }
+      \sstsubsection{
+         va = double [3] (Given)
+      }{
+         vector
+      }
+      \sstsubsection{
+         vb = double [3] (Returned)
+      }{
+         Result vector
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         Uses eraTrxp(). See SOFA/ERFA documentation for details.
+      }
+   }
+}
+\sstroutine{
+   palDm2av
+}{
+   From a rotation matrix, determine the corresponding axial vector
+}{
+   \sstdescription{
+      A rotation matrix describes a rotation about some arbitrary axis,
+      called the Euler axis.  The {\tt "}axial vector{\tt "} returned by this routine
+      has the same direction as the Euler axis, and its magnitude is the
+      amount of rotation in radians.  (The magnitude and direction can be
+      separated by means of the routine palDvn.)
+   }
+   \sstinvocation{
+      palDm2av( double rmat[3][3], double axvec[3] );
+   }
+   \sstarguments{
+      \sstsubsection{
+         rmat = double [3][3] (Given)
+      }{
+         Rotation matrix
+      }
+      \sstsubsection{
+         axvec = double [3] (Returned)
+      }{
+         Axial vector (radians)
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         Uses eraRm2v(). See SOFA/ERFA documentation for details.
+      }
+   }
+}
+\sstroutine{
+   palDjcl
+}{
+   Modified Julian Date to Gregorian year, month, day and fraction of day
+}{
+   \sstdescription{
+      Modified Julian Date to Gregorian year, month, day and fraction of day.
+   }
+   \sstinvocation{
+      palDjcl( double djm, int $*$iy, int $*$im, int $*$id, double $*$fd, int $*$j );
+   }
+   \sstarguments{
+      \sstsubsection{
+         djm = double (Given)
+      }{
+         modified Julian Date (JD-2400000.5)
+      }
+      \sstsubsection{
+         iy = int $*$ (Returned)
+      }{
+         year
+      }
+      \sstsubsection{
+         im = int $*$ (Returned)
+      }{
+         month
+      }
+      \sstsubsection{
+         id = int $*$ (Returned)
+      }{
+         day
+      }
+      \sstsubsection{
+         fd = double $*$ (Returned)
+      }{
+         Fraction of day.
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         Uses eraJd2cal(). See SOFA/ERFA documentation for details.
+      }
+   }
+}
+\sstroutine{
+   palDmxm
+}{
+   Product of two 3x3 matrices
+}{
+   \sstdescription{
+      Product of two 3x3 matrices.
+   }
+   \sstinvocation{
+      palDmxm( double a[3][3], double b[3][3], double c[3][3] );
+   }
+   \sstarguments{
+      \sstsubsection{
+         a = double [3][3] (Given)
+      }{
+         Matrix
+      }
+      \sstsubsection{
+         b = double [3][3] (Given)
+      }{
+         Matrix
+      }
+      \sstsubsection{
+         c = double [3][3] (Returned)
+      }{
+         Matrix result
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         Uses eraRxr(). See SOFA/ERFA documentation for details.
+      }
+   }
+}
+\sstroutine{
+   palDmxv
+}{
+   Performs the 3-D forward unitary transformation
+}{
+   \sstdescription{
+      Performs the 3-D forward unitary transformation.
+   }
+   \sstinvocation{
+      palDmxv( double dm[3][3], double va[3], double vb[3] );
+   }
+   \sstarguments{
+      \sstsubsection{
+         dm = double [3][3] (Given)
+      }{
+         matrix
+      }
+      \sstsubsection{
+         va = double [3] (Given)
+      }{
+         vector
+      }
+      \sstsubsection{
+         dp = double [3] (Returned)
+      }{
+         result vector
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         Uses eraRxp(). See SOFA/ERFA documentation for details.
+      }
+   }
+}
+\sstroutine{
+   palDpav
+}{
+   Position angle of one celestial direction with respect to another
+}{
+   \sstdescription{
+      Position angle of one celestial direction with respect to another.
+   }
+   \sstinvocation{
+      pa = palDpav( double v1[3], double v2[3] );
+   }
+   \sstarguments{
+      \sstsubsection{
+         v1 = double [3] (Given)
+      }{
+         direction cosines of one point.
+      }
+      \sstsubsection{
+         v2 = double [3] (Given)
+      }{
+         direction cosines of the other point.
+      }
+   }
+   \sstreturnedvalue{
+      \sstsubsection{
+         The result is the bearing (position angle), in radians, of point
+      }{
+      }
+      \sstsubsection{
+         V2 with respect to point V1.  It is in the range $+$/- pi.  The
+      }{
+      }
+      \sstsubsection{
+         sense is such that if V2 is a small distance east of V1, the
+      }{
+      }
+      \sstsubsection{
+         bearing is about $+$pi/2.  Zero is returned if the two points
+      }{
+      }
+      \sstsubsection{
+         are coincident.
+      }{
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         The coordinate frames correspond to RA,Dec, Long,Lat etc.
+
+         \sstitem
+         Uses eraPap(). See SOFA/ERFA documentation for details.
+      }
+   }
+}
+\sstroutine{
+   palDr2af
+}{
+   Convert an angle in radians to degrees, arcminutes, arcseconds
+}{
+   \sstdescription{
+      Convert an angle in radians to degrees, arcminutes, arcseconds.
+   }
+   \sstinvocation{
+      palDr2af( int ndp, double angle, char $*$sign, int idmsf[4] );
+   }
+   \sstarguments{
+      \sstsubsection{
+         ndp = int (Given)
+      }{
+         number of decimal places of arcseconds
+      }
+      \sstsubsection{
+         angle = double (Given)
+      }{
+         angle in radians
+      }
+      \sstsubsection{
+         sign = char $*$ (Returned)
+      }{
+         {\tt '}$+${\tt '} or {\tt '}-{\tt '} (single character)
+      }
+      \sstsubsection{
+         idmsf = int [4] (Returned)
+      }{
+         Degrees, arcminutes, arcseconds, fraction
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         Uses eraA2af(). See SOFA/ERFA documentation for details.
+      }
+   }
+}
+\sstroutine{
+   palDr2tf
+}{
+   Convert an angle in radians to hours, minutes, seconds
+}{
+   \sstdescription{
+      Convert an angle in radians to hours, minutes, seconds.
+   }
+   \sstinvocation{
+      palDr2tf ( int ndp, double angle, char $*$sign, int ihmsf[4] );
+   }
+   \sstarguments{
+      \sstsubsection{
+         ndp = int (Given)
+      }{
+         number of decimal places of arcseconds
+      }
+      \sstsubsection{
+         angle = double (Given)
+      }{
+         angle in radians
+      }
+      \sstsubsection{
+         sign = char $*$ (Returned)
+      }{
+         {\tt '}$+${\tt '} or {\tt '}-{\tt '} (single character)
+      }
+      \sstsubsection{
+         idmsf = int [4] (Returned)
+      }{
+         Hours, minutes, seconds, fraction
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         Uses eraA2tf(). See SOFA/ERFA documentation for details.
+      }
+   }
+}
+\sstroutine{
+   palDranrm
+}{
+   Normalize angle into range 0-2 pi
+}{
+   \sstdescription{
+      Normalize angle into range 0-2 pi.
+   }
+   \sstinvocation{
+      norm = palDranrm( double angle );
+   }
+   \sstarguments{
+      \sstsubsection{
+         angle = double (Given)
+      }{
+         angle in radians
+      }
+   }
+   \sstreturnedvalue{
+      \sstsubsection{
+         Angle expressed in the range 0-2 pi
+      }{
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         Uses eraAnp(). See SOFA/ERFA documentation for details.
+      }
+   }
+}
+\sstroutine{
+   palDsep
+}{
+   Angle between two points on a sphere
+}{
+   \sstdescription{
+      Angle between two points on a sphere.
+   }
+   \sstinvocation{
+      ang = palDsep( double a1, double b1, double a2, double b2 );
+   }
+   \sstarguments{
+      \sstsubsection{
+         a1 = double (Given)
+      }{
+         Spherical coordinate of one point (radians)
+      }
+      \sstsubsection{
+         b1 = double (Given)
+      }{
+         Spherical coordinate of one point (radians)
+      }
+      \sstsubsection{
+         a2 = double (Given)
+      }{
+         Spherical coordinate of other point (radians)
+      }
+      \sstsubsection{
+         b2 = double (Given)
+      }{
+         Spherical coordinate of other point (radians)
+      }
+   }
+   \sstreturnedvalue{
+      \sstsubsection{
+         Angle, in radians, between the two points. Always positive.
+      }{
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         The spherical coordinates are [RA,Dec], [Long,Lat] etc, in radians.
+
+         \sstitem
+         Uses eraSeps(). See SOFA/ERFA documentation for details.
+      }
+   }
+}
+\sstroutine{
+   palDsepv
+}{
+   Angle between two vectors
+}{
+   \sstdescription{
+      Angle between two vectors.
+   }
+   \sstinvocation{
+      ang = palDsepv( double v1[3], double v2[3] );
+   }
+   \sstarguments{
+      \sstsubsection{
+         v1 = double [3] (Given)
+      }{
+         First vector
+      }
+      \sstsubsection{
+         v2 = double [3] (Given)
+      }{
+         Second vector
+      }
+   }
+   \sstreturnedvalue{
+      \sstsubsection{
+         Angle, in radians, between the two points. Always positive.
+      }{
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         Uses eraSepp(). See SOFA/ERFA documentation for details.
+      }
+   }
+}
+\sstroutine{
+   palDtf2d
+}{
+   Convert hours, minutes, seconds to days
+}{
+   \sstdescription{
+      Convert hours, minutes, seconds to days.
+   }
+   \sstinvocation{
+      palDtf2d( int ihour, int imin, double sec, double $*$days, int $*$j );
+   }
+   \sstarguments{
+      \sstsubsection{
+         ihour = int (Given)
+      }{
+         Hours
+      }
+      \sstsubsection{
+         imin = int (Given)
+      }{
+         Minutes
+      }
+      \sstsubsection{
+         sec = double (Given)
+      }{
+         Seconds
+      }
+      \sstsubsection{
+         days = double $*$ (Returned)
+      }{
+         Interval in days
+      }
+      \sstsubsection{
+         j = int $*$ (Returned)
+      }{
+         status: 0 = ok, 1 = ihour outside range 0-23,
+         2 = imin outside range 0-59, 3 = sec outside range 0-59.999...
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         Uses eraTf2d(). See SOFA/ERFA documentation for details.
+      }
+   }
+}
+\sstroutine{
+   palDtf2r
+}{
+   Convert hours, minutes, seconds to radians
+}{
+   \sstdescription{
+      Convert hours, minutes, seconds to radians.
+   }
+   \sstinvocation{
+      palDtf2r( int ihour, int imin, double sec, double $*$rad, int $*$j );
+   }
+   \sstarguments{
+      \sstsubsection{
+         ihour = int (Given)
+      }{
+         Hours
+      }
+      \sstsubsection{
+         imin = int (Given)
+      }{
+         Minutes
+      }
+      \sstsubsection{
+         sec = double (Given)
+      }{
+         Seconds
+      }
+      \sstsubsection{
+         days = double $*$ (Returned)
+      }{
+         Angle in radians
+      }
+      \sstsubsection{
+         j = int $*$ (Returned)
+      }{
+         status: 0 = ok, 1 = ihour outside range 0-23,
+         2 = imin outside range 0-59, 3 = sec outside range 0-59.999...
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         Uses eraTf2a(). See SOFA/ERFA documentation for details.
+      }
+   }
+}
+\sstroutine{
+   palDvdv
+}{
+   Scalar product of two 3-vectors
+}{
+   \sstdescription{
+      Scalar product of two 3-vectors.
+   }
+   \sstinvocation{
+      prod = palDvdv ( double va[3], double vb[3] );
+   }
+   \sstarguments{
+      \sstsubsection{
+         va = double [3] (Given)
+      }{
+         First vector
+      }
+      \sstsubsection{
+         vb = double [3] (Given)
+      }{
+         Second vector
+      }
+   }
+   \sstreturnedvalue{
+      \sstsubsection{
+         Scalar product va.vb
+      }{
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         Uses eraPdp(). See SOFA/ERFA documentation for details.
+      }
+   }
+}
+\sstroutine{
+   palDvn
+}{
+   Normalizes a 3-vector also giving the modulus
+}{
+   \sstdescription{
+      Normalizes a 3-vector also giving the modulus.
+   }
+   \sstinvocation{
+      palDvn( double v[3], double uv[3], double $*$vm );
+   }
+   \sstarguments{
+      \sstsubsection{
+         v = double [3] (Given)
+      }{
+         vector
+      }
+      \sstsubsection{
+         uv = double [3] (Returned)
+      }{
+         unit vector in direction of {\tt "}v{\tt "}
+      }
+      \sstsubsection{
+         vm = double $*$ (Returned)
+      }{
+         modulus of {\tt "}v{\tt "}
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         Uses eraPn(). See SOFA/ERFA documentation for details.
+      }
+   }
+}
+\sstroutine{
+   palDvxv
+}{
+   Vector product of two 3-vectors
+}{
+   \sstdescription{
+      Vector product of two 3-vectors.
+   }
+   \sstinvocation{
+      palDvxv( double va[3], double vb[3], double vc[3] );
+   }
+   \sstarguments{
+      \sstsubsection{
+         va = double [3] (Given)
+      }{
+         First vector
+      }
+      \sstsubsection{
+         vb = double [3] (Given)
+      }{
+         Second vector
+      }
+      \sstsubsection{
+         vc = double [3] (Returned)
+      }{
+         Result vector
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         Uses eraPxp(). See SOFA/ERFA documentation for details.
+      }
+   }
+}
+\sstroutine{
+   palEpb
+}{
+   Conversion of modified Julian Data to Besselian Epoch
+}{
+   \sstdescription{
+      Conversion of modified Julian Data to Besselian Epoch.
+   }
+   \sstinvocation{
+      epb = palEpb ( double date );
+   }
+   \sstarguments{
+      \sstsubsection{
+         date = double (Given)
+      }{
+         Modified Julian Date (JD - 2400000.5)
+      }
+   }
+   \sstreturnedvalue{
+      \sstsubsection{
+         Besselian epoch.
+      }{
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         Uses eraEpb(). See SOFA/ERFA documentation for details.
+      }
+   }
+}
+\sstroutine{
+   palEpb2d
+}{
+   Conversion of Besselian Epoch to Modified Julian Date
+}{
+   \sstdescription{
+      Conversion of Besselian Epoch to Modified Julian Date.
+   }
+   \sstinvocation{
+      mjd = palEpb2d ( double epb );
+   }
+   \sstarguments{
+      \sstsubsection{
+         epb = double (Given)
+      }{
+         Besselian Epoch
+      }
+   }
+   \sstreturnedvalue{
+      \sstsubsection{
+         Modified Julian Date (JD - 2400000.5)
+      }{
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         Uses eraEpb2jd(). See SOFA/ERFA documentation for details.
+      }
+   }
+}
+\sstroutine{
+   palEpj
+}{
+   Conversion of Modified Julian Date to Julian Epoch
+}{
+   \sstdescription{
+      Conversion of Modified Julian Date to Julian Epoch.
+   }
+   \sstinvocation{
+      epj = palEpj ( double date );
+   }
+   \sstarguments{
+      \sstsubsection{
+         date = double (Given)
+      }{
+         Modified Julian Date (JD - 2400000.5)
+      }
+   }
+   \sstreturnedvalue{
+      \sstsubsection{
+         The Julian Epoch.
+      }{
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         Uses eraEpj(). See SOFA/ERFA documentation for details.
+      }
+   }
+}
+\sstroutine{
+   palEpj2d
+}{
+   Conversion of Julian Epoch to Modified Julian Date
+}{
+   \sstdescription{
+      Conversion of Julian Epoch to Modified Julian Date.
+   }
+   \sstinvocation{
+      mjd = palEpj2d ( double epj );
+   }
+   \sstarguments{
+      \sstsubsection{
+         epj = double (Given)
+      }{
+         Julian Epoch.
+      }
+   }
+   \sstreturnedvalue{
+      \sstsubsection{
+         Modified Julian Date (JD - 2400000.5)
+      }{
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         Uses eraEpj2d(). See SOFA/ERFA documentation for details.
+      }
+   }
+}
+\sstroutine{
+   palEqeqx
+}{
+   Equation of the equinoxes (IAU 2000/2006)
+}{
+   \sstdescription{
+      Equation of the equinoxes (IAU 2000/2006).
+   }
+   \sstinvocation{
+      palEqeqx( double date );
+   }
+   \sstarguments{
+      \sstsubsection{
+         date = double (Given)
+      }{
+         TT as Modified Julian Date (JD-400000.5)
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         Uses eraEe06a(). See SOFA/ERFA documentation for details.
+      }
+   }
+}
+\sstroutine{
+   palFk5hz
+}{
+   Transform an FK5 (J2000) star position into the frame of the
+   Hipparcos catalogue
+}{
+   \sstdescription{
+      Transform an FK5 (J2000) star position into the frame of the
+      Hipparcos catalogue.
+   }
+   \sstinvocation{
+      palFk5hz ( double r5, double d5, double epoch,
+                 double $*$rh, double $*$dh );
+   }
+   \sstarguments{
+      \sstsubsection{
+         r5 = double (Given)
+      }{
+         FK5 RA (radians), equinox J2000, epoch {\tt "}epoch{\tt "}
+      }
+      \sstsubsection{
+         d5 = double (Given)
+      }{
+         FK5 dec (radians), equinox J2000, epoch {\tt "}epoch{\tt "}
+      }
+      \sstsubsection{
+         epoch = double (Given)
+      }{
+         Julian epoch
+      }
+      \sstsubsection{
+         rh = double $*$ (Returned)
+      }{
+         RA (radians)
+      }
+      \sstsubsection{
+         dh = double $*$ (Returned)
+      }{
+         Dec (radians)
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         Assumes zero Hipparcos proper motion.
+
+         \sstitem
+         Uses eraEpj2jd() and eraFk5hz.
+           See SOFA/ERFA documentation for details.
+      }
+   }
+}
+\sstroutine{
+   palGmst
+}{
+   Greenwich mean sidereal time (consistent with IAU 2006 precession)
+}{
+   \sstdescription{
+      Greenwich mean sidereal time (consistent with IAU 2006 precession).
+   }
+   \sstinvocation{
+      mst = palGmst ( double ut1 );
+   }
+   \sstarguments{
+      \sstsubsection{
+         ut1 = double (Given)
+      }{
+         Universal time (UT1) expressed as modified Julian Date (JD-2400000.5)
+      }
+   }
+   \sstreturnedvalue{
+      \sstsubsection{
+         Greenwich mean sidereal time
+      }{
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         Uses eraGmst06(). See SOFA/ERFA documentation for details.
+      }
+   }
+}
+\sstroutine{
+   palGmsta
+}{
+   Greenwich mean sidereal time (consistent with IAU 2006 precession)
+}{
+   \sstdescription{
+      Greenwich mean sidereal time (consistent with IAU 2006 precession).
+   }
+   \sstinvocation{
+      mst = palGmsta ( double date, double ut1 );
+   }
+   \sstarguments{
+      \sstsubsection{
+         date = double (Given)
+      }{
+         UT1 date (MJD: integer part of JD-2400000.5)
+      }
+      \sstsubsection{
+         ut1 = double (Given)
+      }{
+         UT1 time (fraction of a day)
+      }
+   }
+   \sstreturnedvalue{
+      \sstsubsection{
+         Greenwich mean sidereal time (in range 0 to 2 pi)
+      }{
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         For best accuracy use eraGmst06() directly.
+
+         \sstitem
+         Uses eraGmst06(). See SOFA/ERFA documentation for details.
+      }
+   }
+}
+\sstroutine{
+   palHfk5z
+}{
+   Hipparcos star position to FK5 J2000
+}{
+   \sstdescription{
+      Transform a Hipparcos star position into FK5 J2000, assuming
+      zero Hipparcos proper motion.
+   }
+   \sstinvocation{
+      palHfk5z( double rh, double dh, double epoch,
+                double $*$r5, double $*$d5, double $*$dr5, double $*$dd5 );
+   }
+   \sstarguments{
+      \sstsubsection{
+         rh = double (Given)
+      }{
+         Hipparcos RA (radians)
+      }
+      \sstsubsection{
+         dh = double (Given)
+      }{
+         Hipparcos Dec (radians)
+      }
+      \sstsubsection{
+         epoch = double (Given)
+      }{
+         Julian epoch (TDB)
+      }
+      \sstsubsection{
+         r5 = double $*$ (Returned)
+      }{
+         RA (radians, FK5, equinox J2000, epoch {\tt "}epoch{\tt "})
+      }
+      \sstsubsection{
+         d5 = double $*$ (Returned)
+      }{
+         Dec (radians, FK5, equinox J2000, epoch {\tt "}epoch{\tt "})
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         Uses eraEpj2jd and eraHfk5z(). See SOFA/ERFA documentation for details.
+      }
+   }
+}
+\sstroutine{
+   palRefcoq
+}{
+   Determine the constants A and B in the atmospheric refraction model
+}{
+   \sstdescription{
+      Determine the constants A and B in the atmospheric refraction
+      model dZ = A tan Z $+$ B tan$*$$*$3 Z.  This is a fast alternative
+      to the palRefco routine.
+
+      Z is the {\tt "}observed{\tt "} zenith distance (i.e. affected by refraction)
+      and dZ is what to add to Z to give the {\tt "}topocentric{\tt "} (i.e. in vacuo)
+      zenith distance.
+   }
+   \sstinvocation{
+      palRefcoq( double tdk, double pmb, double rh, double wl,
+                 double $*$refa, double $*$refb );
+   }
+   \sstarguments{
+      \sstsubsection{
+         tdk = double (Given)
+      }{
+         Ambient temperature at the observer (K)
+      }
+      \sstsubsection{
+         pmb = double (Given)
+      }{
+         Pressure at the observer (millibar)
+      }
+      \sstsubsection{
+         rh =  double (Given)
+      }{
+         Relative humidity at the observer (range 0-1)
+      }
+      \sstsubsection{
+         wl =  double (Given)
+      }{
+         Effective wavelength of the source (micrometre).
+         Radio refraction is chosen by specifying wl $>$ 100 micrometres.
+      }
+      \sstsubsection{
+         refa = double $*$ (Returned)
+      }{
+         tan Z coefficient (radian)
+      }
+      \sstsubsection{
+         refb = double $*$ (Returned)
+      }{
+         tan$*$$*$3 Z coefficient (radian)
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         Uses eraRefco(). See SOFA/ERFA documentation for details.
+
+         \sstitem
+         Note that the SOFA/ERFA routine uses different order of
+           of arguments and uses deg C rather than K.
+      }
+   }
+}
+
+
 \subsection{More complex functions}
 
 These functions do not have a simple equivalent in SOFA so are
