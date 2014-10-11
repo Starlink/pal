@@ -142,6 +142,9 @@
 *        status: 0 = OK, 1 = bad year (MJD not computed),
 *        2 = bad month (MJD not computed), 3 = bad day (MJD computed).
 
+*  Description:
+*     Gregorian calendar to Modified Julian Date.
+
 *  Notes:
 *     - Uses eraCal2jd(). See SOFA/ERFA documentation for details.
 
@@ -186,6 +189,9 @@ void palCldj ( int iy, int im, int id, double *djm, int *j ) {
 *     A2,B2 is due east of A1,B1 the bearing is +pi/2.  Zero is returned
 *     if the two points are coincident.
 
+*  Description:
+*     Bearing (position angle) of one point in a sphere relative to another.
+
 *  Notes:
 *     - Uses eraPas(). See SOFA/ERFA documentation for details.
 
@@ -226,6 +232,9 @@ double palDbear ( double a1, double b1, double a2, double b2 ) {
 *        Status: 0 = OK, 1 = "ideg" out of range 0-359,
 *                2 = "iamin" outside of range 0-59,
 *                2 = "asec" outside range 0-59.99999
+
+*  Description:
+*     Convert degrees, arcminutes, arcseconds to radians.
 
 *  Notes:
 *     - Uses eraAf2a(). See SOFA/ERFA documentation for details.
@@ -387,6 +396,9 @@ void palDcs2c ( double a, double b, double v[3] ) {
 *     ihmsf = int [4] (Returned)
 *        Hours, minutes, seconds, fraction
 
+*  Description:
+*     Convert and interval in days into hours, minutes, seconds.
+
 *  Notes:
 *     - Uses eraD2tf(). See SOFA/ERFA documentation for details.
 
@@ -421,6 +433,9 @@ void palDd2tf ( int ndp, double days, char *sign, int ihmsf[4] ) {
 *        vector
 *     vb = double [3] (Returned)
 *        Result vector
+
+*  Description:
+*     Perform the 3-D backward unitary transformation.
 
 *  Notes:
 *     - Uses eraTrxp(). See SOFA/ERFA documentation for details.
@@ -501,6 +516,9 @@ void palDm2av ( double rmat[3][3], double axvec[3] ) {
 *     fd = double * (Returned)
 *        Fraction of day.
 
+*  Description:
+*     Modified Julian Date to Gregorian year, month, day and fraction of day.
+
 *  Notes:
 *     - Uses eraJd2cal(). See SOFA/ERFA documentation for details.
 
@@ -537,6 +555,9 @@ void palDjcl ( double djm, int *iy, int *im, int *id, double *fd, int *j ) {
 *     c = double [3][3] (Returned)
 *        Matrix result
 
+*  Description:
+*     Product of two 3x3 matrices.
+
 *  Notes:
 *     - Uses eraRxr(). See SOFA/ERFA documentation for details.
 
@@ -572,6 +593,9 @@ void palDmxm ( double a[3][3], double b[3][3], double c[3][3] ) {
 *     dp = double [3] (Returned)
 *        result vector
 
+*  Description:
+*     Performs the 3-D forward unitary transformation.
+
 *  Notes:
 *     - Uses eraRxp(). See SOFA/ERFA documentation for details.
 
@@ -604,7 +628,6 @@ void palDmxv ( double dm[3][3], double va[3], double vb[3] ) {
 *        direction cosines of one point.
 *     v2 = double [3] (Given)
 *        direction cosines of the other point.
-*
 
 *  Returned Value:
 *     The result is the bearing (position angle), in radians, of point
@@ -612,6 +635,9 @@ void palDmxv ( double dm[3][3], double va[3], double vb[3] ) {
 *     sense is such that if V2 is a small distance east of V1, the
 *     bearing is about +pi/2.  Zero is returned if the two points
 *     are coincident.
+
+*  Description:
+*     Position angle of one celestial direction with respect to another.
 
 *  Notes:
 *     - The coordinate frames correspond to RA,Dec, Long,Lat etc.
@@ -651,6 +677,9 @@ double palDpav ( double v1[3], double v2[3] ) {
 *     idmsf = int [4] (Returned)
 *        Degrees, arcminutes, arcseconds, fraction
 
+*  Description:
+*     Convert an angle in radians to degrees, arcminutes, arcseconds.
+
 *  Notes:
 *     - Uses eraA2af(). See SOFA/ERFA documentation for details.
 
@@ -688,6 +717,9 @@ void palDr2af ( int ndp, double angle, char *sign, int idmsf[4] ) {
 *     idmsf = int [4] (Returned)
 *        Hours, minutes, seconds, fraction
 
+*  Description:
+*     Convert an angle in radians to hours, minutes, seconds.
+
 *  Notes:
 *     - Uses eraA2tf(). See SOFA/ERFA documentation for details.
 
@@ -721,6 +753,9 @@ void palDr2tf( int ndp, double angle, char *sign, int ihmsf[4] ) {
 
 *  Returned Value:
 *     Angle expressed in the range 0-2 pi
+
+*  Description:
+*     Normalize angle into range 0-2 pi.
 
 *  Notes:
 *     - Uses eraAnp(). See SOFA/ERFA documentation for details.
@@ -762,6 +797,9 @@ double palDranrm ( double angle ) {
 *  Returned Value:
 *     Angle, in radians, between the two points. Always positive.
 
+*  Description:
+*     Angle between two points on a sphere.
+
 *  Notes:
 *     - The spherical coordinates are [RA,Dec], [Long,Lat] etc, in radians.
 *     - Uses eraSeps(). See SOFA/ERFA documentation for details.
@@ -798,6 +836,9 @@ double palDsep ( double a1, double b1, double a2, double b2 ) {
 
 *  Returned Value:
 *     Angle, in radians, between the two points. Always positive.
+
+*  Description:
+*     Angle between two vectors.
 
 *  Notes:
 *     - Uses eraSepp(). See SOFA/ERFA documentation for details.
@@ -838,6 +879,9 @@ double palDsepv ( double v1[3], double v2[3] ) {
 *     j = int * (Returned)
 *        status: 0 = ok, 1 = ihour outside range 0-23,
 *        2 = imin outside range 0-59, 3 = sec outside range 0-59.999...
+
+*  Description:
+*     Convert hours, minutes, seconds to days.
 
 *  Notes:
 *     - Uses eraTf2d(). See SOFA/ERFA documentation for details.
@@ -880,6 +924,9 @@ void palDtf2d ( int ihour, int imin, double sec, double *days, int *j ) {
 *        status: 0 = ok, 1 = ihour outside range 0-23,
 *        2 = imin outside range 0-59, 3 = sec outside range 0-59.999...
 
+*  Description:
+*     Convert hours, minutes, seconds to radians.
+
 *  Notes:
 *     - Uses eraTf2a(). See SOFA/ERFA documentation for details.
 
@@ -917,6 +964,9 @@ void palDtf2r ( int ihour, int imin, double sec, double *rad, int *j ) {
 *  Returned Value:
 *     Scalar product va.vb
 
+*  Description:
+*     Scalar product of two 3-vectors.
+
 *  Notes:
 *     - Uses eraPdp(). See SOFA/ERFA documentation for details.
 
@@ -933,7 +983,7 @@ double palDvdv ( double va[3], double vb[3] ) {
 *     palDvn
 
 *  Purpose:
-*     Normalizes a 3-vector also giving the modulu
+*     Normalizes a 3-vector also giving the modulus
 
 *  Language:
 *     Starlink ANSI C
@@ -951,6 +1001,9 @@ double palDvdv ( double va[3], double vb[3] ) {
 *        unit vector in direction of "v"
 *     vm = double * (Returned)
 *        modulus of "v"
+
+*  Description:
+*     Normalizes a 3-vector also giving the modulus.
 
 *  Notes:
 *     - Uses eraPn(). See SOFA/ERFA documentation for details.
@@ -988,6 +1041,9 @@ void palDvn ( double v[3], double uv[3], double *vm ) {
 *     vc = double [3] (Returned)
 *        Result vector
 
+*  Description:
+*     Vector product of two 3-vectors.
+
 *  Notes:
 *     - Uses eraPxp(). See SOFA/ERFA documentation for details.
 
@@ -1021,6 +1077,9 @@ void palDvxv ( double va[3], double vb[3], double vc[3] ) {
 
 *  Returned Value:
 *      Besselian epoch.
+
+*  Description:
+*     Conversion of modified Julian Data to Besselian Epoch.
 
 *  Notes:
 *     - Uses eraEpb(). See SOFA/ERFA documentation for details.
@@ -1056,6 +1115,9 @@ double palEpb ( double date ) {
 
 *  Returned Value:
 *     Modified Julian Date (JD - 2400000.5)
+
+*  Description:
+*     Conversion of Besselian Epoch to Modified Julian Date.
 
 *  Notes:
 *     - Uses eraEpb2jd(). See SOFA/ERFA documentation for details.
@@ -1094,6 +1156,9 @@ double palEpb2d ( double epb ) {
 *  Returned Value:
 *     The Julian Epoch.
 
+*  Description:
+*     Conversion of Modified Julian Date to Julian Epoch.
+
 *  Notes:
 *     - Uses eraEpj(). See SOFA/ERFA documentation for details.
 
@@ -1129,6 +1194,9 @@ double palEpj ( double date ) {
 *  Returned Value:
 *     Modified Julian Date (JD - 2400000.5)
 
+*  Description:
+*     Conversion of Julian Epoch to Modified Julian Date.
+
 *  Notes:
 *     - Uses eraEpj2d(). See SOFA/ERFA documentation for details.
 
@@ -1146,7 +1214,7 @@ double palEpj2d ( double epj ) {
 *     palEqeqx
 
 *  Purpose:
-*     Equation of the equinoxes  (IAU 2000/2006)
+*     Equation of the equinoxes (IAU 2000/2006)
 
 *  Language:
 *     Starlink ANSI C
@@ -1160,6 +1228,9 @@ double palEpj2d ( double epj ) {
 *  Arguments:
 *     date = double (Given)
 *        TT as Modified Julian Date (JD-400000.5)
+
+*  Description:
+*     Equation of the equinoxes (IAU 2000/2006).
 
 *  Notes:
 *     - Uses eraEe06a(). See SOFA/ERFA documentation for details.
@@ -1203,6 +1274,10 @@ double palEqeqx ( double date ) {
 *     dh = double * (Returned)
 *        Dec (radians)
 
+*  Description:
+*     Transform an FK5 (J2000) star position into the frame of the
+*     Hipparcos catalogue.
+
 *  Notes:
 *     - Assumes zero Hipparcos proper motion.
 *     - Uses eraEpj2jd() and eraFk5hz.
@@ -1243,6 +1318,9 @@ void palFk5hz ( double r5, double d5, double epoch,
 *  Returned Value:
 *     Greenwich mean sidereal time
 
+*  Description:
+*     Greenwich mean sidereal time (consistent with IAU 2006 precession).
+
 *  Notes:
 *     - Uses eraGmst06(). See SOFA/ERFA documentation for details.
 
@@ -1278,9 +1356,11 @@ double palGmst ( double ut1 ) {
 *     ut1 = double (Given)
 *        UT1 time (fraction of a day)
 
-
 *  Returned Value:
 *     Greenwich mean sidereal time (in range 0 to 2 pi)
+
+*  Description:
+*     Greenwich mean sidereal time (consistent with IAU 2006 precession).
 
 *  Notes:
 *     - For best accuracy use eraGmst06() directly.
