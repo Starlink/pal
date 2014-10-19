@@ -91,6 +91,7 @@ palPlanet.c \
 palPlante.c \
 palPlantu.c \
 palPm.c \
+palPolmo.c \
 palPrebn.c \
 palPrec.c \
 palPreces.c \

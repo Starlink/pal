@@ -1768,6 +1768,15 @@ static void t_pm( int * status ) {
 
 }
 
+static void t_polmo( int *status ) {
+  double elong, phi, daz;
+
+  palPolmo( 0.7, -0.5, 1.0e-6, -2.0e-6, &elong, &phi, &daz );
+  vvd(elong, 0.7000004837322044, 1.0e-12, "palPolmo", "elong", status );
+  vvd(phi, -0.4999979467222241, 1.0e-12, "palPolmo", "phi", status );
+  vvd(daz, 1.008982781275728e-6, 1.0e-12, "palPolmo", "daz", status );
+}
+
 static void t_pvobs( int *status ) {
    double pv[6];
    double expected[6] = { -4.7683600138836167813e-06,
@@ -1977,6 +1986,7 @@ int main (void) {
   t_pa(&status);
   t_planet(&status);
   t_pm(&status);
+  t_polmo(&status);
   t_prebn(&status);
   t_pvobs(&status);
   t_range(&status);
