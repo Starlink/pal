@@ -1,7 +1,7 @@
 # PAL SConstruct file
 import os
 
-version = "0.5.0"
+version = "0.7.0"
 
 def CheckStarlink(context):
     context.Message( "Checking for Starlink environment...")
