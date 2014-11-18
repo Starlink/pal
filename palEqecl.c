@@ -90,4 +90,8 @@ void palEqecl ( double dr, double dd, double date, double *dl, double *db ) {
 
   /* Cartesian to spherical */
   eraC2s( v1, dl, db );
+
+  /* Express in conventional range */
+  *dl = eraAnp( *dl );
+  *db = palDrange( *db );
 }
