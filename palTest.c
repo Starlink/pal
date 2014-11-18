@@ -1109,6 +1109,16 @@ static void t_vecmat( int * status ) {
 
 }
 
+static void t_ecleq( int *status ) {
+  double dr;
+  double dd;
+  palEcleq( 1.234, -0.123, 43210.0, &dr, &dd );
+  vvd( dr, 1.229910118208851, 1e-5, "palEcleq",
+       "RA", status );
+  vvd( dd, 0.2638461400411088, 1e-5, "palEcleq",
+       "Dec", status );
+}
+
 static void t_ecmat( int *status ) {
    double rmat[3][3];
    double expected[3][3] = {
@@ -1975,6 +1985,7 @@ int main (void) {
   t_intin(&status);
   t_prec(&status);
   t_preces(&status);
+  t_ecleq(&status);
   t_ecmat(&status);
   t_e2h(&status);
   t_map(&status);

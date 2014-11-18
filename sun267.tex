@@ -4055,6 +4055,48 @@ SOFA functions.
    }
 }
 \sstroutine{
+   palEcleq
+}{
+   Transform from ecliptic coordinates to J2000.0 equatorial coordinates
+}{
+   \sstdescription{
+      Transform from ecliptic coordinate to J2000.0 equatorial coordinates.
+   }
+   \sstinvocation{
+      void palEcleq ( double dl, double db, double date,
+                      double $*$dr, double $*$dd );
+   }
+   \sstarguments{
+      \sstsubsection{
+         dl = double (Given)
+      }{
+         Ecliptic longitude (mean of date, IAU 1980 theory, radians)
+      }
+      \sstsubsection{
+         db = double (Given)
+      }{
+         Ecliptic latitude (mean of date, IAU 1980 theory, radians)
+      }
+      \sstsubsection{
+         date = double (Given)
+      }{
+         TT as Modified Julian Date (JD-2400000.5). The difference
+         between TT and TDB is of the order of a millisecond or two
+         (i.e. about 0.02 arc-seconds).
+      }
+      \sstsubsection{
+         dr = double $*$ (Returned)
+      }{
+         J2000.0 mean RA (radians)
+      }
+      \sstsubsection{
+         dd = double $*$ (Returned)
+      }{
+         J2000.0 mean Dec (Radians)
+      }
+   }
+}
+\sstroutine{
    palEcmat
 }{
    Form the equatorial to ecliptic rotation matrix - IAU 2006
