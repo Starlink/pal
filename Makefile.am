@@ -85,6 +85,7 @@ palOap.c \
 palOapqk.c \
 palObs.c \
 palPa.c \
+palPcd.c \
 palPertel.c \
 palPertue.c \
 palPlanel.c \
@@ -114,6 +115,7 @@ palSubet.c \
 palSupgal.c \
 palUe2el.c \
 palUe2pv.c \
+palUnpcd.c \
 palVers.c
 
 PRIVATE_C_FILES = \

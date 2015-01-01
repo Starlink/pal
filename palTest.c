@@ -1440,6 +1440,30 @@ static void t_pa( int *status ) {
         0, 0, "palPa", "zenith", status );
 }
 
+static void t_pcd( int *status ) {
+  double disco, x, y;
+  disco = 178.585;
+  x = 0.0123;
+  y = -0.00987;
+
+  palPcd ( disco, &x, &y );
+  vvd ( x, 0.01284630845735895, 1e-14, "palPcd", "x", status );
+  vvd ( y, -0.01030837922553926, 1e-14, "palPcd", "y", status );
+
+  palUnpcd ( disco, &x, &y );
+  vvd ( x, 0.0123, 1e-14, "palUnpcd", "x", status );
+  vvd ( y, -0.00987, 1e-14, "palUnpcd", "y,", status );
+
+  /* Now negative disco round trip */
+  disco = -0.3333333;
+  x = 0.0123;
+  y = -0.00987;
+  palPcd ( disco, &x, &y );
+  palUnpcd ( disco, &x, &y );
+  vvd ( x, 0.0123, 1e-14, "palUnpcd", "x", status );
+  vvd ( y, -0.00987, 1e-14, "palUnpcd", "y,", status );
+}
+
 static void t_planet( int * status ) {
   int j;
   double pv[6];
@@ -1995,6 +2019,7 @@ int main (void) {
   t_nut(&status);
   t_obs(&status);
   t_pa(&status);
+  t_pcd(&status);
   t_planet(&status);
   t_pm(&status);
   t_polmo(&status);

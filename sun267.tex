@@ -14,14 +14,15 @@
 \newcommand{\stardocinitials}  {SUN}
 \newcommand{\stardocsource}    {sun\stardocnumber}
 \newcommand{\stardoccopyright}
-{Copyright \copyright\ 2012 Science and Technology Facilities Council}
+{Copyright \copyright\ 2012 Science and Technology Facilities
+  Council. Copyright \copyright\ 2014-2015 Cornell University.}
 
 % Variable part - replace [xxx] as appropriate.
-\newcommand{\stardocnumber}    {267.2}
+\newcommand{\stardocnumber}    {267.3}
 \newcommand{\stardocauthors}   {Tim Jenness}
-\newcommand{\stardocdate}      {2014 October 18}
+\newcommand{\stardocdate}      {2015 January 1}
 \newcommand{\stardoctitle}     {PAL --- Positional Astronomy Library}
-\newcommand{\stardocversion}   {0.1.0}
+\newcommand{\stardocversion}   {0.9.0}
 \newcommand{\stardocmanual}    {Programmer's Manual}
 \newcommand{\stardocabstract}  {
 PAL provides a subset of the Fortran SLALIB library but written in C
@@ -6131,6 +6132,81 @@ SOFA functions.
    }
 }
 \sstroutine{
+   palPcd
+}{
+   Apply pincushion/barrel distortion to a tangent-plane [x,y]
+}{
+   \sstdescription{
+      Applies pincushion and barrel distortion to a tangent
+      plane coordinate.
+   }
+   \sstinvocation{
+      palPcd( double disco, double $*$ x, double $*$ y );
+   }
+   \sstarguments{
+      \sstsubsection{
+         disco = double (Given)
+      }{
+         Pincushion/barrel distortion coefficient.
+      }
+      \sstsubsection{
+         x = double $*$ (Given \& Returned)
+      }{
+         On input the tangent-plane X coordinate, on output
+         the distorted X coordinate.
+      }
+      \sstsubsection{
+         y = double $*$ (Given \& Returned)
+      }{
+         On input the tangent-plane Y coordinate, on output
+         the distorted Y coordinate.
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         The distortion is of the form RP = R$*$(1 $+$ C$*$R$*$$*$2), where R is
+           the radial distance from the tangent point, C is the DISCO
+           argument, and RP is the radial distance in the presence of
+           the distortion.
+
+         \sstitem
+         For pincushion distortion, C is $+$ve;  for barrel distortion,
+           C is -ve.
+
+         \sstitem
+         For X,Y in units of one projection radius (in the case of
+           a photographic plate, the focal length), the following
+           DISCO values apply:
+
+\begin{center}
+\begin{tabular}{ll}
+            Geometry          &DISCO \\
+\hline
+            astrograph        & 0.0 \\
+            Schmidt           &-0.3333 \\
+            AAT PF doublet  &$+$147.069 \\
+            AAT PF triplet  &$+$178.585 \\
+            AAT f/8          &$+$21.20 \\
+            JKT f/8          &$+$13.32 \\
+\end{tabular}
+\end{center}
+      }
+   }
+   \sstdiytopic{
+      See Also
+   }{
+      \sstitemlist{
+
+         \sstitem
+         There is a companion routine, palUnpcd, which performs the
+           inverse operation.
+      }
+   }
+}
+
+\sstroutine{
    palPertel
 }{
    Update elements by applying planetary perturbations
@@ -9264,6 +9340,91 @@ SOFA functions.
       }
    }
 }
+\sstroutine{
+   palUnpcd
+}{
+   Remove pincushion/barrel distortion
+}{
+   \sstdescription{
+      Remove pincushion/barrel distortion from a distorted [x,y] to give
+      tangent-plane [x,y].
+   }
+   \sstinvocation{
+      palUnpcd( double disco, double $*$ x, double $*$ y );
+   }
+   \sstarguments{
+      \sstsubsection{
+         disco = double (Given)
+      }{
+         Pincushion/barrel distortion coefficient.
+      }
+      \sstsubsection{
+         x = double $*$ (Given \& Returned)
+      }{
+         On input the distorted X coordinate, on output
+         the tangent-plane X coordinate.
+      }
+      \sstsubsection{
+         y = double $*$ (Given \& Returned)
+      }{
+         On input the distorted Y coordinate, on output
+         the tangent-plane Y coordinate.
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+         The distortion is of the form RP = R$*$(1$+$C$*$R$\wedge$2), where R is
+           the radial distance from the tangent point, C is the DISCO
+           argument, and RP is the radial distance in the presence of
+           the distortion.
+
+         \sstitem
+         For pincushion distortion, C is $+$ve;  for barrel distortion,
+           C is -ve.
+
+         \sstitem
+         For X,Y in \texttt{"} radians\texttt{"}  - units of one projection radius,
+           which in the case of a photograph is the focal length of
+           the camera - the following DISCO values apply:
+
+\begin{center}
+\begin{tabular}{ll}
+            Geometry          &DISCO \\
+\hline
+            astrograph        & 0.0 \\
+            Schmidt           &-0.3333 \\
+            AAT PF doublet  &$+$147.069 \\
+            AAT PF triplet  &$+$178.585 \\
+            AAT f/8          &$+$21.20 \\
+            JKT f/8          &$+$13.32 \\
+\end{tabular}
+\end{center}
+
+      }
+      \sstitemlist{
+
+         \sstitem
+         The present routine is a rigorous inverse of the companion
+           routine palPcd.  The expression for RP in Note 1 is rewritten
+           in the form x$\wedge$3$+$a$*$x$+$b=0 and solved by standard techniques.
+
+         \sstitem
+         Cases where the cubic has multiple real roots can sometimes
+           occur, corresponding to extreme instances of barrel distortion
+           where up to three different undistorted [X,Y]s all produce the
+           same distorted [X,Y].  However, only one solution is returned,
+           the one that produces the smallest change in [X,Y].
+      }
+   }
+   \sstdiytopic{
+      See Also
+   }{
+      palPcd
+   }
+}
+
 
 
 % ? End of main text
