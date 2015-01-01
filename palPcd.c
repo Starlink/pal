@@ -31,7 +31,7 @@
 
 *  Authors:
 *     PTW: Pat Wallace (RAL)
-*     TIMJ: Tim Jenness (Cornell)
+*     TIMJ: Tim Jenness
 *     {enter_new_authors_here}
 
 *  Notes:
@@ -69,7 +69,7 @@
 
 *  Copyright:
 *     Copyright (C) 2000 Rutherford Appleton Laboratory.
-*     Copyright (C) 2015 Cornell University
+*     Copyright (C) 2015 Tim Jenness
 *     All Rights Reserved.
 
 *  Licence:
