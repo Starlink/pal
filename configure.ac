@@ -2,7 +2,7 @@ dnl    Process this file with autoconf to produce a configure script
 AC_REVISION($Revision: 27534 $)
 
 dnl    Initialisation: package name and version number
-AC_INIT([pal],[0.9.0],[starlink@jiscmail.ac.uk])
+AC_INIT([pal],[0.9.1],[starlink@jiscmail.ac.uk])
 AC_CONFIG_AUX_DIR([build-aux])
 
 dnl    Require autoconf-2.50 at least
@@ -42,10 +42,10 @@ AC_CHECK_LIB([m],[sin])
 dnl    We can not simply test for Starlink starutil because
 dnl    when configure runs in a Starlink build starutil will not
 dnl    have been built yet. If --without-starlink has been used
-dnl    $STARLINK will be unset but to play safe we check STARLINK_DIR
+dnl    $STARLINK will be unset but to play safe we check STARCONF_DEFAULT_PREFIX
 dnl    If we do not have Starlink we can do the test anyhow just in case
 
-if test -n "$STARLINK_DIR"
+if test -n "$STARCONF_DEFAULT_PREFIX"
 then
   AC_SUBST( STARUTIL_LIBADD, "${libdir}/libstarutil.la" )
   AC_SUBST( ERFA_LIBADD, "${libdir}/liberfa.la" )
