@@ -50,3 +50,5 @@ libpal.*.dylib
 libpal.a
 libpal.dylib
 sun267.fls
+sun267.out
+sun267.toc
