@@ -1,0 +1,41 @@
+{
+    "@context": "https://raw.githubusercontent.com/mbjones/codemeta/master/codemeta.jsonld",
+    "@type": "Code",
+    "author": [
+        {
+            "@id": "http://orcid.org/0000-0001-5982-167X",
+            "@type": "Person",
+            "email": "tim.jenness@gmail.com",
+            "name": "Tim Jenness",
+        },
+        {
+            "@id": "",
+            "@type": "Person",
+            "email": "d.berry@eaobservatory.org",
+            "name": "David Berry",
+            "affiliation": "East Asian Observatory"
+        },
+        {
+            "@id": "",
+            "@type": "Person",
+            "email": "patrick.wallace@stfc.ac.uk",
+            "name": "Patrick Wallace",
+            "affiliation": "STFC",
+        }
+    ],
+    "identifier": "http://dx.doi.org/10.5281/zenodo.17212",
+    "codeRepository": "https://github.com/Starlink/pal",
+    "dateCreated": "2012-02-08",
+    "description": "The PAL library is a partial re-implementation of Pat Wallace's popular SLALIB library written in C using a Gnu GPL license and layered on top of the IAU's SOFA library (or the BSD-licensed ERFA) where appropriate.",
+    "keywords": "astronomy, Starlink, astrometry",
+    "license": "http://opensource.org/licenses/GPL-3.0",
+    "title": "PAL: Positional Astronomy Library",
+    "version": "0.9.1",
+    "uploadedBy":
+        {
+            "@id": "http://orcid.org/0000-0001-5982-167X",
+            "@type": "Person",
+            "email": "tim.jenness@gmail.com",
+            "name": "Tim Jenness",
+        }
+}
