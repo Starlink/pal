@@ -1,6 +1,8 @@
 PAL - Positional Astronomy Library
 ==================================
 
+[![DOI](https://zenodo.org/badge/12517/Starlink/pal.svg)](http://dx.doi.org/10.5281/zenodo.17212)
+
 The PAL library is a partial re-implementation of Pat Wallace's popular SLALIB
 library written in C using a Gnu GPL license and layered on top of the IAU's
 SOFA library (or the BSD-licensed ERFA) where appropriate.
