@@ -243,7 +243,7 @@ void palAopqk ( double rap, double dap, const double aoprms[14],
     /*     initialize loop (maximum of 10 iterations) */
     i = 1;
     dzd = 1.0e1;
-    while (abs(dzd) > 1e-10 && i <= 10) {
+    while (fabs(dzd) > 1e-10 && i <= 10) {
 
       /*        compute refraction using current estimate of observed zd */
       palRefro(zdobs,aoprms[4],aoprms[5],aoprms[6],
