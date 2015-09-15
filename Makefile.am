@@ -134,5 +134,5 @@ palTest_LDADD = libpal.la
 palsun.tex: $(PUBLIC_C_FILES)
 	-rm -f palsun.tex all.c
 	cat $(PUBLIC_C_FILES) > all.c
-	${STARLINK_DIR}/bin/sst/prolat in=all.c out=palsun.tex single=no page=no atask=no document=no
+	${STARCONF_DEFAULT_PREFIX}/bin/sst/prolat in=all.c out=palsun.tex single=no page=no atask=no document=no
 	-rm all.c

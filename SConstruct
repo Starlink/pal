@@ -1,12 +1,12 @@
 # PAL SConstruct file
 import os
 
-version = "0.7.0"
+version = "0.9.2"
 
 def CheckStarlink(context):
     context.Message( "Checking for Starlink environment...")
     if "STARLINK_DIR" in os.environ:
-        star_root = os.environ["STARLINK_DIR"]
+        star_root = os.environ["STARCONF_DEFAULT_PREFIX"]
         star_lib = os.path.join(star_root, "lib")
         star_inc = os.path.join(star_root, "include")
         star_share = os.path.join(star_root, "share")
