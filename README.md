@@ -33,8 +33,8 @@ Given the history of the source code as a Starlink library the default will be `
 configurations. This is the safe option if you run into problems when using
 a simple `--prefix` for building outside of Starlink. The configure script
 will assume Starlink is not being used by looking to see if
-`STARLINK_DIR` environment variable is set. You may run into problems if
-`STARLINK_DIR` is set but you use `--without-starlink`.
+`STARCONF_DEFAULT_PREFIX` environment variable is set. You may run into problems if
+`STARCONF_DEFAULT_PREFIX` is set but you use `--without-starlink`.
 
 Requirements
 ------------
