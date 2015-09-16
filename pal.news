@@ -11,6 +11,9 @@ Thanks to Github user @nega0 for some BSD build fixes.
 More STARCONF_DEFAULT_PREFIX fixes for Scons file and for
 document building.
 
+New configure option: --with-erfa to allow the ERFA
+root location to be specified.
+
 V0.9.1
 
 Now checks for STARCONF_DEFAULT_PREFIX environment variable
