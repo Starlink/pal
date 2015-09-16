@@ -43,11 +43,12 @@ AC_CHECK_LIB([m],[sin])
 dnl    We can not simply test for Starlink starutil because
 dnl    when configure runs in a Starlink build starutil will not
 dnl    have been built yet. If --without-starlink has been used
-dnl    $STARLINK will be unset but to play safe we check STARCONF_DEFAULT_PREFIX
+dnl    $STARLINK will be unset but to play safe we also check STARCONF_DEFAULT_PREFIX
 dnl    If we do not have Starlink we can do the test anyhow just in case
 
-if test -n "$STARCONF_DEFAULT_PREFIX"
+if test -n "$STARCONF_DEFAULT_PREFIX" -a -n "$STARLINK"
 then
+  AC_MSG_NOTICE([Assuming a Starlink environment])
   AC_SUBST( STARUTIL_LIBADD, "${libdir}/libstarutil.la" )
   AC_SUBST( ERFA_LIBADD, "${libdir}/liberfa.la" )
   AC_SUBST( ERFA_LDFLAGS, "" )
