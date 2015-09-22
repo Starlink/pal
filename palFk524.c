@@ -142,7 +142,7 @@ void palFk524( double r2000, double d2000, double dr2000, double dd2000,
    int i, j;
 
 /* Small number to avoid arithmetic problems. */
-   static const double tiny = 1.0-30;
+   static const double tiny = 1.0E-30;
 
 /* Canonical constants (see references). Constant vector and matrix. */
    double a[ 6 ] = { -1.62557E-6,  -0.31919E-6, -0.13843E-6,
