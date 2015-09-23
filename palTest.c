@@ -1307,6 +1307,18 @@ static void t_fk54z( int *status ) {
    vvd( dd1950, 7.196059425334821089e-09, 1.0E-12, "palFk54z", "dd1950", status );
 }
 
+static void t_fk524( int *status ) {
+  double r1950, d1950, dr1950, dd1950, p1950, v1950;
+  palFk524(4.567, -1.23, -3e-5, 8e-6, 0.29,
+           -35.0, &r1950, &d1950, &dr1950, &dd1950, &p1950, &v1950);
+  vvd(r1950, 4.543778603272084, 1e-12, "palFk524", "r", status);
+  vvd(d1950, -1.229642790187574, 1e-12, "palFk524", "d", status);
+  vvd(dr1950, -2.957873121769244e-5, 1e-17, "palFk524", "dr", status);
+  vvd(dd1950, 8.117725309659079e-6, 1e-17, "palFk524", "dd", status);
+  vvd(p1950, 0.2898494999992917, 1e-12, "palFk524", "p", status);
+  vvd(v1950, -35.026862824252680, 1e-11, "palFk524", "v", status);
+}
+
 static void t_flotin( int * status ) {
 
   int j;
@@ -1999,6 +2011,7 @@ int main (void) {
   t_evp(&status);
   t_fk45z(&status);
   t_fk54z(&status);
+  t_fk524(&status);
   t_flotin(&status);
   t_galeq(&status);
   t_galsup(&status);
