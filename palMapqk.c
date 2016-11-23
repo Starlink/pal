@@ -50,6 +50,9 @@
 *
 *     If the parallax and proper motions are zero the palMapqkz
 *     routine can be used instead.
+*
+*     Strictly speaking, the function is not valid for solar-system
+*     sources, though the error will usually be extremely small.
 
 *  Authors:
 *     PTW: Patrick T. Wallace
