@@ -54,6 +54,7 @@ then
   AC_SUBST( ERFA_LDFLAGS, "" )
   AC_DEFINE( [HAVE_STAR_UTIL_H], [1], [Define to 1 if you have the <star/util.h> header file])
 else
+  AC_MSG_NOTICE([Building outside a Starlink environment])
 
   #   Allow ERFA/SOFA location to be specified using --with-erfa=$ERFA_DIR
   #   Assumes that the value supplied here is the root and lib and include directories
@@ -117,7 +118,7 @@ else
   AC_SUBST( ERFA_CPPFLAGS, "-I${includedir} -I${erfa_includedir}" )
 
   dnl  Disable document building regardless of --without-stardocs
-  _star_build_docs=:
+  _star_build_docs=false
 fi
 
 dnl    Declare the build and use dependencies for this package
