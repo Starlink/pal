@@ -100,22 +100,33 @@ void palMapqkz ( double rm, double dm, double amprms[21], double *ra,
 /* Local Variables: */
    int i;
    double ab1, abv[3], p[3], w, p1dv, p1dvp1, p2[3], p3[3];
+   double gr2e, pde, pdep1, ehn[3], p1[3];
 
 /* Unpack scalar and vector parameters. */
    ab1 = amprms[11];
+   gr2e = amprms[7];
    for( i = 0; i < 3; i++ ) {
       abv[i] = amprms[i+8];
+      ehn[i] = amprms[i+4];
    }
 
 /* Spherical to x,y,z. */
    eraS2c( rm, dm, p );
 
+/* Light deflection (restrained within the Sun's disc) */
+   pde = eraPdp( p, ehn );
+   pdep1 = pde + 1.0;
+   w = gr2e / ( pdep1 > 1.0e-5 ? pdep1 : 1.0e-5 );
+   for( i = 0; i < 3; i++) {
+      p1[i] = p[i] + w * ( ehn[i] - pde * p[i] );
+   }
+
 /* Aberration. */
-   p1dv = eraPdp( p, abv );
+   p1dv = eraPdp( p1, abv );
    p1dvp1 = p1dv + 1.0;
    w = 1.0 + p1dv / ( ab1 + 1.0 );
    for( i = 0; i < 3; i++ ) {
-      p2[i] = ( ( ab1 * p[i] ) + ( w * abv[i] ) ) / p1dvp1;
+      p2[i] = ( ( ab1 * p1[i] ) + ( w * abv[i] ) ) / p1dvp1;
    }
 
 /* Precession and nutation. */
