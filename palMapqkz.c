@@ -123,10 +123,9 @@ void palMapqkz ( double rm, double dm, double amprms[21], double *ra,
 
 /* Aberration. */
    p1dv = eraPdp( p1, abv );
-   p1dvp1 = p1dv + 1.0;
    w = 1.0 + p1dv / ( ab1 + 1.0 );
    for( i = 0; i < 3; i++ ) {
-      p2[i] = ( ( ab1 * p1[i] ) + ( w * abv[i] ) ) / p1dvp1;
+      p2[i] = ( ( ab1 * p1[i] ) + ( w * abv[i] ) );
    }
 
 /* Precession and nutation. */
