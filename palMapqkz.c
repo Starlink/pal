@@ -99,7 +99,7 @@ void palMapqkz ( double rm, double dm, double amprms[21], double *ra,
 
 /* Local Variables: */
    int i;
-   double ab1, abv[3], p[3], w, p1dv, p1dvp1, p2[3], p3[3];
+   double ab1, abv[3], p[3], w, p1dv, p2[3], p3[3];
    double gr2e, pde, pdep1, ehn[3], p1[3];
 
 /* Unpack scalar and vector parameters. */
