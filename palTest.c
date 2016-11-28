@@ -1282,6 +1282,13 @@ static void t_mapqk( int *status ) {
     double px, pm_ra, pm_dec, v_rad;
     double hour, min, sec, pi;
     pi = 3.14159265358979323846;
+
+    /*
+    The data below represents the position of Arcturus on
+    JD (UT) 2457000.375 as reported by
+    http://aa.usno.navy.mil/data/docs/geocentric.php
+    */
+
     hour = 360.0/24.0;
     min = hour/60.0;
     sec = min/60.0;
