@@ -50,17 +50,24 @@
 *
 *     If the parallax and proper motions are zero the palMapqkz
 *     routine can be used instead.
-*
-*     Strictly speaking, the function is not valid for solar-system
-*     sources, though the error will usually be extremely small.
+
+*  Notes:
+*     - The reference frames and timescales used are post IAU 2006.
+*     - The vectors amprms(1-3) and amprms(4-6) are referred to
+*       the mean equinox and equator of epoch EQ.
+*     - Strictly speaking, the routine is not valid for solar-system
+*       sources, though the error will usually be extremely small.
+*       However, to prevent gross errors in the case where the
+*       position of the Sun is specified, the gravitational
+*       deflection term is restrained within about 920 arcsec of the
+*       centre of the Sun's disc.  The term has a maximum value of
+*       about 1.85 arcsec at this radius, and decreases to zero as
+*       the centre of the disc is approached.
 
 *  Authors:
 *     PTW: Patrick T. Wallace
 *     TIMJ: Tim Jenness (JAC, Hawaii)
 *     {enter_new_authors_here}
-
-*  Notes:
-*     - The reference frames and timescales used are post IAU 2006.
 
 *  History:
 *     2012-03-01 (TIMJ):

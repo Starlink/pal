@@ -25,9 +25,9 @@
 *        - (0)      time interval for proper motion (Julian years)
 *        - (1-3)    barycentric position of the Earth (AU)
 *        - (4-6)    heliocentric direction of the Earth (unit vector)
-*        - (7)      (grav rad Sun)*2/(Sun-Earth distance)
+*        - (7)      (Schwarzschild radius of Sun)/(Sun-Earth distance)
 *        - (8-10)   abv: barycentric Earth velocity in units of c
-*        - (11)     sqrt(1-v**2) where v=modulus(abv)
+*        - (11)     sqrt(1-v^2) where v=modulus(abv)
 *        - (12-20)  precession/nutation (3,3) matrix
 
 *  Description:

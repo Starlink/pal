@@ -24,10 +24,10 @@
 *     amprms = double[21] (Given)
 *        Star-independent mean-to-apparent parameters (see palMappa):
 *        (0-3)    not used
-*        (4-6)    not used
+*        (4-6)    heliocentric direction of the Earth (unit vector)
 *        (7)      not used
 *        (8-10)   abv: barycentric Earth velocity in units of c
-*        (11)     sqrt(1-v**2) where v=modulus(abv)
+*        (11)     sqrt(1-v^2) where v=modulus(abv)
 *        (12-20)  precession/nutation (3,3) matrix
 *     ra = double * (Returned)
 *        Apparent RA (radians).
@@ -49,11 +49,19 @@
 *
 *     The corresponding function for the case of non-zero parallax
 *     and proper motion is palMapqk.
-*
-*     The reference systems and timescales used are IAU 2006.
-*
-*     Strictly speaking, the function is not valid for solar-system
-*     sources, though the error will usually be extremely small.
+
+*  Notes:
+*     - The reference systems and timescales used are IAU 2006.
+*     - The vector amprms(4-6) is referred to the mean equinox and
+*       equator of epoch eq.
+*     - Strictly speaking, the routine is not valid for solar-system
+*       sources, though the error will usually be extremely small.
+*       However, to prevent gross errors in the case where the
+*       position of the Sun is specified, the gravitational
+*       deflection term is restrained within about 920 arcsec of the
+*       centre of the Sun's disc.  The term has a maximum value of
+*       about 1.85 arcsec at this radius, and decreases to zero as
+*       the centre of the disc is approached.
 
 *  Authors:
 *     PTW: Pat Wallace (STFC)
