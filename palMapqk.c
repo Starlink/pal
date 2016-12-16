@@ -103,7 +103,7 @@ void palMapqk ( double rm, double dm, double pr, double pd,
                 double *ra, double *da ) {
 
 /* local constants */
-   const double VF = 0.21094502; /* Km/s to AU/year */
+   const double VF = 0.210945028; /* Km/s to AU/year */
 
 /* Local Variables: */
    int i;
