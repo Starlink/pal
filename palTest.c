@@ -1280,8 +1280,8 @@ static void t_mapqk( int *status ) {
     double ra_app, dec_app; /* geocentric apparent position */
     double ra_test, dec_test;
     double px, pm_ra, pm_dec, v_rad;
-    double hour, min, sec, pi;
-    pi = 3.14159265358979323846;
+    int j;
+    int iposn;
 
     /*
     The data below represents the position of Arcturus on
@@ -1289,37 +1289,37 @@ static void t_mapqk( int *status ) {
     http://aa.usno.navy.mil/data/docs/geocentric.php
     */
 
-    hour = 360.0/24.0;
-    min = hour/60.0;
-    sec = min/60.0;
-    ra_0 = 14.0*hour + 15.0*min + 39.67207*sec;
-    dec_0 = 19.0 + 10.0/60.0 + 56.673/3600.0;
-    ra_0 *= pi/180.0;
-    dec_0 *= pi/180.0;
+    const char radec_0[] = "14 15 39.67207 19 10 56.673";
+    const char radec_app[] = "14 16 19.59 19 6 19.56";
 
-    pm_ra = -1.0939*pi/(180.0*3600.0);
+    iposn = 1;
+    palDafin(radec_0, &iposn, &ra_0, &j);
+    palDafin(radec_0, &iposn, &dec_0, &j);
+    ra_0 *= 15.0;
+    printf("palMapqk J = %d dec_0=%f\n",j, dec_0);
+
+    pm_ra = -1.0939*PAL__DAS2R;
     pm_ra /= cos(dec_0);
-    pm_dec = -2.00006*pi/(180.0*3600.0);
+    pm_dec = -2.00006*PAL__DAS2R;
     v_rad = -5.19;
-    px = 0.08883*pi/(180.0*3600.0);
+    px = 0.08883*PAL__DAS2R;
 
     palMappa(2000.0, 56999.87537249177, amprms);  /* time is the TDB MJD calculated from
                                                      a JD of 2457000.375 with astropy.time */
 
     palMapqk(ra_0, dec_0, pm_ra, pm_dec, px, v_rad, amprms, &ra_test, &dec_test);
 
-    ra_app = 14.0*hour + 16.0*min + 19.59*sec;
-    dec_app = 19.0 + 6.0/60.0 + 19.56/3600.0;
-    ra_app *= pi/180.0;
-    dec_app *= pi/180.0;
+    iposn = 1;
+    palDafin(radec_app, &iposn, &ra_app, &j);
+    palDafin(radec_app, &iposn, &dec_app, &j);
+    ra_app *= 15.0;
 
     /* find the angular distance from the known mean position
        to the calculated mean postion */
     double dd;
     dd = palDsep(ra_test, dec_test, ra_app, dec_app);
-    dd *= (180.0*3600.0)/pi; /* convert to arcsec */
-    vvd( 0.0, dd, 0.1, "palMapqk", "distance", status);
-
+    dd *= PAL__DR2AS;
+    vvd( dd, 0.0, 0.1, "palMapqk", "distance", status);
 }
 
 static void t_mapqkz( int *status ) {
@@ -2107,4 +2107,3 @@ int main (void) {
   t_vers(&status);
   return status;
 }
-
