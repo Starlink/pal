@@ -1296,7 +1296,6 @@ static void t_mapqk( int *status ) {
     palDafin(radec_0, &iposn, &ra_0, &j);
     palDafin(radec_0, &iposn, &dec_0, &j);
     ra_0 *= 15.0;
-    printf("palMapqk J = %d dec_0=%f\n",j, dec_0);
 
     pm_ra = -1.0939*PAL__DAS2R;
     pm_ra /= cos(dec_0);
