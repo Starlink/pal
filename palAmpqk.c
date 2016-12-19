@@ -26,7 +26,7 @@
 *        (0)      time interval for proper motion (Julian years)
 *        (1-3)    barycentric position of the Earth (AU)
 *        (4-6)    not used
-*        (7)      not used
+*        (7)      (grav rad Sun)*2/(Sun-Earth distance)
 *        (8-10)   abv: barycentric Earth velocity in units of c
 *        (11)     sqrt(1-v*v) where v=modulus(abv)
 *        (12-20)  precession/nutation (3,3) matrix
@@ -43,19 +43,30 @@
 *     star-independent parameters can be obtained by calling the palMappa
 *     function.
 
+*  Note:
+*     Iterative techniques are used for the aberration and
+*     light deflection corrections so that the routines
+*     palAmp (or palAmpqk) and palMap (or palMapqk) are
+*     accurate inverses;  even at the edge of the Sun's disc
+*     the discrepancy is only about 1 nanoarcsecond.
+
 *  Authors:
 *     PTW: Pat Wallace (STFC)
+*     TIMJ: Tim Jenness
 *     {enter_new_authors_here}
 
 *  History:
 *     2012-02-13 (PTW):
 *        Initial version.
 *        Adapted with permission from the Fortran SLALIB library.
+*     2016-12-19 (TIMJ):
+*        Add in light deflection (was missed in the initial port).
 *     {enter_further_changes_here}
 
 *  Copyright:
 *     Copyright (C) 2000 Rutherford Appleton Laboratory
 *     Copyright (C) 2012 Science and Technology Facilities Council.
+*     Copyright (C) 2016 Tim Jenness
 *     All Rights Reserved.
 
 *  Licence:
@@ -90,9 +101,11 @@ void palAmpqk ( double ra, double da, double amprms[21], double *rm,
    double abv[3];              /* Earth velocity wrt SSB (c, FK5) */
    double p1[3], p2[3], p3[3]; /* work vectors */
    double ab1p1, p1dv, p1dvp1, w;
+   double gr2e, pde, pdep1, ehn[3], p[3];
    int i, j;
 
 /* Unpack some of the parameters */
+   gr2e = amprms[7];
    ab1  = amprms[11];
    for( i = 0; i < 3; i++ ) {
       abv[i] = amprms[i + 8];
@@ -119,6 +132,23 @@ void palAmpqk ( double ra, double da, double amprms[21], double *rm,
       eraPn( p1, &w, p3 );
       for( i = 0; i < 3; i++ ) {
          p1[i] = p3[i];
+      }
+   }
+
+/* Light deflection */
+   for( i = 0; i < 3; i++ ) {
+       p[i] = p1[i];
+   }
+   for( j = 0; j < 5; j++ ) {
+      pde = eraPdp( p, ehn );
+      pdep1 = 1.0 + pde;
+      w = pdep1 - gr2e*pde;
+      for( i = 0; i < 3; i++ ) {
+         p[i] = (pdep1*p1[i] - gr2e*ehn[i])/w;
+      }
+      eraPn( p, &w, p2 );
+      for( i = 0; i < 3; i++ ) {
+         p[i] = p2[i];
       }
    }
 
