@@ -276,7 +276,7 @@ static void t_amp ( int *status ) {
   /* This is the palMapqk test */
   palAmp( 1.234, -0.567, 55927.0, 2010.0, &rm, &dm );
   vvd( rm, 1.2335120411026936349, 1.0E-12, "palAmp", "rm", status );
-  vvd( dm, -0.56702908706930343907, 1.0E-12, "palAmp", "dm", status );
+  vvd( dm, -0.5670290555130598209, 1.0E-12, "palAmp", "dm", status );
 }
 
 /* Apparent to Observed place */
@@ -1340,7 +1340,7 @@ static void t_ampqk( int *status ) {
    palMappa( 2010.0, 55927.0, amprms );
    palAmpqk( 1.234, -0.567, amprms, &rm, &dm );
    vvd( rm, 1.2335120411026936349, 1.0E-12, "palAmpqk", "rm", status );
-   vvd( dm, -0.56702908706930343907, 1.0E-12, "palAmpqk", "dm", status );
+   vvd( dm, -0.5670290555130598209, 1.0E-12, "palAmpqk", "dm", status );
 }
 
 static void t_fk45z( int *status ) {

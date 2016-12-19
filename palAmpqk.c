@@ -153,6 +153,6 @@ void palAmpqk ( double ra, double da, double amprms[21], double *rm,
    }
 
 /* Mean RA,Dec */
-   eraC2s( p1, rm, dm );
+   eraC2s( p, rm, dm );
    *rm = eraAnp( *rm );
 }
