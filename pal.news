@@ -4,6 +4,11 @@ The Starlink Positional Astronomy Library (PAL) is a C implementation of the
 SLALIB API. It is distributed under the GPL and uses the SOFA library wherever
 possible.
 
+V0.9.5
+
+- Add light deflection to palAmpqk. SLALIB always had it but for some reason
+  the relevant piece of code never got ported to PAL.
+
 V0.9.4
 
 - Add light deflection to palMapqkz (thanks to Scott Daniel)
