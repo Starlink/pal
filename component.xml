@@ -3,7 +3,7 @@
 <!-- component.xml.  Generated from component.xml.in by configure. -->
 
 <component id="pal" support="S">
-  <version>0.9.5</version>
+  <version>0.9.6</version>
   <path>libext/pal</path>
   <description>Positional Astronomy Library</description>
   <abstract><p>
