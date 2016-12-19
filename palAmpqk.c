@@ -25,7 +25,7 @@
 *        Star-independent mean-to-apparent parameters (see palMappa):
 *        (0)      time interval for proper motion (Julian years)
 *        (1-3)    barycentric position of the Earth (AU)
-*        (4-6)    not used
+*        (4-6)    heliocentric direction of the Earth (unit vector)
 *        (7)      (grav rad Sun)*2/(Sun-Earth distance)
 *        (8-10)   abv: barycentric Earth velocity in units of c
 *        (11)     sqrt(1-v*v) where v=modulus(abv)
@@ -108,6 +108,7 @@ void palAmpqk ( double ra, double da, double amprms[21], double *rm,
    gr2e = amprms[7];
    ab1  = amprms[11];
    for( i = 0; i < 3; i++ ) {
+      ehn[i] = amprms[i + 4];
       abv[i] = amprms[i + 8];
    }
 
