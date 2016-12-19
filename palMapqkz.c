@@ -52,6 +52,11 @@
 
 *  Notes:
 *     - The reference systems and timescales used are IAU 2006.
+*     - The mean place rm, dm and the vectors amprms[1-3] and amprms[4-6]
+*       are referred to the mean equinox and equator of the epoch
+*       specified when generating the precession/nutation matrix
+*       amprms[12-20].  In the call to palMappa (q.v.) normally used
+*       to populate amprms, this epoch is the first argument (eq).
 *     - The vector amprms(4-6) is referred to the mean equinox and
 *       equator of epoch eq.
 *     - Strictly speaking, the routine is not valid for solar-system
