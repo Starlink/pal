@@ -37,6 +37,12 @@ AC_SEARCH_LIBS([strlcpy], [bsd])
 AS_IF([test "x$ac_cv_search_strlcpy" = "x-lbsd"], [AC_CHECK_HEADERS([bsd/string.h])])
 AC_CHECK_FUNCS([strlcpy])
 
+dnl    Windows might not have str[n]casecmp
+AC_CHECK_FUNCS(strcasecmp)
+AC_CHECK_FUNCS(strncasecmp)
+AC_CHECK_FUNCS(_stricmp)
+AC_CHECK_FUNCS(_strnicmp)
+
 # Need the math library
 AC_CHECK_LIB([m],[sin])
 

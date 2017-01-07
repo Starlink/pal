@@ -83,10 +83,18 @@
 *-
 */
 
+#if HAVE_CONFIG_H
+#  include <config.h>
+#endif
+
 #include "pal.h"
 #include "pal1sofa.h"
 
 #include <string.h>
+
+#if HAVE__STRNICMP || defined(_WIN32) || defined(_WIN64)
+#  define strncasecmp _strnicmp
+#endif
 
 void palPreces ( const char sys[3], double ep0, double ep1,
                  double *ra, double *dc ) {
