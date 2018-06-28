@@ -155,6 +155,10 @@ static void star__strellcpy( char * dest, const char * src, size_t size ) {
 #define star_strellcpy(dest, src, size) star__strellcpy(dest, src, size)
 #endif
 
+#if HAVE__STRICMP || defined(_WIN32) || defined(_WIN64)
+#define strcasecmp _stricmp
+#endif
+
 #include "pal.h"
 #include "palmac.h"
 
