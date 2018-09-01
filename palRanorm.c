@@ -64,7 +64,8 @@
 #include "palmac.h"
 
 float palRanorm ( float angle ) {
-  float reduced = remainderf(angle, PAL__D2PI);
+  float reduced;
+  reduced = fmodf(angle, PAL__D2PI);
   if (reduced < 0.0) reduced += PAL__D2PI;
   return reduced;
 }
