@@ -924,6 +924,9 @@ static void t_range( int *status ) {
 }
 
 static void t_ranorm( int *status ) {
+
+  vvd ( (double)palRanorm ( -0.1f ), 6.183185307179587,
+        1.0e-5, "palRanorm", "1", status );
   vvd ( palDranrm ( -0.1 ), 6.183185307179587,
         1e-12, "palDranrm", "2", status );
 }
