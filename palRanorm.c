@@ -20,12 +20,10 @@
 *        Angle to be reduced (radians)
 
 *  Description:
-*     The result is "angle" expressed in the range +/- pi. If the
-*     supplied value for "angle" is equal to +/- pi, it is returned
-*     unchanged.
+*     The result is "angle" expressed in the range 0 to 2*pi.
 
 *  Authors:
-*     TIMJ: Tim Jenness (JAC, Hawaii)
+*     TIMJ: Tim Jenness
 *     PTW: Patrick T. Wallace
 *     CHJ: Christopher H. Jordan
 *     {enter_new_authors_here}
@@ -33,12 +31,11 @@
 *  History:
 *     2018-08-27 (CHJ):
 *        Initial version
-*        Adapted from the Fortran SLALIB library.
+*        Adapted from the Fortran SLALIB library authored by Patrick Wallace.
 *     {enter_further_changes_here}
 
 *  Copyright:
-*     Copyright (C) 2001 Rutherford Appleton Laboratory
-*     Copyright (C) 2012 Science and Technology Facilities Council.
+*     Copyright (C) 1995 Rutherford Appleton Laboratory
 *     All Rights Reserved.
 
 *  Licence:
