@@ -73,3 +73,7 @@ Documentation
 The description paper for PAL is: ["_PAL: A Positional Astronomy Library_"](http://adsabs.harvard.edu/abs/2013ASPC..475..307J),
 Jenness, T. & Berry, D. S., in _Astronomical Data Anaysis Software and Systems XXII_,
 Friedel, D. N. (ed), ASP Conf. Ser. **475**, p307.
+
+PAL is registered with the ASCL as [ascl:1606.002](http://ascl.net/1606.002).
+
+Please consider citing the ADASS paper or the ASCL entry if you make use of this software.
