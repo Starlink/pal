@@ -132,8 +132,8 @@ palTest_SOURCES = palTest.c
 palTest_LDADD = libpal.la
 
 # A target for making the SUN documentation. We do not do this automatically
-palsun.tex: $(PUBLIC_C_FILES)
+palsun.tex: $(PUBLIC_C_FILES) palOne2One.c
 	-rm -f palsun.tex all.c
-	cat $(PUBLIC_C_FILES) > all.c
+	cat $^ > all.c
 	${STARCONF_DEFAULT_PREFIX}/bin/sst/prolat in=all.c out=palsun.tex single=no page=no atask=no document=no
 	-rm all.c
