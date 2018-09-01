@@ -101,6 +101,7 @@ palPrenut.c \
 palPv2el.c \
 palPv2ue.c \
 palPvobs.c \
+palRanorm.c \
 palRdplan.c \
 palRefco.c \
 palRefro.c \
