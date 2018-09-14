@@ -44,6 +44,7 @@ palAopqk.c \
 palAtmdsp.c \
 palCaldj.c \
 palDafin.c \
+palDcmpf.c \
 palDe2h.c \
 palDeuler.c \
 palDfltin.c \

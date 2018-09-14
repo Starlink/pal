@@ -482,6 +482,39 @@ static void t_cc2s( int * status ) {
         "B", status );
 }
 
+/* Test palDcmpf */
+
+static void t_cmpf( int * status) {
+  double coeff[6] = {
+      -2.617232551841476e-2,
+      1.005634905041421,
+      2.133045023329208e-3,
+      3.846993364417779909e-3,
+      1.301671386431460e-4,
+      -0.9994827065693964,
+  };
+  double xz;
+  double yz;
+  double xs;
+  double ys;
+  double perp;
+  double orient;
+
+  palDcmpf(coeff, &xz, &yz, &xs, &ys, &perp, &orient);
+  vvd ( xz, -0.0260175020801628646, 1e-12, "palDcmpf",
+        "XZ", status);
+  vvd ( yz, -0.003852372795357474353, 1e-12, "palDcmpf",
+        "YZ", status);
+  vvd ( xs, -1.00563491346569, 1e-12, "palDcmpf",
+        "XS", status);
+  vvd ( ys, 0.999484982684761, 1e-12, "palDcmpf",
+        "YS", status);
+  vvd ( perp,-0.002004707996156263, 1e-12, "palDcmpf",
+        "P", status);
+  vvd ( orient, 3.14046086182333, 1e-12, "palDcmpf",
+        "O", status);
+}
+
 /* palDd2tf */
 
 static void t_cd2tf( int *status ) {
@@ -2044,6 +2077,7 @@ int main (void) {
   t_caf2r(&status);
   t_caldj(&status);
   t_cc2s(&status);
+  t_cmpf(&status);
   t_cd2tf(&status);
   t_cldj(&status);
   t_cr2af(&status);
