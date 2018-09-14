@@ -1385,6 +1385,65 @@ SLA/PAL \>  SOFA \\
    }
 }
 \sstroutine{
+   palDcmpf
+}{
+   Decompose an [X,Y] linear fit into its constituent parameters:
+   zero points, scales, nonperpendicularity and orientation
+}{
+   \sstdescription{
+      The model relates two sets of [X,Y] coordinates as follows.
+      Naming the elements of coeffs:
+
+      coeffs[0] = A
+      coeffs[1] = B
+      coeffs[2] = C
+      coeffs[3] = D
+      coeffs[4] = E
+      coeffs[5] = F
+   }
+   \sstinvocation{
+      palDcmpf ( double coeffs[6], double $*$xz, double $*$yz, double $*$xs,
+                 double $*$ys, double $*$perp, double $*$orient )
+   }
+   \sstarguments{
+      \sstsubsection{
+         coeffs = double[6] (Given)
+      }{
+         transformation coefficients (see note)
+      }
+      \sstsubsection{
+         xz       double (Returned)
+      }{
+         x zero point
+      }
+      \sstsubsection{
+         yz       double (Returned)
+      }{
+         y zero point
+      }
+      \sstsubsection{
+         xs       double (Returned)
+      }{
+         x scale
+      }
+      \sstsubsection{
+         ys       double (Returned)
+      }{
+         y scale
+      }
+      \sstsubsection{
+         perp     double (Returned)
+      }{
+         nonperpendicularity (radians)
+      }
+      \sstsubsection{
+         orient   double (Returned)
+      }{
+         orientation (radians)
+      }
+   }
+}
+\sstroutine{
    palDe2h
 }{
    Equatorial to horizon coordinates: HA,Dec to Az,E
