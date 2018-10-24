@@ -482,37 +482,152 @@ static void t_cc2s( int * status ) {
         "B", status );
 }
 
-/* Test palDcmpf */
+/* Test palFitxy, palPxy, palInvf, palXy2xy and palDcmpf */
 
-static void t_cmpf( int * status) {
-  double coeff[6] = {
-      -2.617232551841476e-2,
-      1.005634905041421,
-      2.133045023329208e-3,
-      3.846993364417779909e-3,
-      1.301671386431460e-4,
-      -0.9994827065693964,
-  };
-  double xz;
-  double yz;
-  double xs;
-  double ys;
-  double perp;
-  double orient;
+static void t_fitxy( int * status) {
+  int j;
+  const int npts = 8;
 
-  palDcmpf(coeff, &xz, &yz, &xs, &ys, &perp, &orient);
+  double xye[][2] = {
+    -23.4, -12.1,   32.0,  -15.3,
+     10.9,  23.7,   -3.0,   16.1,
+     45.0,  32.5,    8.6,  -17.0,
+     15.3,  10.0,  121.7,   -3.8 };
+
+  double xym[][2] = {
+    -23.41,  12.12,  32.03,  15.34,
+     10.93, -23.72,  -3.01, -16.10,
+     44.90, -32.46,   8.55,  17.02,
+     15.31, -10.07, 120.92,   3.81 };
+
+  double coeffs[6], xyp[npts][2], xrms, yrms, rrms,
+    bkwds[6], x2, y2, xz, yz, xs, ys, perp, orient;
+
+  /* Fit a 4-coeff linear model to relate two sets of (x,y) coordinates. */
+
+  palFitxy ( 4, npts, xye, xym, coeffs, &j );
+
+  vvd ( coeffs[0], -7.938263381515947e-3, 1e-12, "palFitxy",
+        "4/0", status );
+  vvd ( coeffs[1], 1.004640925187200, 1e-12, "palFitxy",
+        "4/1", status );
+  vvd ( coeffs[2], 3.976948048238268e-4, 1e-12, "palFitxy",
+        "4/2", status );
+  vvd ( coeffs[3], -2.501031681585021e-2, 1e-12, "palFitxy",
+        "4/3", status );
+  vvd ( coeffs[4], 3.976948048238268e-4, 1e-12, "palFitxy",
+        "4/4", status );
+  vvd ( coeffs[5], -1.004640925187200, 1e-12, "palFitxy",
+        "4/5", status );
+  viv ( j, 0, "palFitxy",
+        "4/J", status );
+
+  /* Same but 6-coeff. */
+
+  palFitxy ( 6, npts, xye, xym, coeffs, &j );
+
+  vvd ( coeffs[0], -2.617232551841476e-2, 1e-12, "palFitxy",
+        "6/0", status );
+  vvd ( coeffs[1], 1.005634905041421, 1e-12, "palFitxy",
+        "6/1", status );
+  vvd ( coeffs[2], 2.133045023329208e-3, 1e-12, "palFitxy",
+        "6/2", status );
+  vvd ( coeffs[3], 3.846993364417779909e-3, 1e-12, "palFitxy",
+        "6/3", status );
+  vvd ( coeffs[4], 1.301671386431460e-4, 1e-12, "palFitxy",
+        "6/4", status );
+  vvd ( coeffs[5], -0.9994827065693964, 1e-12, "palFitxy",
+        "6/5", status );
+  viv ( j, 0, "palFitxy",
+        "6/J", status );
+
+  /* Compute predicted coordinates and residuals. */
+
+  palPxy ( npts, xye, xym, coeffs, xyp, &xrms, &yrms, &rrms );
+
+  vvd ( xyp[0][0], -23.542232946855340, 1e-12, "palPxy",
+        "X0", status );
+  vvd ( xyp[0][1], -12.11293062297230597, 1e-12, "palPxy",
+        "Y0", status );
+  vvd ( xyp[1][0], 32.217034593616180, 1e-12, "palPxy",
+        "X1", status );
+  vvd ( xyp[1][1], -15.324048471959370, 1e-12, "palPxy",
+        "Y1", status );
+  vvd ( xyp[2][0], 10.914821358630950, 1e-12, "palPxy",
+        "X2", status );
+  vvd ( xyp[2][1], 23.712999520015880, 1e-12, "palPxy",
+        "Y2", status );
+  vvd ( xyp[3][0], -3.087475414568693, 1e-12, "palPxy",
+        "X3", status );
+  vvd ( xyp[3][1], 16.09512676604438414, 1e-12, "palPxy",
+        "Y3", status );
+  vvd ( xyp[4][0], 45.05759626938414666, 1e-12, "palPxy",
+        "X4", status );
+  vvd ( xyp[4][1], 32.45290015313210889, 1e-12, "palPxy",
+        "Y4", status );
+  vvd ( xyp[5][0], 8.608310538882801, 1e-12, "palPxy",
+        "X5", status );
+  vvd ( xyp[5][1], -17.006235743411300, 1e-12, "palPxy",
+        "Y5", status );
+  vvd ( xyp[6][0], 15.348618307280820, 1e-12, "palPxy",
+        "X6", status );
+  vvd ( xyp[6][1], 10.07063070741086835, 1e-12, "palPxy",
+        "Y6", status );
+  vvd ( xyp[7][0], 121.5833272936291482, 1e-12, "palPxy",
+        "X7", status );
+  vvd ( xyp[7][1], -3.788442308260240, 1e-12, "palPxy",
+        "Y7", status );
+  vvd ( xrms, 0.1087247110488075, 1e-13, "palPxy",
+        "XRMS", status );
+  vvd ( yrms, 0.03224481175794666, 1e-13, "palPxy",
+        "YRMS", status );
+  vvd ( rrms, 0.1134054261398109, 1e-13, "palPxy",
+        "RRMS", status );
+
+  /* Invert the model. */
+
+  palInvf ( coeffs, bkwds, &j );
+
+  vvd ( bkwds[0], 0.02601750208015891, 1e-12, "palInvf",
+        "0", status );
+  vvd ( bkwds[1], 0.9943963945040283, 1e-12, "palInvf",
+        "1", status );
+  vvd ( bkwds[2], 0.002122190075497872, 1e-12, "palInvf",
+        "2", status );
+  vvd ( bkwds[3], 0.003852372795357474353, 1e-12, "palInvf",
+        "3", status );
+  vvd ( bkwds[4], 0.0001295047252932767, 1e-12, "palInvf",
+        "4", status );
+  vvd ( bkwds[5], -1.000517284779212, 1e-12, "palInvf",
+        "5", status );
+  viv ( j, 0, "palInvf",
+        "J", status );
+
+  /* Transform one x, y. */
+
+  palXy2xy ( 44.5, 32.5, coeffs, &x2, &y2 );
+
+  vvd ( x2, 44.793904912083030, 1e-11, "palXy2xy",
+        "X", status );
+  vvd ( y2, -32.473548532471330, 1e-11, "palXy2xy",
+        "Y", status );
+
+  /* Decompose the fit into scales etc. */
+
+  palDcmpf(coeffs, &xz, &yz, &xs, &ys, &perp, &orient);
+
   vvd ( xz, -0.0260175020801628646, 1e-12, "palDcmpf",
-        "XZ", status);
+        "XZ", status );
   vvd ( yz, -0.003852372795357474353, 1e-12, "palDcmpf",
-        "YZ", status);
+        "YZ", status );
   vvd ( xs, -1.00563491346569, 1e-12, "palDcmpf",
-        "XS", status);
+        "XS", status );
   vvd ( ys, 0.999484982684761, 1e-12, "palDcmpf",
-        "YS", status);
+        "YS", status );
   vvd ( perp,-0.002004707996156263, 1e-12, "palDcmpf",
-        "P", status);
+        "P", status );
   vvd ( orient, 3.14046086182333, 1e-12, "palDcmpf",
-        "O", status);
+        "O", status );
 }
 
 /* palDd2tf */
@@ -2077,7 +2192,6 @@ int main (void) {
   t_caf2r(&status);
   t_caldj(&status);
   t_cc2s(&status);
-  t_cmpf(&status);
   t_cd2tf(&status);
   t_cldj(&status);
   t_cr2af(&status);
@@ -2097,6 +2211,7 @@ int main (void) {
   t_etrms(&status);
   t_eqgal(&status);
   t_evp(&status);
+  t_fitxy(&status);
   t_fk45z(&status);
   t_fk54z(&status);
   t_fk524(&status);

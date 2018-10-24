@@ -68,6 +68,7 @@ palEtrms.c \
 palEqecl.c \
 palEqgal.c \
 palEvp.c \
+palFitxy.c \
 palFk45z.c \
 palFk524.c \
 palFk54z.c \
@@ -76,6 +77,7 @@ palGalsup.c \
 palGe50.c \
 palGeoc.c \
 palIntin.c \
+palInvf.c \
 palMap.c \
 palMappa.c \
 palMapqk.c \
@@ -102,6 +104,7 @@ palPrenut.c \
 palPv2el.c \
 palPv2ue.c \
 palPvobs.c \
+palPxy.c \
 palRanorm.c \
 palRdplan.c \
 palRefco.c \
@@ -118,7 +121,8 @@ palSupgal.c \
 palUe2el.c \
 palUe2pv.c \
 palUnpcd.c \
-palVers.c
+palVers.c \
+palXy2xy.c
 
 PRIVATE_C_FILES = \
 pal1Atms.c \

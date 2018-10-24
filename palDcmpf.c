@@ -4,7 +4,7 @@
 *     palDcmpf
 
 *  Purpose:
-*     Decompose an [X,Y] linear fit into its constituent parameters:
+*     Decompose an [x,y] linear fit into its constituent parameters:
 *     zero points, scales, nonperpendicularity and orientation.
 
 *  Language:
@@ -20,53 +20,57 @@
 *  Arguments:
 *     coeffs = double[6] (Given)
 *        transformation coefficients (see note)
-*     xz       double (Returned)
+*     xz = double (Returned)
 *        x zero point
-*     yz       double (Returned)
+*     yz = double (Returned)
 *        y zero point
-*     xs       double (Returned)
+*     xs = double (Returned)
 *        x scale
-*     ys       double (Returned)
+*     ys = double (Returned)
 *        y scale
-*     perp     double (Returned)
+*     perp = double (Returned)
 *        nonperpendicularity (radians)
-*     orient   double (Returned)
+*     orient = double (Returned)
 *        orientation (radians)
 
 *  Description:
-*     The model relates two sets of [X,Y] coordinates as follows.
+*     The model relates two sets of [x,y] coordinates as follows.
 *     Naming the elements of coeffs:
+*     ---
+*        coeffs[0] = A
+*        coeffs[1] = B
+*        coeffs[2] = C
+*        coeffs[3] = D
+*        coeffs[4] = E
+*        coeffs[5] = F
+*     ---
+*     the model transforms coordinates [x1,y1] into coordinates
+*     [x2,y2] as follows:
+*     ---
+*        x2 = A + B * x1 + C * y1
+*        y2 = D + E * x1 + F * y1
+*     ---
+*     The transformation can be decomposed into four steps:
+*     ---
+*     1) Zero points:
+*        x' = xz + x1
+*        y' = yz + y1
 *
-*     coeffs[0] = A
-*     coeffs[1] = B
-*     coeffs[2] = C
-*     coeffs[3] = D
-*     coeffs[4] = E
-*     coeffs[5] = F
+*     2) Scales:
+*        x'' = xs * x'
+*        y'' = ys * y'
 *
-*  the model transforms coordinates [X1,Y1] into coordinates
-*  [X2,Y2] as follows:
+*     3) Nonperpendicularity:
+*        x''' = cos(perp / 2) * x'' + sin(perp / 2) * y''
+*        y''' = sin(perp / 2) * x'' + cos(perp / 2) * y''
 *
-*     X2 = A + B*X1 + C*Y1
-*     Y2 = D + E*X1 + F*Y1
-*
-*  The transformation can be decomposed into four steps:
-*
-*     1)  Zero points:
-*             x' = XZ + X1
-*             y' = YZ + Y1
-*
-*     2)  Scales:
-*             x'' = XS*x'
-*             y'' = YS*y'
-*
-*     3)  Nonperpendicularity:
-*             x''' = cos(PERP/2)*x'' + sin(PERP/2)*y''
-*             y''' = sin(PERP/2)*x'' + cos(PERP/2)*y''
-*
-*     4)  Orientation:
-*             X2 = cos(ORIENT)*x''' + sin(ORIENT)*y'''
-*             Y2 =-sin(ORIENT)*y''' + cos(ORIENT)*y'''
+*     4) Orientation:
+*        x2 =  cos(orient) * x''' + sin(orient) * y'''
+*        y2 = -sin(orient) * y''' + cos(orient) * y'''
+*     ---
+
+*  See also:
+*     palFitxy, palPxy, palInvf and palXy2xy
 
 *  Authors:
 *     PTW: Pat Wallace (STFC)
@@ -82,7 +86,7 @@
 *     Copyright (C) 2001 Rutherford Appleton Laboratory.
 *     Copyright (C) 2018 East Asian Observatory.
 
-*  License:
+*  Licence:
 *    This program is free software; you can redistribute it and/or modify
 *    it under the terms of the GNU General Public License as published by
 *    the Free Software Foundation; either version 2 of the License, or
