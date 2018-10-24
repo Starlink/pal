@@ -1387,19 +1387,83 @@ SLA/PAL \>  SOFA \\
 \sstroutine{
    palDcmpf
 }{
-   Decompose an [X,Y] linear fit into its constituent parameters:
+   Decompose an [x,y] linear fit into its constituent parameters:
    zero points, scales, nonperpendicularity and orientation
 }{
    \sstdescription{
-      The model relates two sets of [X,Y] coordinates as follows.
+      The model relates two sets of [x,y] coordinates as follows.
       Naming the elements of coeffs:
-
-      coeffs[0] = A
-      coeffs[1] = B
-      coeffs[2] = C
-      coeffs[3] = D
-      coeffs[4] = E
-      coeffs[5] = F
+      \newline
+      \newline
+      \hspace*{1.5 em}
+         coeffs[0] = A
+      \newline
+      \hspace*{1.5 em}
+         coeffs[1] = B
+      \newline
+      \hspace*{1.5 em}
+         coeffs[2] = C
+      \newline
+      \hspace*{1.5 em}
+         coeffs[3] = D
+      \newline
+      \hspace*{1.5 em}
+         coeffs[4] = E
+      \newline
+      \hspace*{1.5 em}
+         coeffs[5] = F
+      \newline
+      \newline
+      the model transforms coordinates [x1,y1] into coordinates
+      [x2,y2] as follows:
+      \newline
+      \newline
+      \hspace*{1.5 em}
+         x2 = A $+$ B $*$ x1 $+$ C $*$ y1
+      \newline
+      \hspace*{1.5 em}
+         y2 = D $+$ E $*$ x1 $+$ F $*$ y1
+      \newline
+      \newline
+      The transformation can be decomposed into four steps:
+      \newline
+      \newline
+      1) Zero points:
+      \newline
+      \hspace*{1.5 em}
+         x\texttt{'}  = xz $+$ x1
+      \newline
+      \hspace*{1.5 em}
+         y\texttt{'}  = yz $+$ y1
+      \newline
+      \newline
+      2) Scales:
+      \newline
+      \hspace*{1.5 em}
+         x\texttt{'} \texttt{'}  = xs $*$ x\texttt{'}
+      \newline
+      \hspace*{1.5 em}
+         y\texttt{'} \texttt{'}  = ys $*$ y\texttt{'}
+      \newline
+      \newline
+      3) Nonperpendicularity:
+      \newline
+      \hspace*{1.5 em}
+         x\texttt{'} \texttt{'} \texttt{'}  = cos(perp / 2) $*$ x\texttt{'} \texttt{'}  $+$ sin(perp / 2) $*$ y\texttt{'} \texttt{'}
+      \newline
+      \hspace*{1.5 em}
+         y\texttt{'} \texttt{'} \texttt{'}  = sin(perp / 2) $*$ x\texttt{'} \texttt{'}  $+$ cos(perp / 2) $*$ y\texttt{'} \texttt{'}
+      \newline
+      \newline
+      4) Orientation:
+      \newline
+      \hspace*{1.5 em}
+         x2 =  cos(orient) $*$ x\texttt{'} \texttt{'} \texttt{'}  $+$ sin(orient) $*$ y\texttt{'} \texttt{'} \texttt{'}
+      \newline
+      \hspace*{1.5 em}
+         y2 = -sin(orient) $*$ y\texttt{'} \texttt{'} \texttt{'}  $+$ cos(orient) $*$ y\texttt{'} \texttt{'} \texttt{'}
+      \newline
+      \newline
    }
    \sstinvocation{
       palDcmpf ( double coeffs[6], double $*$xz, double $*$yz, double $*$xs,
@@ -1412,35 +1476,40 @@ SLA/PAL \>  SOFA \\
          transformation coefficients (see note)
       }
       \sstsubsection{
-         xz       double (Returned)
+         xz = double (Returned)
       }{
          x zero point
       }
       \sstsubsection{
-         yz       double (Returned)
+         yz = double (Returned)
       }{
          y zero point
       }
       \sstsubsection{
-         xs       double (Returned)
+         xs = double (Returned)
       }{
          x scale
       }
       \sstsubsection{
-         ys       double (Returned)
+         ys = double (Returned)
       }{
          y scale
       }
       \sstsubsection{
-         perp     double (Returned)
+         perp = double (Returned)
       }{
          nonperpendicularity (radians)
       }
       \sstsubsection{
-         orient   double (Returned)
+         orient = double (Returned)
       }{
          orientation (radians)
       }
+   }
+   \sstdiytopic{
+      See also
+   }{
+      palFitxy, palPxy, palInvf and palXy2xy
    }
 }
 \sstroutine{
@@ -2838,6 +2907,128 @@ SLA/PAL \>  SOFA \\
    }
 }
 \sstroutine{
+   palFitxy
+}{
+   Fit a linear model to relate two sets of [x,y] coordinates
+}{
+   \sstdescription{
+      Fits a linear model to relate two sets of [X,Y] coordinates.
+   }
+   \sstinvocation{
+      palFitxy ( int itype, int np, double xye[][2], double xym[][2],
+                 double coeffs[6], int $*$j )
+   }
+   \sstarguments{
+      \sstsubsection{
+         itype = int (Given)
+      }{
+         type of model: 4 or 6 (note 1)
+      }
+      \sstsubsection{
+         np = int (Given)
+      }{
+         number of samples (note 2)
+      }
+      \sstsubsection{
+         xye = double[np][2] (Given)
+      }{
+         expected [x,y] for each sample
+      }
+      \sstsubsection{
+         xym = double[np][2] (Given)
+      }{
+         measured [x,y] for each sample
+      }
+      \sstsubsection{
+         coeffs = double[6] (Returned)
+      }{
+         coefficients of model (note 3)
+      }
+      \sstsubsection{
+         j = int $*$ (Returned)
+      }{
+         status:
+         \sstitemlist{
+
+            \sstitem
+             0 = OK
+
+            \sstitem
+             -1 = illegal itype
+
+            \sstitem
+             -2 = insufficient data
+
+            \sstitem
+             -3 = no solution
+         }
+      }
+   }
+   \sstnotes{
+      1)  itype, which must be either 4 or 6, selects the type of model
+          fitted.  Both allowed itype values produce a model coeffs which
+          consists of six coefficients, namely the zero points and, for
+          each of xe and ye, the coefficient of xm and ym.  For itype=6,
+          all six coefficients are independent, modelling squash and shear
+          as well as origin, scale, and orientation.  However, itype=4
+          selects the \texttt{"} solid body rotation\texttt{"}  option;  the model coeffs
+          still consists of the same six coefficients, but now two of
+          them are used twice (appropriately signed).  Origin, scale
+          and orientation are still modelled, but not squash or shear -
+          the units of x and y have to be the same.
+
+      2)  For itype=4, np must be at least 2.  For itype=6, np must be at
+          least 3.
+
+      3)  The model is returned in the array coeffs.  Naming the
+          elements of coeffs as follows:
+      \newline
+      \newline
+      \hspace*{1.5 em}
+             coeffs[0] = A
+      \newline
+      \hspace*{1.5 em}
+             coeffs[1] = B
+      \newline
+      \hspace*{1.5 em}
+             coeffs[2] = C
+      \newline
+      \hspace*{1.5 em}
+             coeffs[3] = D
+      \newline
+      \hspace*{1.5 em}
+             coeffs[4] = E
+      \newline
+      \hspace*{1.5 em}
+             coeffs[5] = F
+      \newline
+      \newline
+          the model is:
+      \newline
+      \newline
+      \hspace*{1.5 em}
+             xe = A $+$ B $*$ xm $+$ C $*$ ym
+      \newline
+      \hspace*{1.5 em}
+             ye = D $+$ E $*$ xm $+$ F $*$ ym
+      \newline
+      \newline
+          For the \texttt{"} solid body rotation\texttt{"}  option (itype=4), the
+          magnitudes of B and F, and of C and E, are equal.  The
+          signs of these coefficients depend on whether there is a
+          sign reversal between xe,ye and xm,ym;  fits are performed
+          with and without a sign reversal and the best one chosen.
+
+      4)  Error status values j=-1 and -2 leave coeffs unchanged;
+          if j=-3 coeffs may have been changed.
+   }
+   \sstdiytopic{
+      See also
+   }{
+      palPxy, palInvf, palXy2xy and palDcmpf
+   }
+}
+\sstroutine{
    palFk45z
 }{
    Convert B1950.0 FK4 star data to J2000.0 FK5 assuming zero
@@ -3414,6 +3605,107 @@ SLA/PAL \>  SOFA \\
            the returned result will have the value LONG\_MAX, for underflow it
            will have the value LONG\_MIN.
       }
+   }
+}
+\sstroutine{
+   palInvf
+}{
+   Invert a linear model of the type produced by the palFitxy routine
+}{
+   \sstdescription{
+      The models relate two sets of [x,y] coordinates as follows.
+      Naming the elements of fwds:
+      \newline
+      \newline
+      \hspace*{1.5 em}
+         fwds[0] = A
+      \newline
+      \hspace*{1.5 em}
+         fwds[1] = B
+      \newline
+      \hspace*{1.5 em}
+         fwds[2] = C
+      \newline
+      \hspace*{1.5 em}
+         fwds[3] = D
+      \newline
+      \hspace*{1.5 em}
+         fwds[4] = E
+      \newline
+      \hspace*{1.5 em}
+         fwds[5] = F
+      \newline
+      \newline
+      where two sets of coordinates [x1,y1] and [x2,y2] are related
+      thus:
+      \newline
+      \newline
+      \hspace*{1.5 em}
+         x2 = A $+$ B $*$ x1 $+$ C $*$ y1
+      \newline
+      \hspace*{1.5 em}
+         y2 = D $+$ E $*$ x1 $+$ F $*$ y1
+      \newline
+      \newline
+      the present routine generates a new set of coefficients:
+      \newline
+      \newline
+      \hspace*{1.5 em}
+         bkwds[0] = P
+      \newline
+      \hspace*{1.5 em}
+         bkwds[1] = Q
+      \newline
+      \hspace*{1.5 em}
+         bkwds[2] = R
+      \newline
+      \hspace*{1.5 em}
+         bkwds[3] = S
+      \newline
+      \hspace*{1.5 em}
+         bkwds[4] = T
+      \newline
+      \hspace*{1.5 em}
+         bkwds[5] = U
+      \newline
+      \newline
+      such that:
+      \newline
+      \newline
+      \hspace*{1.5 em}
+         x1 = P $+$ Q $*$ x2 $+$ R $*$ y2
+      \newline
+      \hspace*{1.5 em}
+         y1 = S $+$ T $*$ x2 $+$ U $*$ y2
+      \newline
+      \newline
+      Two successive calls to palInvf will thus deliver a set
+      of coefficients equal to the starting values.
+   }
+   \sstinvocation{
+      palInvf ( double fwds[6], double bkwds[6], int $*$j )
+   }
+   \sstarguments{
+      \sstsubsection{
+         fwds = double[6] (Given)
+      }{
+         model coefficients
+      }
+      \sstsubsection{
+         bkwds = double[6] (Returned)
+      }{
+         inverse model
+      }
+      \sstsubsection{
+         j = int (Returned)
+      }{
+         status: 0 = OK, -1 = no inverse
+      }
+   }
+   \sstdiytopic{
+      See also
+   }{
+      palFitxy, palPxy, palXy2xy and palDcmpf
    }
 }
 \sstroutine{
@@ -6325,6 +6617,104 @@ SLA/PAL \>  SOFA \\
    }
 }
 \sstroutine{
+   palPxy
+}{
+   Given arrays of \texttt{"} expected\texttt{"}  and \texttt{"} measured\texttt{"}  [x,y] coordinates, and a
+   linear model relating them (as produced by palFitxy), compute
+   the array of \texttt{"} predicted\texttt{"}  coordinates and the RMS residuals
+}{
+   \sstdescription{
+      The model is supplied in the array coeffs.  Naming the
+      elements of coeffs as follows:
+      \newline
+      \newline
+      \hspace*{1.5 em}
+         coeffs[0] = A
+      \newline
+      \hspace*{1.5 em}
+         coeffs[1] = B
+      \newline
+      \hspace*{1.5 em}
+         coeffs[2] = C
+      \newline
+      \hspace*{1.5 em}
+         coeffs[3] = D
+      \newline
+      \hspace*{1.5 em}
+         coeffs[4] = E
+      \newline
+      \hspace*{1.5 em}
+         coeffs[5] = F
+      \newline
+      \newline
+      the model is applied thus:
+      \newline
+      \newline
+      \hspace*{1.5 em}
+         xp = A $+$ B $*$ xm $+$ C $*$ ym
+      \newline
+      \hspace*{1.5 em}
+         yp = D $+$ E $*$ xm $+$ F $*$ ym
+      \newline
+      \newline
+      The residuals are (xp - xe) and (yp - ye).
+
+      If np is less than or equal to zero, no coordinates are
+      transformed, and the RMS residuals are all zero.
+   }
+   \sstinvocation{
+      palPxy ( int np, double xye[][2], double xym[][2], double coeffs[6],
+               double xyp[][2], double $*$xrms, double $*$yrms, double $*$rrms )
+   }
+   \sstarguments{
+      \sstsubsection{
+         np = int (Given)
+      }{
+         number of samples
+      }
+      \sstsubsection{
+         xye = double[np][2] (Given)
+      }{
+         expected [x,y] for each sample
+      }
+      \sstsubsection{
+         xym = double[np][2] (Given)
+      }{
+         measured [x,y] for each sample
+      }
+      \sstsubsection{
+         coeffs = double[6]
+      }{
+         coefficients of model (see below)
+      }
+      \sstsubsection{
+         xyp = double[np][2] (Returned)
+      }{
+         predicted [x,y] for each sample
+      }
+      \sstsubsection{
+         xrms = double (Returned)
+      }{
+         RMS in x
+      }
+      \sstsubsection{
+         yrms = double (Returned)
+      }{
+         RMS in y
+      }
+      \sstsubsection{
+         rrms = double (Returned)
+      }{
+         total RMS (vector sum of xrms and yrms)
+      }
+   }
+   \sstdiytopic{
+      See also
+   }{
+      palFitxy, palInvf, palXy2xy and palDcmpf
+   }
+}
+\sstroutine{
    palRanorm
 }{
    Reduce angle to be within [0, 2$*$pi) (single precision)
@@ -7740,6 +8130,84 @@ SLA/PAL \>  SOFA \\
          \sstitem
           Note that this API does not match the slaVers API.
       }
+   }
+}
+\sstroutine{
+   palXy2xy
+}{
+   Transform one [x,y] into another using a linear model of the type
+   produced by the palFitxy routine
+}{
+   \sstdescription{
+      The model relates two sets of [x,y] coordinates as follows.
+      Naming the elements of coeffs:
+      \newline
+      \newline
+      \hspace*{1.5 em}
+         coeffs[0] = A
+      \newline
+      \hspace*{1.5 em}
+         coeffs[1] = B
+      \newline
+      \hspace*{1.5 em}
+         coeffs[2] = C
+      \newline
+      \hspace*{1.5 em}
+         coeffs[3] = D
+      \newline
+      \hspace*{1.5 em}
+         coeffs[4] = E
+      \newline
+      \hspace*{1.5 em}
+         coeffs[5] = F
+      \newline
+      \newline
+      the present routine performs the transformation:
+      \newline
+      \newline
+      \hspace*{1.5 em}
+         x2 = A $+$ B $*$ x1 $+$ C $*$ y1
+      \newline
+      \hspace*{1.5 em}
+         y2 = D $+$ E $*$ x1 $+$ F $*$ y1
+      \newline
+      \newline
+   }
+   \sstinvocation{
+      palXy2xy ( double x1, double y1, double coeffs[6],
+                 double $*$x2, double $*$y2)
+   }
+   \sstarguments{
+      \sstsubsection{
+         x1 = double (Given)
+      }{
+         x-coordinate
+      }
+      \sstsubsection{
+         y1 = double (Given)
+      }{
+         y-coordinate
+      }
+      \sstsubsection{
+         coeffs = double[6] (Given)
+      }{
+         transformation coefficients (see note)
+      }
+      \sstsubsection{
+         x2 = double (Returned)
+      }{
+         x-coordinate
+      }
+      \sstsubsection{
+         y2 = double (Returned)
+      }{
+         y-coordinate
+      }
+   }
+   \sstdiytopic{
+      See also
+   }{
+      palFitxy, palPxy, palInvf and palDcmpf
    }
 }
 \sstroutine{
