@@ -175,13 +175,13 @@ void palCldj ( int iy, int im, int id, double *djm, int *j ) {
 
 *  Arguments:
 *     a1 = double (Given)
-*        Longitude of point A (e.g. RA) in radians.
-*     a2 = double (Given)
-*        Latitude of point A (e.g. Dec) in radians.
+*        Longitude of point 1 (e.g. RA) in radians.
 *     b1 = double (Given)
-*        Longitude of point B in radians.
+*        Latitude of point 1 (e.g. Dec) in radians.
+*     a2 = double (Given)
+*        Longitude of point 2 in radians.
 *     b2 = double (Given)
-*        Latitude of point B in radians.
+*        Latitude of point 2 in radians.
 
 *  Returned Value:
 *     The result is the bearing (position angle), in radians, of point
