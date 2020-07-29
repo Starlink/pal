@@ -129,7 +129,7 @@ void palIntin( const char * string, int *nstrt,
      string first and look for the negative */
   hasminus = 0;
   ctemp = strstart;
-  while ( ctemp != '\0' ) {
+  while ( *ctemp != '\0' ) {
     if (isdigit(*ctemp)) break;
     /* Reset so that - 12345 is not a negative number */
     hasminus = 0;
