@@ -99,6 +99,8 @@
 *        Adapted with permission from the Fortran SLALIB library.
 *     2014-04-08 (TIMJ):
 *        Add APEX and NANTEN2
+*     2020-09-15 (GSB):
+*        Add IRAM30M and NOEMA
 *     {enter_further_changes_here}
 
 *  Copyright:
@@ -884,6 +886,24 @@ int palObs( size_t n, const char * c,
       4865E0,
       "NANTEN2",
       "NANTEN2 4m telescope, Pampa la Bola"
+    },
+    /* IRAM 30m telescope                                            IRAM30M */
+    /* (IRAM web site) */
+    {
+      WEST(3,23,55.51),
+      NORTH(37,4,6.29),
+      2850.0E0,
+      "IRAM30M",
+      "IRAM 30m telescope, Pico Veleta"
+    },
+    /* IRAM NOEMA interferometer                                       NOEMA */
+    /* (IRAM web site) */
+    {
+      EAST(5,54,28.5),
+      NORTH(44,38,2.0),
+      2550.0E0,
+      "NOEMA",
+      "NOEMA interferometer, Plateau de Bure"
     }
   };
 
