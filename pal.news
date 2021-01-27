@@ -4,6 +4,13 @@ The Starlink Positional Astronomy Library (PAL) is a C implementation of the
 SLALIB API. It is distributed under the GPL and uses the SOFA library wherever
 possible.
 
+V0.9.10
+
+- Fix error in palIntin (thanks to Phil Crump)
+- Correct documentation of palDbear
+- Additional telescope positions
+- Unimplemented entries commented out of pal.h
+
 V0.9.9
 
 - Add palDcmpf, palFitxy, palInvf, palPxy and palXy2xy.
