@@ -1622,7 +1622,7 @@ static void t_obs( int * status ) {
   /* the first argument here should be 1 greater than the number of items
    * in const struct telData defined in palObs.c
    */
-  lstat = palObs ( 86, NULL, shortname, sizeof(shortname),
+  lstat = palObs ( 88, NULL, shortname, sizeof(shortname),
                    longname, sizeof(longname), &w, &p, &h );
   vcs ( longname, "?", "palObs", "4/NAME", status );
   viv( lstat, -1, "palObs", "retval", status );
