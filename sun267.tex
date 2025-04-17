@@ -17,9 +17,9 @@ Copyright \copyright\ 2015 Tim Jenness}
 % Variable part - replace [xxx] as appropriate.
 \stardocnumber    {267.3}
 \stardocauthors   {Tim Jenness}
-\stardocdate      {2015 January 1}
+\stardocdate      {2025 April 17}
 \stardoctitle     {PAL --- Positional Astronomy Library}
-\stardocversion   {0.9.0}
+\stardocversion   {0.9.10}
 \stardocmanual    {Programmer's Manual}
 \stardocabstract  {%
 PAL provides a subset of the Fortran SLALIB library but written in C
@@ -8208,6 +8208,45 @@ SLA/PAL \>  SOFA \\
       See also
    }{
       palFitxy, palPxy, palInvf and palDcmpf
+   }
+}
+\sstroutine{
+   palZd
+}{
+   HA, Dec to Zenith Distance
+}{
+   \sstdescription{
+      Calculate the zenith distance for a given hour angle and declination
+      using the SOFA/ERFA routine eraHd2ae.
+   }
+   \sstinvocation{
+      double palZd( double ha, double dec, double phi );
+   }
+   \sstarguments{
+      \sstsubsection{
+         ha = double (Given)
+      }{
+         Hour angle (radians)
+      }
+      \sstsubsection{
+         dec = double (Given)
+      }{
+         Declination (radians)
+      }
+      \sstsubsection{
+         phi = double (Given)
+      }{
+         Observatory latitude (radians)
+      }
+   }
+   \sstnotes{
+      \sstitemlist{
+
+         \sstitem
+          Uses eraHd2ae and converts the returned elevation to zenith
+           distance.  If elevation itself, or azimuth, is desired then
+           that routine could instead be called directly.
+      }
    }
 }
 \sstroutine{

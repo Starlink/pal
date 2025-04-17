@@ -143,3 +143,10 @@ palsun.tex: $(PUBLIC_C_FILES) palOne2One.c
 	cat $^ > all.c
 	${STARCONF_DEFAULT_PREFIX}/bin/sst/prolat in=all.c out=palsun.tex single=no page=no atask=no document=no
 	-rm all.c
+
+# Phony target to copy palsun.tex (except palOne2One) into sun267.tex and update the version and date.
+updatesun: sun267.tex palsun.tex
+	awk '/^%% include palsun\.tex/ {print; print ""; exit}; /^\\stardocversion/ {gsub(/{[0-9.]*}/, "{@PACKAGE_VERSION@}")}; /^\\stardocdate/ {gsub(/{[A-Za-z0-9 ]*}/, strftime("{%Y %B %e}"))}; {print}' $< > sun267_updated.tex
+	awk 'BEGIN {onetoone=0}; /^   palOne2One/ {onetoone=1}; (! onetoone) {print}; /^\\sstroutine{/ {onetoone=0}'  palsun.tex >> sun267_updated.tex
+	awk 'BEGIN {footer=0}; /^% \? End of main text/{footer=1; print ""; print ""}; footer {print}' $< >> sun267_updated.tex
+	mv sun267_updated.tex $<
