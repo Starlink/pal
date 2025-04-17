@@ -76,7 +76,7 @@
 *        Adapted with permission from the Fortran SLALIB library.
 *     2012-03-23 (TIMJ):
 *        Update prologue.
-*     2012-05-09 (DSBJ):
+*     2012-05-09 (DSB):
 *        Move palDrange into a separate file.
 *     2014-07-15 (TIMJ):
 *        SOFA now has palRefcoq equivalent.
