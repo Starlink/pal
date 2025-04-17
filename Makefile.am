@@ -122,7 +122,8 @@ palUe2el.c \
 palUe2pv.c \
 palUnpcd.c \
 palVers.c \
-palXy2xy.c
+palXy2xy.c \
+palZd.c
 
 PRIVATE_C_FILES = \
 pal1Atms.c \

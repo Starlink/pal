@@ -542,7 +542,7 @@ int palVers ( char * verstring, size_t verlen );
 void palXy2xy ( double x1, double y1, double coeffs[6],
                 double *x2, double *y2 );
 
-/* double palZd ( double ha, double dec, double phi ); */
+double palZd ( double ha, double dec, double phi );
 
 #ifdef __cplusplus
 }

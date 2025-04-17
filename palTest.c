@@ -2174,6 +2174,12 @@ static void t_vers( int *status ) {
   }
 }
 
+static void t_zd( int *status ) {
+  double zd = 0.0;
+  zd = palZd( -1.023, -0.876, -0.432 );
+  vvd( zd, 0.8963914139430839, 1e-12, "palZd", "zd", status );
+}
+
 /**********************************************************************/
 
 int main (void) {
@@ -2255,6 +2261,7 @@ int main (void) {
   t_supgal(&status);
   t_tp(&status);
   t_vecmat(&status);
+  t_zd(&status);
   t_vers(&status);
   return status;
 }

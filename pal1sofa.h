@@ -90,6 +90,7 @@
 #  define eraFk5hz iauFk5hz
 #  define eraGd2gc iauGd2gc
 #  define eraGmst06 iauGmst06
+#  define eraHd2ae iauHd2ae
 #  define eraHfk5z iauHfk5z
 #  define eraIr iauIr
 #  define eraJd2cal iauJd2cal
