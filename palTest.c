@@ -2178,6 +2178,18 @@ static void t_zd( int *status ) {
   double zd = 0.0;
   zd = palZd( -1.023, -0.876, -0.432 );
   vvd( zd, 0.8963914139430839, 1e-12, "palZd", "zd", status );
+
+  zd = palZd( 0.0, 0.7, 0.7 );
+  vvd( zd, 0.0, 1e-12, "palZd", "zd at zenith", status );
+
+  zd = palZd( PAL__DPIBY2, 0.0, 0.0 );
+  vvd( zd, PAL__DPIBY2, 1e-12, "palZd", "zd at horizon", status );
+
+  zd = palZd( PAL__DPI, 0.0, 0.0 );
+  vvd( zd, PAL__DPI, 1e-12, "palZd", "zd at nadir", status );
+
+  zd = palZd( - PAL__DPIBY2, 0.0, 0.0 );
+  vvd( zd, PAL__DPIBY2, 1e-12, "palZd", "zd at other horizon", status );
 }
 
 /**********************************************************************/
